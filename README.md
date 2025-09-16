@@ -74,7 +74,7 @@ docker-compose up -d
 생성된 pcap 파일을 Wireshark로 열어 Modbus TCP 통신을 상세히 분석할 수 있습니다:
 ```bash
 # 패킷 캡처 파일 위치
-./captures/scada_traffic_YYYYMMDD_HHMMSS.pcap
+./pcap/output.pcap
 ```
 
 ## 🛠️ 기술 스택
