@@ -1,0 +1,45 @@
+version: '3.8'
+services:
+  plc:
+    build:
+      context: .
+      dockerfile: plc.Dockerfile
+    container_name: plc
+    networks:
+      - poc
+    ports:
+      - "1880:1880"
+      - "502:502"
+    volumes:
+      - ./settings/plc/flows.json:/data/flows.json
+      - ./settings/plc/settings.js:/data/settings.js
+
+  scada:
+    build:
+      context: .
+      dockerfile: scada.Dockerfile
+    container_name: scada
+    networks:
+      - poc
+    ports:
+      - "1881:1880"
+    volumes:
+      - ./settings/scada/flows.json:/data/flows.json
+      - ./settings/scada/settings.js:/data/settings.js
+    depends_on:
+      - plc
+
+  capture:
+    image: nicolaka/netshoot
+    cap_add:
+      - NET_ADMIN
+    network_mode: "service:scada"
+    volumes:
+      - ./pcap:/pcap
+    command: ["tshark", "-l", "-i", "eth0", "-w", "/pcap/output.pcap"]
+    depends_on:
+      - scada
+
+networks:
+  poc:
+    external: true
