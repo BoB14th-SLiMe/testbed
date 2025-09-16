@@ -3,7 +3,7 @@ services:
   plc:
     build:
       context: .
-      dockerfile: plc.Dockerfile
+      dockerfile: ./settings/plc/plc.Dockerfile
     container_name: plc
     networks:
       - poc
@@ -17,7 +17,7 @@ services:
   scada:
     build:
       context: .
-      dockerfile: scada.Dockerfile
+      dockerfile: ./settings/scada/scada.Dockerfile
     container_name: scada
     networks:
       - poc
