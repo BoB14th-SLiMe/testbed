@@ -1,17 +1,55 @@
-version: '3.8'
 services:
-  plc:
+  plc1:
     build:
       context: .
       dockerfile: ./settings/plc/plc.Dockerfile
-    container_name: plc
+    image: testbed-plc:latest
+    container_name: plc1
     networks:
       - poc
     ports:
-      - "1880:1880"
+      - "1881:1880"
       - "502:502"
     volumes:
-      - ./settings/plc/flows.json:/data/flows.json
+      - ./settings/plc/flows1.json:/data/flows.json
+      - ./settings/plc/settings.js:/data/settings.js
+  
+  plc2:
+    image: testbed-plc:latest
+    container_name: plc2
+    networks:
+      - poc
+    ports:
+      - "1882:1880"
+      - "503:502"
+    volumes:
+      - ./settings/plc/flows2.json:/data/flows.json
+      - ./settings/plc/settings.js:/data/settings.js
+
+  plc3:
+    # build 섹션을 삭제하고, 위에서 빌드한 이미지를 사용하도록 지정합니다.
+    image: testbed-plc:latest
+    container_name: plc3
+    networks:
+      - poc
+    ports:
+      - "1883:1880"
+      - "504:502"
+    volumes:
+      - ./settings/plc/flows3.json:/data/flows.json
+      - ./settings/plc/settings.js:/data/settings.js
+
+  plc4:
+    # build 섹션을 삭제하고, 위에서 빌드한 이미지를 사용하도록 지정합니다.
+    image: testbed-plc:latest
+    container_name: plc4
+    networks:
+      - poc
+    ports:
+      - "1884:1880"
+      - "505:502"
+    volumes:
+      - ./settings/plc/flows4.json:/data/flows.json
       - ./settings/plc/settings.js:/data/settings.js
 
   scada:
@@ -22,12 +60,15 @@ services:
     networks:
       - poc
     ports:
-      - "1881:1880"
+      - "1880:1880"
     volumes:
       - ./settings/scada/flows.json:/data/flows.json
       - ./settings/scada/settings.js:/data/settings.js
     depends_on:
-      - plc
+      - plc1
+      - plc2
+      - plc3
+      - plc4
 
   capture:
     image: nicolaka/netshoot

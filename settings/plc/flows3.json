@@ -2,7 +2,7 @@
     {
         "id": "8b67e1cbd40d7fa8",
         "type": "tab",
-        "label": "PLC Logic",
+        "label": "C 사거리 신호등",
         "disabled": false,
         "info": ""
     },
@@ -194,7 +194,7 @@
         "name": "",
         "logEnabled": false,
         "hostname": "0.0.0.0",
-        "serverPort": "502",
+        "serverPort": "504",
         "responseDelay": 100,
         "delayUnit": "ms",
         "coilsBufferSize": 10000,
@@ -240,7 +240,7 @@
         "queueLogEnabled": false,
         "failureLogEnabled": true,
         "tcpHost": "127.0.0.1",
-        "tcpPort": "502",
+        "tcpPort": "504",
         "tcpType": "DEFAULT",
         "serialPort": "/dev/ttyUSB",
         "serialType": "RTU-BUFFERD",
@@ -261,7 +261,7 @@
         "showLogs": true
     },
     {
-        "id": "efafe68d0689e31b",
+        "id": "e1d63050802903d2",
         "type": "global-config",
         "env": [],
         "modules": {
