@@ -23,8 +23,9 @@
 ### **2. 저장소 복제**
 
 ```bash
-git clone git clone {저장소_URL}
+git clone git clone https://github.com/BoB14th-SLiMe/testbed.git
 cd testbed
+git checkout multi_plc
 ```
 
 ### **3. Docker 컨테이너 실행**
