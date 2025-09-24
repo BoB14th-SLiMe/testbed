@@ -23,7 +23,7 @@
 ### **2. 저장소 복제**
 
 ```bash
-git clone {저장소_URL}
+git clone git clone {저장소_URL}
 cd testbed
 ```
 
