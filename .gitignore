@@ -1,2 +1,21 @@
 pcap/
 *.pcap
+
+# Node.js / npm
+node_modules/
+npm-debug.log*
+yarn-error.log
+
+# Node-RED user data
+# 생성된 설정, 라이브러리, 백업 파일 등을 모두 무시합니다.
+lib/
+.config.*.json
+.config.*.json.*
+flows_cred.json
+flows.json.backup
+.flows.*
+
+# macOS / Windows / Linux 시스템 파일
+.DS_Store
+Thumbs.db
+desktop.ini

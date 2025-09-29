@@ -60,10 +60,6 @@ module.exports = {
      */
     //nodesDir: '/home/nol/.node-red/nodes',
 
-    fs: {
-        atomicWrites: false
-    },
-
 /*******************************************************************************
  * Security
  *  - adminAuth
@@ -204,7 +200,7 @@ module.exports = {
      */
     //httpNodeCors: {
     //    origin: "*",
-    //    methods: "GET,PUT,POST,DELETE" 
+    //    methods: "GET,PUT,POST,DELETE"
     //},
 
     /** If you need to set an http proxy please set an environment variable
