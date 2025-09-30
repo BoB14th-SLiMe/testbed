@@ -1,10 +1,11 @@
 [
     {
-        "id": "8b67e1cbd40d7fa8",
+        "id": "c6c5d7c20b548057",
         "type": "tab",
-        "label": "Intersection Controller",
+        "label": "플로우 1",
         "disabled": false,
-        "info": "This flow is a template for all intersection PLCs. It receives green time parameters from the TMC."
+        "info": "",
+        "env": []
     },
     {
         "id": "5979e060d2c0b08a",
@@ -37,9 +38,17 @@
         "showLogs": true
     },
     {
+        "id": "6744fbb24e9e82d0",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "node-red-contrib-modbus": "5.44.1"
+        }
+    },
+    {
         "id": "bf1d25205644a6b4",
         "type": "modbus-read",
-        "z": "8b67e1cbd40d7fa8",
+        "z": "c6c5d7c20b548057",
         "name": "Read Mode & Parameters",
         "topic": "",
         "showStatusActivities": false,
@@ -72,7 +81,7 @@
     {
         "id": "e5b787e1d3bba45f",
         "type": "switch",
-        "z": "8b67e1cbd40d7fa8",
+        "z": "c6c5d7c20b548057",
         "name": "Switch Mode",
         "property": "payload[0]",
         "propertyType": "msg",
@@ -119,10 +128,15 @@
     {
         "id": "7a6f4ff41753d18e",
         "type": "function",
-        "z": "8b67e1cbd40d7fa8",
+        "z": "c6c5d7c20b548057",
         "name": "Normal Cycle Logic (Dynamic)",
-        "func": "// msg.payload[0] = Mode\n// msg.payload[10] = NS Green Time (from TMC)\n// msg.payload[11] = EW Green Time (from TMC)\n\n// Get dynamic green times from Modbus registers.\n// Default to 5 seconds if values are not set (or 0).\nconst GREEN_TIME_NS = msg.payload[10] || 5;\nconst GREEN_TIME_EW = msg.payload[11] || 5;\nconst YELLOW_TIME = 2;\n\nlet state = context.get('state') || 0;\nlet timer = context.get('timer') || 0;\n\nlet lights = new Array(12).fill(false);\n\n// State machine for traffic light sequence\nswitch (state) {\n    // --- South-North Green --- (1 & 3)\n    case 0:\n        lights[2] = true;  // 1 (South) Green\n        lights[8] = true;  // 3 (North) Green\n        lights[3] = true;  // 2 (East) Red\n        lights[9] = true;  // 4 (West) Red\n        if (timer >= GREEN_TIME_NS) { state++; timer = 0; }\n        break;\n    case 1:\n        lights[1] = true;  // 1 (South) Yellow\n        lights[7] = true;  // 3 (North) Yellow\n        lights[3] = true;  // 2 (East) Red\n        lights[9] = true;  // 4 (West) Red\n        if (timer >= YELLOW_TIME) { state++; timer = 0; }\n        break;\n\n    // --- East-West Green --- (2 & 4)\n    case 2:\n        lights[5] = true;  // 2 (East) Green\n        lights[11] = true; // 4 (West) Green\n        lights[0] = true;  // 1 (South) Red\n        lights[6] = true;  // 3 (North) Red\n        if (timer >= GREEN_TIME_EW) { state++; timer = 0; }\n        break;\n    case 3:\n        lights[4] = true;  // 2 (East) Yellow\n        lights[10] = true; // 4 (West) Yellow\n        lights[0] = true;  // 1 (South) Red\n        lights[6] = true;  // 3 (North) Red\n        if (timer >= YELLOW_TIME) { state = 0; timer = 0; } // Loop back\n        break;\n}\n\ntimer++;\ncontext.set('state', state);\ncontext.set('timer', timer);\n\nmsg.payload = {\n    'value': lights,\n    'fc': 15, // Write Multiple Coils\n    'unitid': 1,\n    'address': 0,\n    'quantity': 12\n};\n\nreturn msg;",
+        "func": "// msg.payload[0] = Mode\n// msg.payload[10] = NS Green Time (from TMC)\n// msg.payload[11] = EW Green Time (from TMC)\n\nconst GREEN_TIME_NS = msg.payload[10] || 5;\nconst GREEN_TIME_EW = msg.payload[11] || 5;\nconst VOLUME_NS = msg.payload[12] || 0;\nconst VOLUME_EW = msg.payload[13] || 0;\n\nconst YELLOW_TIME = 2;\nconst HIGH_TRAFFIC_THRESHOLD = 75;\n\nconst MAX_GREEN_TIME_NS = GREEN_TIME_NS + 6;\nconst MAX_GREEN_TIME_EW = GREEN_TIME_EW + 6;\n\n// ✅ 추가됨: 양방향 동시 혼잡 상태를 확인하는 변수\nconst isBothCongested = (VOLUME_NS > HIGH_TRAFFIC_THRESHOLD && VOLUME_EW > HIGH_TRAFFIC_THRESHOLD);\n\nlet state = context.get('state') || 0;\nlet timer = context.get('timer') || 0;\n\nlet lights = new Array(12).fill(false);\n\n// State machine for traffic light sequence\nswitch (state) {\n    // --- South-North Green ---\n    case 0:\n        lights[2] = true;\n        lights[8] = true;\n        lights[3] = true;\n        lights[9] = true;\n\n        if (timer >= GREEN_TIME_NS) {\n            // ✅ 수정됨: '양방향 혼잡'이 아닐 때만 신호 연장을 허용\n            if (!isBothCongested && VOLUME_NS > HIGH_TRAFFIC_THRESHOLD && timer < MAX_GREEN_TIME_NS) {\n                timer -= 2;\n            } else {\n                state++;\n                timer = 0;\n            }\n        }\n        break;\n\n    case 1:\n        lights[1] = true;\n        lights[7] = true;\n        lights[3] = true;\n        lights[9] = true;\n        if (timer >= YELLOW_TIME) { state++; timer = 0; }\n        break;\n\n    // --- East-West Green ---\n    case 2:\n        lights[5] = true;\n        lights[11] = true;\n        lights[0] = true;\n        lights[6] = true;\n\n        if (timer >= GREEN_TIME_EW) {\n            // ✅ 수정됨: '양방향 혼잡'이 아닐 때만 신호 연장을 허용\n            if (!isBothCongested && VOLUME_EW > HIGH_TRAFFIC_THRESHOLD && timer < MAX_GREEN_TIME_EW) {\n                timer -= 2;\n            } else {\n                state++;\n                timer = 0;\n            }\n        }\n        break;\n\n    case 3:\n        lights[4] = true;\n        lights[10] = true;\n        lights[0] = true;\n        lights[6] = true;\n        if (timer >= YELLOW_TIME) { state = 0; timer = 0; }\n        break;\n}\n\ntimer++;\ncontext.set('state', state);\ncontext.set('timer', timer);\n\nmsg.payload = {\n    'value': lights,\n    'fc': 15,\n    'unitid': 1,\n    'address': 0,\n    'quantity': 12\n};\n\nreturn msg;",
         "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
         "x": 690,
         "y": 160,
         "wires": [
@@ -134,7 +148,7 @@
     {
         "id": "b4c89f89c1d7d57a",
         "type": "function",
-        "z": "8b67e1cbd40d7fa8",
+        "z": "c6c5d7c20b548057",
         "name": "Night Flashing Logic",
         "func": "let blink = context.get('blink') || false;\nblink = !blink;\ncontext.set('blink', blink);\n\nlet lights = new Array(12).fill(false);\n\nif (blink) {\n    lights[1] = true;  // South Yellow\n    lights[4] = true;  // East Yellow\n    lights[7] = true;  // North Yellow\n    lights[10] = true; // West Yellow\n}\n\nmsg.payload = {\n    'value': lights,\n    'fc': 15,\n    'unitid': 1,\n    'address': 0,\n    'quantity': 12\n};\n\nreturn msg;",
         "outputs": 1,
@@ -149,7 +163,7 @@
     {
         "id": "ca5b39f1dd8bc115",
         "type": "function",
-        "z": "8b67e1cbd40d7fa8",
+        "z": "c6c5d7c20b548057",
         "name": "All Red Logic",
         "func": "let lights = new Array(12).fill(false);\n\nlights[0] = true; // South Red\nlights[3] = true; // East Red\nlights[6] = true; // North Red\nlights[9] = true; // West Red\n\nmsg.payload = {\n    'value': lights,\n    'fc': 15,\n    'unitid': 1,\n    'address': 0,\n    'quantity': 12\n};\n\nreturn msg;",
         "outputs": 1,
@@ -164,7 +178,7 @@
     {
         "id": "7af9c6f19ecb1102",
         "type": "modbus-write",
-        "z": "8b67e1cbd40d7fa8",
+        "z": "c6c5d7c20b548057",
         "name": "Write Lamp State",
         "showStatusActivities": false,
         "showErrors": false,
@@ -188,7 +202,7 @@
     {
         "id": "602a1b5d4e4c3e67",
         "type": "modbus-server",
-        "z": "8b67e1cbd40d7fa8",
+        "z": "c6c5d7c20b548057",
         "name": "PLC Modbus TCP Server",
         "logEnabled": false,
         "hostname": "0.0.0.0",

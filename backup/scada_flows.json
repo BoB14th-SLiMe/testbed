@@ -1,5 +1,325 @@
 [
     {
+        "id": "9251d5525d119844",
+        "type": "tab",
+        "label": "ITC - SCADA",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "bb07d44f9dcc13ad",
+        "type": "modbus-client",
+        "name": "TMC Localhost Client",
+        "clienttype": "tcp",
+        "bufferCommands": true,
+        "stateLogEnabled": false,
+        "queueLogEnabled": false,
+        "failureLogEnabled": true,
+        "tcpHost": "127.0.0.1",
+        "tcpPort": "5020",
+        "tcpType": "DEFAULT",
+        "serialPort": "/dev/ttyUSB",
+        "serialType": "RTU-BUFFERD",
+        "serialBaudrate": 9600,
+        "serialDatabits": 8,
+        "serialStopbits": 1,
+        "serialParity": "none",
+        "serialConnectionDelay": 100,
+        "serialAsciiResponseStartDelimiter": "0x3A",
+        "unit_id": 1,
+        "commandDelay": 1,
+        "clientTimeout": 1000,
+        "reconnectOnTimeout": true,
+        "reconnectTimeout": 2000,
+        "parallelUnitIdsAllowed": true,
+        "showErrors": false,
+        "showWarnings": true,
+        "showLogs": true
+    },
+    {
+        "id": "002416d95ed618bb",
+        "type": "modbus-client",
+        "name": "intersection_a",
+        "clienttype": "tcp",
+        "bufferCommands": true,
+        "stateLogEnabled": false,
+        "queueLogEnabled": false,
+        "failureLogEnabled": true,
+        "tcpHost": "intersection_a_controller",
+        "tcpPort": 502,
+        "tcpType": "DEFAULT",
+        "serialPort": "/dev/ttyUSB",
+        "serialType": "RTU-BUFFERD",
+        "serialBaudrate": 9600,
+        "serialDatabits": 8,
+        "serialStopbits": 1,
+        "serialParity": "none",
+        "serialConnectionDelay": 100,
+        "serialAsciiResponseStartDelimiter": "0x3A",
+        "unit_id": 1,
+        "commandDelay": 1,
+        "clientTimeout": 1000,
+        "reconnectOnTimeout": true,
+        "reconnectTimeout": 2000,
+        "parallelUnitIdsAllowed": true,
+        "showErrors": false,
+        "showWarnings": true,
+        "showLogs": true
+    },
+    {
+        "id": "86497a2f59dbf570",
+        "type": "modbus-client",
+        "name": "intersection_b",
+        "clienttype": "tcp",
+        "bufferCommands": true,
+        "stateLogEnabled": false,
+        "queueLogEnabled": false,
+        "failureLogEnabled": true,
+        "tcpHost": "intersection_b_controller",
+        "tcpPort": "502",
+        "tcpType": "DEFAULT",
+        "serialPort": "/dev/ttyUSB",
+        "serialType": "RTU-BUFFERD",
+        "serialBaudrate": 9600,
+        "serialDatabits": 8,
+        "serialStopbits": 1,
+        "serialParity": "none",
+        "serialConnectionDelay": 100,
+        "serialAsciiResponseStartDelimiter": "0x3A",
+        "unit_id": 1,
+        "commandDelay": 1,
+        "clientTimeout": 1000,
+        "reconnectOnTimeout": true,
+        "reconnectTimeout": 2000,
+        "parallelUnitIdsAllowed": true,
+        "showErrors": false,
+        "showWarnings": true,
+        "showLogs": true
+    },
+    {
+        "id": "946a34dccba15f97",
+        "type": "modbus-client",
+        "name": "intersection_c",
+        "clienttype": "tcp",
+        "bufferCommands": true,
+        "stateLogEnabled": false,
+        "queueLogEnabled": false,
+        "failureLogEnabled": true,
+        "tcpHost": "intersection_c_controller",
+        "tcpPort": "502",
+        "tcpType": "DEFAULT",
+        "serialPort": "/dev/ttyUSB",
+        "serialType": "RTU-BUFFERD",
+        "serialBaudrate": 9600,
+        "serialDatabits": 8,
+        "serialStopbits": 1,
+        "serialParity": "none",
+        "serialConnectionDelay": 100,
+        "serialAsciiResponseStartDelimiter": "0x3A",
+        "unit_id": 1,
+        "commandDelay": 1,
+        "clientTimeout": 1000,
+        "reconnectOnTimeout": true,
+        "reconnectTimeout": 2000,
+        "parallelUnitIdsAllowed": true,
+        "showErrors": false,
+        "showWarnings": true,
+        "showLogs": true
+    },
+    {
+        "id": "282a9bdec27cff20",
+        "type": "modbus-client",
+        "name": "intersection_d",
+        "clienttype": "tcp",
+        "bufferCommands": true,
+        "stateLogEnabled": false,
+        "queueLogEnabled": false,
+        "failureLogEnabled": true,
+        "tcpHost": "intersection_d_controller",
+        "tcpPort": "502",
+        "tcpType": "DEFAULT",
+        "serialPort": "/dev/ttyUSB",
+        "serialType": "RTU-BUFFERD",
+        "serialBaudrate": 9600,
+        "serialDatabits": 8,
+        "serialStopbits": 1,
+        "serialParity": "none",
+        "serialConnectionDelay": 100,
+        "serialAsciiResponseStartDelimiter": "0x3A",
+        "unit_id": 1,
+        "commandDelay": 1,
+        "clientTimeout": 1000,
+        "reconnectOnTimeout": true,
+        "reconnectTimeout": 2000,
+        "parallelUnitIdsAllowed": true,
+        "showErrors": false,
+        "showWarnings": true,
+        "showLogs": true
+    },
+    {
+        "id": "main_ui_tab",
+        "type": "ui_tab",
+        "name": "스마트시티 통합 교통 관제",
+        "icon": "traffic",
+        "order": 1
+    },
+    {
+        "id": "b2553c27ab52054b",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "node-red-contrib-modbus": "5.44.1",
+            "node-red-dashboard": "3.6.6"
+        }
+    },
+    {
+        "id": "group_tmc_control",
+        "type": "ui_group",
+        "name": "TMC - 시뮬레이터 및 제어",
+        "tab": "main_ui_tab",
+        "order": 1,
+        "disp": true,
+        "width": "16",
+        "collapse": false
+    },
+    {
+        "id": "group_intersection_a",
+        "type": "ui_group",
+        "name": "A 교차로 현황 및 제어",
+        "tab": "main_ui_tab",
+        "order": 2,
+        "disp": true,
+        "width": "8",
+        "collapse": false
+    },
+    {
+        "id": "group_intersection_b",
+        "type": "ui_group",
+        "name": "B 교차로 현황 및 제어",
+        "tab": "main_ui_tab",
+        "order": 3,
+        "disp": true,
+        "width": "8",
+        "collapse": false
+    },
+    {
+        "id": "group_intersection_c",
+        "type": "ui_group",
+        "name": "C 교차로 현황 및 제어",
+        "tab": "main_ui_tab",
+        "order": 4,
+        "disp": true,
+        "width": "8",
+        "collapse": false
+    },
+    {
+        "id": "group_intersection_d",
+        "type": "ui_group",
+        "name": "D 교차로 현황 및 제어",
+        "tab": "main_ui_tab",
+        "order": 5,
+        "disp": true,
+        "width": "8",
+        "collapse": false
+    },
+    {
+        "id": "ffe73d50d8abec17",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-light",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#0094CE",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#097479",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#4B7930",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#0094CE",
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#fafafa",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#1bbfff",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#0094ce",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+                }
+            },
+            "angularTheme": {
+                "primary": "indigo",
+                "accents": "blue",
+                "warn": "red",
+                "background": "grey",
+                "palette": "light"
+            }
+        },
+        "site": {
+            "name": "Node-RED Dashboard",
+            "hideToolbar": "false",
+            "allowSwipe": "false",
+            "lockMenu": "false",
+            "allowTempTheme": "true",
+            "dateFormat": "DD/MM/YYYY",
+            "sizes": {
+                "sx": 48,
+                "sy": 48,
+                "gx": 6,
+                "gy": 6,
+                "cx": 6,
+                "cy": 6,
+                "px": 0,
+                "py": 0
+            }
+        }
+    },
+    {
         "id": "tmc_modbus_server_node",
         "type": "modbus-server",
         "z": "9251d5525d119844",
@@ -31,7 +351,7 @@
         "z": "9251d5525d119844",
         "name": "Traffic Simulator Tick",
         "props": [],
-        "repeat": "2",
+        "repeat": "20",
         "crontab": "",
         "once": true,
         "onceDelay": 0.1,
@@ -410,7 +730,7 @@
         "useIOForPayload": false,
         "emptyMsgOnFail": false,
         "x": 130,
-        "y": 920,
+        "y": 1040,
         "wires": [
             [
                 "process_plc_a_data"
@@ -443,7 +763,7 @@
         "useIOForPayload": false,
         "emptyMsgOnFail": false,
         "x": 130,
-        "y": 980,
+        "y": 1100,
         "wires": [
             [
                 "process_plc_b_data"
@@ -476,7 +796,7 @@
         "useIOForPayload": false,
         "emptyMsgOnFail": false,
         "x": 130,
-        "y": 1040,
+        "y": 1160,
         "wires": [
             [
                 "process_plc_c_data"
@@ -509,7 +829,7 @@
         "useIOForPayload": false,
         "emptyMsgOnFail": false,
         "x": 130,
-        "y": 1100,
+        "y": 1220,
         "wires": [
             [
                 "process_plc_d_data"
@@ -522,15 +842,15 @@
         "type": "function",
         "z": "9251d5525d119844",
         "name": "Process PLC A Data",
-        "func": "// msg.values  ->  msg.payload 로 수정\nconst l = msg.payload;\n\n// 데이터가 없으면 중단합니다.\nif (!l) {\n    return null;\n}\n\n// 4개의 신호등에 맞게 데이터를 분리하여 각 출력으로 보냅니다.\nconst msg1 = { payload: { r: l[0], y: l[1], g: l[2] } };\nconst msg2 = { payload: { r: l[3], y: l[4], g: l[5] } };\nconst msg3 = { payload: { r: l[6], y: l[7], g: l[8] } };\nconst msg4 = { payload: { r: l[9], y: l[10], g: l[11] } };\n\nreturn [msg1, msg2, msg3, msg4];",
-        "outputs": 4,
+        "func": "// ✅ 수정: 'wasGreen' 상태만 기억하면 충분합니다.\nlet contextData = flow.get('intersection_A_data') || { wasGreen: false, startTime: Date.now() };\n\nconst plcData = msg.payload;\n\nif (!Array.isArray(plcData) || plcData.length < 12) {\n    node.warn(\"PLC 램프 데이터가 올바르지 않거나 길이가 짧습니다.\");\n    return null;\n}\n\nconst l = plcData.map(val => val ? 1 : 0);\n\n// --- 현재 녹색불 상태 판단 (단순화) ---\n// 4개의 녹색 램프 중 하나라도 켜져 있으면 'isGreen'은 true가 됩니다.\nconst isGreen = (l[2] === 1 || l[5] === 1 || l[8] === 1 || l[11] === 1);\n\n// --- ✅ 더 안정적인 타임스탬프 로직 ---\nconst wasGreen = contextData.wasGreen;\nlet calculatedTimer = 0;\n\nif (!wasGreen && isGreen) {\n    // 1. 방금 녹색불로 바뀐 경우 (꺼짐 -> 켜짐)\n    contextData.startTime = Date.now(); // 시작 시간 리셋\n    calculatedTimer = 0; // 0부터 시작\n} else if (wasGreen && isGreen) {\n    // 2. 계속 녹색불인 경우 (켜짐 -> 켜짐)\n    const elapsedTime = Date.now() - contextData.startTime; // 경과 시간 계산\n    calculatedTimer = Math.floor(elapsedTime / 1000);\n} else {\n    // 3. 녹색불이 아닌 모든 경우 (켜짐 -> 꺼짐, 꺼짐 -> 꺼짐)\n    calculatedTimer = 0;\n}\n\n// 다음 실행을 위해 현재 '녹색 여부' 상태를 저장\ncontextData.wasGreen = isGreen;\nflow.set('intersection_A_data', contextData);\n\n\n// --- 신호등 UI용 메시지 생성 ---\nconst msg1 = { payload: { r: l[0], y: l[1], g: l[2] } };\nconst msg2 = { payload: { r: l[3], y: l[4], g: l[5] } };\nconst msg3 = { payload: { r: l[6], y: l[7], g: l[8] } };\nconst msg4 = { payload: { r: l[9], y: l[10], g: l[11] } };\n\n// --- 타이머 UI용 메시지 생성 ---\n// 위 로직에서 계산된 값은 이미 녹색이 아닐 때 0이므로 바로 사용 가능\nconst timerMsg = { payload: calculatedTimer };\n\nreturn [msg1, msg2, msg3, msg4, timerMsg];",
+        "outputs": 5,
         "timeout": "",
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
         "x": 380,
-        "y": 920,
+        "y": 1000,
         "wires": [
             [
                 "light_a_s"
@@ -543,6 +863,9 @@
             ],
             [
                 "light_a_w"
+            ],
+            [
+                "bc007d0a11771fb2"
             ]
         ]
     },
@@ -551,15 +874,15 @@
         "type": "function",
         "z": "9251d5525d119844",
         "name": "Process PLC B Data",
-        "func": "// msg.values  ->  msg.payload 로 수정\nconst l = msg.payload;\n\n// 데이터가 없으면 중단합니다.\nif (!l) {\n    return null;\n}\n\n// 4개의 신호등에 맞게 데이터를 분리하여 각 출력으로 보냅니다.\nconst msg1 = { payload: { r: l[0], y: l[1], g: l[2] } };\nconst msg2 = { payload: { r: l[3], y: l[4], g: l[5] } };\nconst msg3 = { payload: { r: l[6], y: l[7], g: l[8] } };\nconst msg4 = { payload: { r: l[9], y: l[10], g: l[11] } };\n\nreturn [msg1, msg2, msg3, msg4];",
-        "outputs": 4,
+        "func": "// ✅ 수정: 'wasGreen' 상태만 기억하면 충분합니다.\nlet contextData = flow.get('intersection_B_data') || { wasGreen: false, startTime: Date.now() };\n\nconst plcData = msg.payload;\n\nif (!Array.isArray(plcData) || plcData.length < 12) {\n    node.warn(\"PLC 램프 데이터가 올바르지 않거나 길이가 짧습니다.\");\n    return null;\n}\n\nconst l = plcData.map(val => val ? 1 : 0);\n\n// --- 현재 녹색불 상태 판단 (단순화) ---\n// 4개의 녹색 램프 중 하나라도 켜져 있으면 'isGreen'은 true가 됩니다.\nconst isGreen = (l[2] === 1 || l[5] === 1 || l[8] === 1 || l[11] === 1);\n\n// --- ✅ 더 안정적인 타임스탬프 로직 ---\nconst wasGreen = contextData.wasGreen;\nlet calculatedTimer = 0;\n\nif (!wasGreen && isGreen) {\n    // 1. 방금 녹색불로 바뀐 경우 (꺼짐 -> 켜짐)\n    contextData.startTime = Date.now(); // 시작 시간 리셋\n    calculatedTimer = 0; // 0부터 시작\n} else if (wasGreen && isGreen) {\n    // 2. 계속 녹색불인 경우 (켜짐 -> 켜짐)\n    const elapsedTime = Date.now() - contextData.startTime; // 경과 시간 계산\n    calculatedTimer = Math.floor(elapsedTime / 1000);\n} else {\n    // 3. 녹색불이 아닌 모든 경우 (켜짐 -> 꺼짐, 꺼짐 -> 꺼짐)\n    calculatedTimer = 0;\n}\n\n// 다음 실행을 위해 현재 '녹색 여부' 상태를 저장\ncontextData.wasGreen = isGreen;\nflow.set('intersection_B_data', contextData);\n\n\n// --- 신호등 UI용 메시지 생성 ---\nconst msg1 = { payload: { r: l[0], y: l[1], g: l[2] } };\nconst msg2 = { payload: { r: l[3], y: l[4], g: l[5] } };\nconst msg3 = { payload: { r: l[6], y: l[7], g: l[8] } };\nconst msg4 = { payload: { r: l[9], y: l[10], g: l[11] } };\n\n// --- 타이머 UI용 메시지 생성 ---\n// 위 로직에서 계산된 값은 이미 녹색이 아닐 때 0이므로 바로 사용 가능\nconst timerMsg = { payload: calculatedTimer };\n\nreturn [msg1, msg2, msg3, msg4, timerMsg];",
+        "outputs": 5,
         "timeout": "",
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
         "x": 380,
-        "y": 980,
+        "y": 1080,
         "wires": [
             [
                 "light_b_s"
@@ -572,6 +895,9 @@
             ],
             [
                 "light_b_w"
+            ],
+            [
+                "e888a29976d1d530"
             ]
         ]
     },
@@ -580,15 +906,15 @@
         "type": "function",
         "z": "9251d5525d119844",
         "name": "Process PLC C Data",
-        "func": "// msg.values  ->  msg.payload 로 수정\nconst l = msg.payload;\n\n// 데이터가 없으면 중단합니다.\nif (!l) {\n    return null;\n}\n\n// 4개의 신호등에 맞게 데이터를 분리하여 각 출력으로 보냅니다.\nconst msg1 = { payload: { r: l[0], y: l[1], g: l[2] } };\nconst msg2 = { payload: { r: l[3], y: l[4], g: l[5] } };\nconst msg3 = { payload: { r: l[6], y: l[7], g: l[8] } };\nconst msg4 = { payload: { r: l[9], y: l[10], g: l[11] } };\n\nreturn [msg1, msg2, msg3, msg4];",
-        "outputs": 4,
+        "func": "// ✅ 수정: 'wasGreen' 상태만 기억하면 충분합니다.\nlet contextData = flow.get('intersection_C_data') || { wasGreen: false, startTime: Date.now() };\n\nconst plcData = msg.payload;\n\nif (!Array.isArray(plcData) || plcData.length < 12) {\n    node.warn(\"PLC 램프 데이터가 올바르지 않거나 길이가 짧습니다.\");\n    return null;\n}\n\nconst l = plcData.map(val => val ? 1 : 0);\n\n// --- 현재 녹색불 상태 판단 (단순화) ---\n// 4개의 녹색 램프 중 하나라도 켜져 있으면 'isGreen'은 true가 됩니다.\nconst isGreen = (l[2] === 1 || l[5] === 1 || l[8] === 1 || l[11] === 1);\n\n// --- ✅ 더 안정적인 타임스탬프 로직 ---\nconst wasGreen = contextData.wasGreen;\nlet calculatedTimer = 0;\n\nif (!wasGreen && isGreen) {\n    // 1. 방금 녹색불로 바뀐 경우 (꺼짐 -> 켜짐)\n    contextData.startTime = Date.now(); // 시작 시간 리셋\n    calculatedTimer = 0; // 0부터 시작\n} else if (wasGreen && isGreen) {\n    // 2. 계속 녹색불인 경우 (켜짐 -> 켜짐)\n    const elapsedTime = Date.now() - contextData.startTime; // 경과 시간 계산\n    calculatedTimer = Math.floor(elapsedTime / 1000);\n} else {\n    // 3. 녹색불이 아닌 모든 경우 (켜짐 -> 꺼짐, 꺼짐 -> 꺼짐)\n    calculatedTimer = 0;\n}\n\n// 다음 실행을 위해 현재 '녹색 여부' 상태를 저장\ncontextData.wasGreen = isGreen;\nflow.set('intersection_C_data', contextData);\n\n\n// --- 신호등 UI용 메시지 생성 ---\nconst msg1 = { payload: { r: l[0], y: l[1], g: l[2] } };\nconst msg2 = { payload: { r: l[3], y: l[4], g: l[5] } };\nconst msg3 = { payload: { r: l[6], y: l[7], g: l[8] } };\nconst msg4 = { payload: { r: l[9], y: l[10], g: l[11] } };\n\n// --- 타이머 UI용 메시지 생성 ---\n// 위 로직에서 계산된 값은 이미 녹색이 아닐 때 0이므로 바로 사용 가능\nconst timerMsg = { payload: calculatedTimer };\n\nreturn [msg1, msg2, msg3, msg4, timerMsg];",
+        "outputs": 5,
         "timeout": "",
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
         "x": 380,
-        "y": 1040,
+        "y": 1180,
         "wires": [
             [
                 "light_c_s"
@@ -601,6 +927,9 @@
             ],
             [
                 "light_c_w"
+            ],
+            [
+                "88c7112ed3981bc6"
             ]
         ]
     },
@@ -609,15 +938,15 @@
         "type": "function",
         "z": "9251d5525d119844",
         "name": "Process PLC D Data",
-        "func": "// msg.values  ->  msg.payload 로 수정\nconst l = msg.payload;\n\n// 데이터가 없으면 중단합니다.\nif (!l) {\n    return null;\n}\n\n// 4개의 신호등에 맞게 데이터를 분리하여 각 출력으로 보냅니다.\nconst msg1 = { payload: { r: l[0], y: l[1], g: l[2] } };\nconst msg2 = { payload: { r: l[3], y: l[4], g: l[5] } };\nconst msg3 = { payload: { r: l[6], y: l[7], g: l[8] } };\nconst msg4 = { payload: { r: l[9], y: l[10], g: l[11] } };\n\nreturn [msg1, msg2, msg3, msg4];",
-        "outputs": 4,
+        "func": "// ✅ 수정: 'wasGreen' 상태만 기억하면 충분합니다.\nlet contextData = flow.get('intersection_D_data') || { wasGreen: false, startTime: Date.now() };\n\nconst plcData = msg.payload;\n\nif (!Array.isArray(plcData) || plcData.length < 12) {\n    node.warn(\"PLC 램프 데이터가 올바르지 않거나 길이가 짧습니다.\");\n    return null;\n}\n\nconst l = plcData.map(val => val ? 1 : 0);\n\n// --- 현재 녹색불 상태 판단 (단순화) ---\n// 4개의 녹색 램프 중 하나라도 켜져 있으면 'isGreen'은 true가 됩니다.\nconst isGreen = (l[2] === 1 || l[5] === 1 || l[8] === 1 || l[11] === 1);\n\n// --- ✅ 더 안정적인 타임스탬프 로직 ---\nconst wasGreen = contextData.wasGreen;\nlet calculatedTimer = 0;\n\nif (!wasGreen && isGreen) {\n    // 1. 방금 녹색불로 바뀐 경우 (꺼짐 -> 켜짐)\n    contextData.startTime = Date.now(); // 시작 시간 리셋\n    calculatedTimer = 0; // 0부터 시작\n} else if (wasGreen && isGreen) {\n    // 2. 계속 녹색불인 경우 (켜짐 -> 켜짐)\n    const elapsedTime = Date.now() - contextData.startTime; // 경과 시간 계산\n    calculatedTimer = Math.floor(elapsedTime / 1000);\n} else {\n    // 3. 녹색불이 아닌 모든 경우 (켜짐 -> 꺼짐, 꺼짐 -> 꺼짐)\n    calculatedTimer = 0;\n}\n\n// 다음 실행을 위해 현재 '녹색 여부' 상태를 저장\ncontextData.wasGreen = isGreen;\nflow.set('intersection_D_data', contextData);\n\n\n// --- 신호등 UI용 메시지 생성 ---\nconst msg1 = { payload: { r: l[0], y: l[1], g: l[2] } };\nconst msg2 = { payload: { r: l[3], y: l[4], g: l[5] } };\nconst msg3 = { payload: { r: l[6], y: l[7], g: l[8] } };\nconst msg4 = { payload: { r: l[9], y: l[10], g: l[11] } };\n\n// --- 타이머 UI용 메시지 생성 ---\n// 위 로직에서 계산된 값은 이미 녹색이 아닐 때 0이므로 바로 사용 가능\nconst timerMsg = { payload: calculatedTimer };\n\nreturn [msg1, msg2, msg3, msg4, timerMsg];",
+        "outputs": 5,
         "timeout": "",
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
         "x": 380,
-        "y": 1100,
+        "y": 1260,
         "wires": [
             [
                 "light_d_s"
@@ -630,6 +959,9 @@
             ],
             [
                 "light_d_w"
+            ],
+            [
+                "113c0a24db06fd05"
             ]
         ]
     },
@@ -649,7 +981,7 @@
         "templateScope": "local",
         "className": "",
         "x": 810,
-        "y": 700,
+        "y": 740,
         "wires": [
             []
         ]
@@ -670,7 +1002,7 @@
         "templateScope": "local",
         "className": "",
         "x": 810,
-        "y": 740,
+        "y": 780,
         "wires": [
             []
         ]
@@ -691,7 +1023,7 @@
         "templateScope": "local",
         "className": "",
         "x": 810,
-        "y": 780,
+        "y": 820,
         "wires": [
             []
         ]
@@ -712,7 +1044,7 @@
         "templateScope": "local",
         "className": "",
         "x": 810,
-        "y": 820,
+        "y": 860,
         "wires": [
             []
         ]
@@ -747,8 +1079,8 @@
         ],
         "payload": "",
         "topic": "topic",
-        "x": 130,
-        "y": 1160,
+        "x": 120,
+        "y": 1340,
         "wires": [
             [
                 "write_mode_a"
@@ -773,7 +1105,7 @@
         "delayOnStart": false,
         "startDelayTime": "",
         "x": 360,
-        "y": 1160,
+        "y": 1340,
         "wires": [
             [],
             []
@@ -795,7 +1127,7 @@
         "templateScope": "local",
         "className": "",
         "x": 810,
-        "y": 860,
+        "y": 940,
         "wires": [
             []
         ]
@@ -816,7 +1148,7 @@
         "templateScope": "local",
         "className": "",
         "x": 810,
-        "y": 900,
+        "y": 980,
         "wires": [
             []
         ]
@@ -837,7 +1169,7 @@
         "templateScope": "local",
         "className": "",
         "x": 810,
-        "y": 940,
+        "y": 1020,
         "wires": [
             []
         ]
@@ -858,7 +1190,7 @@
         "templateScope": "local",
         "className": "",
         "x": 810,
-        "y": 980,
+        "y": 1060,
         "wires": [
             []
         ]
@@ -893,8 +1225,8 @@
         ],
         "payload": "",
         "topic": "topic",
-        "x": 130,
-        "y": 1220,
+        "x": 120,
+        "y": 1400,
         "wires": [
             [
                 "write_mode_b"
@@ -919,7 +1251,7 @@
         "delayOnStart": false,
         "startDelayTime": "",
         "x": 360,
-        "y": 1220,
+        "y": 1400,
         "wires": [
             [],
             []
@@ -941,7 +1273,7 @@
         "templateScope": "local",
         "className": "",
         "x": 810,
-        "y": 1020,
+        "y": 1140,
         "wires": [
             []
         ]
@@ -962,7 +1294,7 @@
         "templateScope": "local",
         "className": "",
         "x": 810,
-        "y": 1060,
+        "y": 1180,
         "wires": [
             []
         ]
@@ -983,7 +1315,7 @@
         "templateScope": "local",
         "className": "",
         "x": 810,
-        "y": 1100,
+        "y": 1220,
         "wires": [
             []
         ]
@@ -1004,7 +1336,7 @@
         "templateScope": "local",
         "className": "",
         "x": 810,
-        "y": 1140,
+        "y": 1260,
         "wires": [
             []
         ]
@@ -1039,8 +1371,8 @@
         ],
         "payload": "",
         "topic": "topic",
-        "x": 130,
-        "y": 1280,
+        "x": 120,
+        "y": 1460,
         "wires": [
             [
                 "write_mode_c"
@@ -1065,7 +1397,7 @@
         "delayOnStart": false,
         "startDelayTime": "",
         "x": 360,
-        "y": 1280,
+        "y": 1460,
         "wires": [
             [],
             []
@@ -1087,7 +1419,7 @@
         "templateScope": "local",
         "className": "",
         "x": 810,
-        "y": 1180,
+        "y": 1340,
         "wires": [
             []
         ]
@@ -1108,7 +1440,7 @@
         "templateScope": "local",
         "className": "",
         "x": 810,
-        "y": 1220,
+        "y": 1380,
         "wires": [
             []
         ]
@@ -1129,7 +1461,7 @@
         "templateScope": "local",
         "className": "",
         "x": 810,
-        "y": 1260,
+        "y": 1420,
         "wires": [
             []
         ]
@@ -1150,7 +1482,7 @@
         "templateScope": "local",
         "className": "",
         "x": 810,
-        "y": 1300,
+        "y": 1460,
         "wires": [
             []
         ]
@@ -1185,8 +1517,8 @@
         ],
         "payload": "",
         "topic": "topic",
-        "x": 130,
-        "y": 1340,
+        "x": 120,
+        "y": 1520,
         "wires": [
             [
                 "write_mode_d"
@@ -1211,7 +1543,7 @@
         "delayOnStart": false,
         "startDelayTime": "",
         "x": 360,
-        "y": 1340,
+        "y": 1520,
         "wires": [
             [],
             []
@@ -1338,219 +1670,87 @@
         ]
     },
     {
-        "id": "bb07d44f9dcc13ad",
-        "type": "modbus-client",
-        "name": "TMC Localhost Client",
-        "clienttype": "tcp",
-        "bufferCommands": true,
-        "stateLogEnabled": false,
-        "queueLogEnabled": false,
-        "failureLogEnabled": true,
-        "tcpHost": "127.0.0.1",
-        "tcpPort": "5020",
-        "tcpType": "DEFAULT",
-        "serialPort": "/dev/ttyUSB",
-        "serialType": "RTU-BUFFERD",
-        "serialBaudrate": 9600,
-        "serialDatabits": 8,
-        "serialStopbits": 1,
-        "serialParity": "none",
-        "serialConnectionDelay": 100,
-        "serialAsciiResponseStartDelimiter": "0x3A",
-        "unit_id": 1,
-        "commandDelay": 1,
-        "clientTimeout": 1000,
-        "reconnectOnTimeout": true,
-        "reconnectTimeout": 2000,
-        "parallelUnitIdsAllowed": true,
-        "showErrors": false,
-        "showWarnings": true,
-        "showLogs": true
-    },
-    {
-        "id": "group_tmc_control",
-        "type": "ui_group",
-        "name": "TMC - 시뮬레이터 및 제어",
-        "tab": "main_ui_tab",
-        "order": 1,
-        "disp": true,
-        "width": "16",
-        "collapse": false
-    },
-    {
-        "id": "002416d95ed618bb",
-        "type": "modbus-client",
-        "name": "intersection_a",
-        "clienttype": "tcp",
-        "bufferCommands": true,
-        "stateLogEnabled": false,
-        "queueLogEnabled": false,
-        "failureLogEnabled": true,
-        "tcpHost": "intersection_a_controller",
-        "tcpPort": 502,
-        "tcpType": "DEFAULT",
-        "serialPort": "/dev/ttyUSB",
-        "serialType": "RTU-BUFFERD",
-        "serialBaudrate": 9600,
-        "serialDatabits": 8,
-        "serialStopbits": 1,
-        "serialParity": "none",
-        "serialConnectionDelay": 100,
-        "serialAsciiResponseStartDelimiter": "0x3A",
-        "unit_id": 1,
-        "commandDelay": 1,
-        "clientTimeout": 1000,
-        "reconnectOnTimeout": true,
-        "reconnectTimeout": 2000,
-        "parallelUnitIdsAllowed": true,
-        "showErrors": false,
-        "showWarnings": true,
-        "showLogs": true
-    },
-    {
-        "id": "86497a2f59dbf570",
-        "type": "modbus-client",
-        "name": "intersection_b",
-        "clienttype": "tcp",
-        "bufferCommands": true,
-        "stateLogEnabled": false,
-        "queueLogEnabled": false,
-        "failureLogEnabled": true,
-        "tcpHost": "intersection_b_controller",
-        "tcpPort": "502",
-        "tcpType": "DEFAULT",
-        "serialPort": "/dev/ttyUSB",
-        "serialType": "RTU-BUFFERD",
-        "serialBaudrate": 9600,
-        "serialDatabits": 8,
-        "serialStopbits": 1,
-        "serialParity": "none",
-        "serialConnectionDelay": 100,
-        "serialAsciiResponseStartDelimiter": "0x3A",
-        "unit_id": 1,
-        "commandDelay": 1,
-        "clientTimeout": 1000,
-        "reconnectOnTimeout": true,
-        "reconnectTimeout": 2000,
-        "parallelUnitIdsAllowed": true,
-        "showErrors": false,
-        "showWarnings": true,
-        "showLogs": true
-    },
-    {
-        "id": "946a34dccba15f97",
-        "type": "modbus-client",
-        "name": "intersection_c",
-        "clienttype": "tcp",
-        "bufferCommands": true,
-        "stateLogEnabled": false,
-        "queueLogEnabled": false,
-        "failureLogEnabled": true,
-        "tcpHost": "intersection_c_controller",
-        "tcpPort": "502",
-        "tcpType": "DEFAULT",
-        "serialPort": "/dev/ttyUSB",
-        "serialType": "RTU-BUFFERD",
-        "serialBaudrate": 9600,
-        "serialDatabits": 8,
-        "serialStopbits": 1,
-        "serialParity": "none",
-        "serialConnectionDelay": 100,
-        "serialAsciiResponseStartDelimiter": "0x3A",
-        "unit_id": 1,
-        "commandDelay": 1,
-        "clientTimeout": 1000,
-        "reconnectOnTimeout": true,
-        "reconnectTimeout": 2000,
-        "parallelUnitIdsAllowed": true,
-        "showErrors": false,
-        "showWarnings": true,
-        "showLogs": true
-    },
-    {
-        "id": "282a9bdec27cff20",
-        "type": "modbus-client",
-        "name": "intersection_d",
-        "clienttype": "tcp",
-        "bufferCommands": true,
-        "stateLogEnabled": false,
-        "queueLogEnabled": false,
-        "failureLogEnabled": true,
-        "tcpHost": "intersection_d_controller",
-        "tcpPort": "502",
-        "tcpType": "DEFAULT",
-        "serialPort": "/dev/ttyUSB",
-        "serialType": "RTU-BUFFERD",
-        "serialBaudrate": 9600,
-        "serialDatabits": 8,
-        "serialStopbits": 1,
-        "serialParity": "none",
-        "serialConnectionDelay": 100,
-        "serialAsciiResponseStartDelimiter": "0x3A",
-        "unit_id": 1,
-        "commandDelay": 1,
-        "clientTimeout": 1000,
-        "reconnectOnTimeout": true,
-        "reconnectTimeout": 2000,
-        "parallelUnitIdsAllowed": true,
-        "showErrors": false,
-        "showWarnings": true,
-        "showLogs": true
-    },
-    {
-        "id": "group_intersection_a",
-        "type": "ui_group",
-        "name": "A 교차로 현황 및 제어",
-        "tab": "main_ui_tab",
-        "order": 2,
-        "disp": true,
-        "width": "8",
-        "collapse": false
-    },
-    {
-        "id": "group_intersection_b",
-        "type": "ui_group",
-        "name": "B 교차로 현황 및 제어",
-        "tab": "main_ui_tab",
-        "order": 3,
-        "disp": true,
-        "width": "8",
-        "collapse": false
-    },
-    {
-        "id": "group_intersection_c",
-        "type": "ui_group",
-        "name": "C 교차로 현황 및 제어",
-        "tab": "main_ui_tab",
-        "order": 4,
-        "disp": true,
-        "width": "8",
-        "collapse": false
-    },
-    {
-        "id": "group_intersection_d",
-        "type": "ui_group",
-        "name": "D 교차로 현황 및 제어",
-        "tab": "main_ui_tab",
+        "id": "bc007d0a11771fb2",
+        "type": "ui_text",
+        "z": "9251d5525d119844",
+        "group": "group_intersection_a",
         "order": 5,
-        "disp": true,
-        "width": "8",
-        "collapse": false
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "초록불 유지 시간",
+        "format": "{{msg.payload}} 초",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 840,
+        "y": 900,
+        "wires": []
     },
     {
-        "id": "main_ui_tab",
-        "type": "ui_tab",
-        "name": "스마트시티 통합 교통 관제",
-        "icon": "traffic",
-        "order": 1
+        "id": "88c7112ed3981bc6",
+        "type": "ui_text",
+        "z": "9251d5525d119844",
+        "group": "group_intersection_c",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "초록불 유지 시간",
+        "format": "{{msg.payload}} 초",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 840,
+        "y": 1300,
+        "wires": []
     },
     {
-        "id": "c0b1856c1cc7fcb0",
-        "type": "global-config",
-        "env": [],
-        "modules": {
-            "node-red-contrib-modbus": "5.44.1",
-            "node-red-dashboard": "3.6.6"
-        }
+        "id": "113c0a24db06fd05",
+        "type": "ui_text",
+        "z": "9251d5525d119844",
+        "group": "group_intersection_d",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "초록불 유지 시간",
+        "format": "{{msg.payload}} 초",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 840,
+        "y": 1500,
+        "wires": []
+    },
+    {
+        "id": "e888a29976d1d530",
+        "type": "ui_text",
+        "z": "9251d5525d119844",
+        "group": "group_intersection_b",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "초록불 유지 시간",
+        "format": "{{msg.payload}} 초",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 840,
+        "y": 1100,
+        "wires": []
     }
 ]
