@@ -1,10 +1,35 @@
 services:
-  plc1:
+  # --- Smart City Traffic Management Center (TMC) ---
+  traffic_management_center:
+    build:
+      context: .
+      dockerfile: ./settings/scada/scada.Dockerfile
+    container_name: traffic_management_center
+    networks:
+      - poc
+    ports:
+      - "1880:1880"   # Node-RED UI
+      - "5020:5020"   # TMC's own Modbus Server for data sharing
+    volumes:
+      - ./settings/scada:/data
+    depends_on:
+      - intersection_a_controller
+      - intersection_b_controller
+      - intersection_c_controller
+      - intersection_d_controller
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:1880"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # --- Intersection Controllers (PLCs) ---
+  intersection_a_controller:
     build:
       context: .
       dockerfile: ./settings/plc/plc.Dockerfile
     image: testbed-plc:latest
-    container_name: plc1
+    container_name: intersection_a
     networks:
       - poc
     ports:
@@ -12,10 +37,10 @@ services:
       - "502:502"
     volumes:
       - ./settings/plc/plc1:/data
-  
-  plc2:
+
+  intersection_b_controller:
     image: testbed-plc:latest
-    container_name: plc2
+    container_name: intersection_b
     networks:
       - poc
     ports:
@@ -24,10 +49,9 @@ services:
     volumes:
       - ./settings/plc/plc2:/data
 
-  plc3:
-    # build 섹션을 삭제하고, 위에서 빌드한 이미지를 사용하도록 지정합니다.
+  intersection_c_controller:
     image: testbed-plc:latest
-    container_name: plc3
+    container_name: intersection_c
     networks:
       - poc
     ports:
@@ -36,10 +60,9 @@ services:
     volumes:
       - ./settings/plc/plc3:/data
 
-  plc4:
-    # build 섹션을 삭제하고, 위에서 빌드한 이미지를 사용하도록 지정합니다.
+  intersection_d_controller:
     image: testbed-plc:latest
-    container_name: plc4
+    container_name: intersection_d
     networks:
       - poc
     ports:
@@ -48,39 +71,18 @@ services:
     volumes:
       - ./settings/plc/plc4:/data
 
-  scada:
-    build:
-      context: .
-      dockerfile: ./settings/scada/scada.Dockerfile
-    container_name: scada
-    networks:
-      - poc
-    ports:
-      - "1880:1880"
-    volumes:
-      - ./settings/scada:/data
-    depends_on:
-      - plc1
-      - plc2
-      - plc3
-      - plc4
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:1880"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-
+  # --- Packet Capture Service ---
   capture:
     image: nicolaka/netshoot
     cap_add:
       - NET_ADMIN
-    network_mode: "service:scada"
+    network_mode: "service:traffic_management_center"
     volumes:
       - ./pcap:/pcap
     command: ["tshark", "-l", "-i", "eth0", "-w", "/pcap/output.pcap"]
     depends_on:
-      scada:
-       condition: service_healthy
+      traffic_management_center:
+        condition: service_healthy
 
 networks:
   poc:

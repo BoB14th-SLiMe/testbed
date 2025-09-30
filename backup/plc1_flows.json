@@ -1,42 +1,5 @@
 [
     {
-        "id": "8b67e1cbd40d7fa8",
-        "type": "tab",
-        "label": "Intersection Controller",
-        "disabled": false,
-        "info": "This flow is a template for all intersection PLCs. It receives green time parameters from the TMC."
-    },
-    {
-        "id": "e3bbee329dd5bede",
-        "type": "modbus-client",
-        "name": "Internal Client",
-        "clienttype": "tcp",
-        "bufferCommands": true,
-        "stateLogEnabled": false,
-        "queueLogEnabled": false,
-        "failureLogEnabled": true,
-        "tcpHost": "127.0.0.1",
-        "tcpPort": "502",
-        "tcpType": "DEFAULT",
-        "serialPort": "/dev/ttyUSB",
-        "serialType": "RTU-BUFFERD",
-        "serialBaudrate": 9600,
-        "serialDatabits": 8,
-        "serialStopbits": 1,
-        "serialParity": "none",
-        "serialConnectionDelay": 100,
-        "serialAsciiResponseStartDelimiter": "0x3A",
-        "unit_id": 1,
-        "commandDelay": 1,
-        "clientTimeout": 1000,
-        "reconnectOnTimeout": true,
-        "reconnectTimeout": 2000,
-        "parallelUnitIdsAllowed": true,
-        "showErrors": false,
-        "showWarnings": true,
-        "showLogs": true
-    },
-    {
         "id": "bf1d25205644a6b4",
         "type": "modbus-read",
         "z": "8b67e1cbd40d7fa8",
@@ -55,7 +18,7 @@
         "delayOnStart": false,
         "enableDeformedMessages": false,
         "startDelayTime": "",
-        "server": "e3bbee329dd5bede",
+        "server": "de856bb720d27f75",
         "useIOFile": false,
         "ioFile": "",
         "useIOForPayload": false,
@@ -99,7 +62,7 @@
         "checkall": "true",
         "repair": false,
         "outputs": 4,
-        "x": 450,
+        "x": 430,
         "y": 200,
         "wires": [
             [
@@ -173,7 +136,7 @@
         "dataType": "MCoils",
         "adr": "0",
         "quantity": "12",
-        "server": "e3bbee329dd5bede",
+        "server": "de856bb720d27f75",
         "emptyMsgOnFail": false,
         "keepMsgProperties": false,
         "delayOnStart": false,
@@ -199,8 +162,6 @@
         "holdingBufferSize": 1024,
         "inputBufferSize": 1024,
         "discreteBufferSize": 1024,
-        "showErrors": false,
-        "showStatusActivities": false,
         "x": 220,
         "y": 380,
         "wires": [
@@ -210,5 +171,43 @@
             [],
             []
         ]
+    },
+    {
+        "id": "de856bb720d27f75",
+        "type": "modbus-client",
+        "name": "Internal Client",
+        "clienttype": "tcp",
+        "bufferCommands": true,
+        "stateLogEnabled": false,
+        "queueLogEnabled": false,
+        "failureLogEnabled": true,
+        "tcpHost": "127.0.0.1",
+        "tcpPort": 502,
+        "tcpType": "DEFAULT",
+        "serialPort": "/dev/ttyUSB",
+        "serialType": "RTU-BUFFERD",
+        "serialBaudrate": 9600,
+        "serialDatabits": 8,
+        "serialStopbits": 1,
+        "serialParity": "none",
+        "serialConnectionDelay": 100,
+        "serialAsciiResponseStartDelimiter": "0x3A",
+        "unit_id": 1,
+        "commandDelay": 1,
+        "clientTimeout": 1000,
+        "reconnectOnTimeout": true,
+        "reconnectTimeout": 2000,
+        "parallelUnitIdsAllowed": true,
+        "showErrors": false,
+        "showWarnings": true,
+        "showLogs": true
+    },
+    {
+        "id": "3c4ec3966fdeac72",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "node-red-contrib-modbus": "5.44.1"
+        }
     }
 ]
