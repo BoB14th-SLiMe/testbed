@@ -1,8 +1,8 @@
 [
     {
-        "id": "9251d5525d119844",
+        "id": "dee68aa0c07e4c62",
         "type": "tab",
-        "label": "ITC - SCADA",
+        "label": "플로우 1",
         "disabled": false,
         "info": "",
         "env": []
@@ -32,10 +32,7 @@
         "clientTimeout": 1000,
         "reconnectOnTimeout": true,
         "reconnectTimeout": 2000,
-        "parallelUnitIdsAllowed": true,
-        "showErrors": false,
-        "showWarnings": true,
-        "showLogs": true
+        "parallelUnitIdsAllowed": true
     },
     {
         "id": "002416d95ed618bb",
@@ -62,10 +59,7 @@
         "clientTimeout": 1000,
         "reconnectOnTimeout": true,
         "reconnectTimeout": 2000,
-        "parallelUnitIdsAllowed": true,
-        "showErrors": false,
-        "showWarnings": true,
-        "showLogs": true
+        "parallelUnitIdsAllowed": true
     },
     {
         "id": "86497a2f59dbf570",
@@ -92,10 +86,7 @@
         "clientTimeout": 1000,
         "reconnectOnTimeout": true,
         "reconnectTimeout": 2000,
-        "parallelUnitIdsAllowed": true,
-        "showErrors": false,
-        "showWarnings": true,
-        "showLogs": true
+        "parallelUnitIdsAllowed": true
     },
     {
         "id": "946a34dccba15f97",
@@ -122,10 +113,7 @@
         "clientTimeout": 1000,
         "reconnectOnTimeout": true,
         "reconnectTimeout": 2000,
-        "parallelUnitIdsAllowed": true,
-        "showErrors": false,
-        "showWarnings": true,
-        "showLogs": true
+        "parallelUnitIdsAllowed": true
     },
     {
         "id": "282a9bdec27cff20",
@@ -152,10 +140,7 @@
         "clientTimeout": 1000,
         "reconnectOnTimeout": true,
         "reconnectTimeout": 2000,
-        "parallelUnitIdsAllowed": true,
-        "showErrors": false,
-        "showWarnings": true,
-        "showLogs": true
+        "parallelUnitIdsAllowed": true
     },
     {
         "id": "main_ui_tab",
@@ -165,7 +150,7 @@
         "order": 1
     },
     {
-        "id": "b2553c27ab52054b",
+        "id": "f5944f21c03262c7",
         "type": "global-config",
         "env": [],
         "modules": {
@@ -176,11 +161,32 @@
     {
         "id": "group_tmc_control",
         "type": "ui_group",
-        "name": "TMC - 시뮬레이터 및 제어",
+        "name": "종합 현황",
         "tab": "main_ui_tab",
         "order": 1,
         "disp": true,
-        "width": "16",
+        "width": 24,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "group_traffic_trends",
+        "type": "ui_group",
+        "name": "교통량 추세 분석",
+        "tab": "main_ui_tab",
+        "order": 6,
+        "disp": true,
+        "width": "24",
+        "collapse": false
+    },
+    {
+        "id": "group_emergency_control",
+        "type": "ui_group",
+        "name": "긴급 제어",
+        "tab": "main_ui_tab",
+        "order": 7,
+        "disp": true,
+        "width": "24",
         "collapse": false
     },
     {
@@ -190,7 +196,7 @@
         "tab": "main_ui_tab",
         "order": 2,
         "disp": true,
-        "width": "8",
+        "width": 12,
         "collapse": false
     },
     {
@@ -200,7 +206,7 @@
         "tab": "main_ui_tab",
         "order": 3,
         "disp": true,
-        "width": "8",
+        "width": 12,
         "collapse": false
     },
     {
@@ -210,7 +216,7 @@
         "tab": "main_ui_tab",
         "order": 4,
         "disp": true,
-        "width": "8",
+        "width": 12,
         "collapse": false
     },
     {
@@ -220,11 +226,11 @@
         "tab": "main_ui_tab",
         "order": 5,
         "disp": true,
-        "width": "8",
+        "width": 12,
         "collapse": false
     },
     {
-        "id": "ffe73d50d8abec17",
+        "id": "b39e20c23d084f18",
         "type": "ui_base",
         "theme": {
             "name": "theme-light",
@@ -232,7 +238,8 @@
                 "default": "#0094CE",
                 "baseColor": "#0094CE",
                 "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
-                "edited": false
+                "edited": true,
+                "reset": false
             },
             "darkTheme": {
                 "default": "#097479",
@@ -320,9 +327,99 @@
         }
     },
     {
-        "id": "tmc_modbus_server_node",
+        "id": "59bd89bcb3bd3645",
+        "type": "ui_spacer",
+        "z": "dee68aa0c07e4c62",
+        "name": "spacer",
+        "group": "group_intersection_a",
+        "order": 7,
+        "width": 4,
+        "height": 1
+    },
+    {
+        "id": "a4af39f0b9807417",
+        "type": "ui_spacer",
+        "z": "dee68aa0c07e4c62",
+        "name": "spacer",
+        "group": "group_intersection_a",
+        "order": 9,
+        "width": 4,
+        "height": 1
+    },
+    {
+        "id": "c74e584c10e650ea",
+        "type": "ui_spacer",
+        "z": "dee68aa0c07e4c62",
+        "name": "spacer",
+        "group": "group_intersection_b",
+        "order": 7,
+        "width": 4,
+        "height": 1
+    },
+    {
+        "id": "496632d739b19afa",
+        "type": "ui_spacer",
+        "z": "dee68aa0c07e4c62",
+        "name": "spacer",
+        "group": "group_intersection_b",
+        "order": 9,
+        "width": 4,
+        "height": 1
+    },
+    {
+        "id": "fc888a47fb7d19c6",
+        "type": "ui_spacer",
+        "z": "dee68aa0c07e4c62",
+        "name": "spacer",
+        "group": "group_intersection_c",
+        "order": 7,
+        "width": 4,
+        "height": 1
+    },
+    {
+        "id": "7ba27c204c033685",
+        "type": "ui_spacer",
+        "z": "dee68aa0c07e4c62",
+        "name": "spacer",
+        "group": "group_intersection_c",
+        "order": 9,
+        "width": 4,
+        "height": 1
+    },
+    {
+        "id": "5c5dbd4b1d44966d",
+        "type": "ui_spacer",
+        "z": "dee68aa0c07e4c62",
+        "name": "spacer",
+        "group": "group_intersection_d",
+        "order": 7,
+        "width": 4,
+        "height": 1
+    },
+    {
+        "id": "5fbbc928e05a9547",
+        "type": "ui_spacer",
+        "z": "dee68aa0c07e4c62",
+        "name": "spacer",
+        "group": "group_intersection_d",
+        "order": 9,
+        "width": 4,
+        "height": 1
+    },
+    {
+        "id": "57b3b029c33ec73b",
+        "type": "ui_spacer",
+        "z": "dee68aa0c07e4c62",
+        "name": "spacer",
+        "group": "group_emergency_control",
+        "order": 4,
+        "width": 12,
+        "height": 1
+    },
+    {
+        "id": "8cc46f0420c78659",
         "type": "modbus-server",
-        "z": "9251d5525d119844",
+        "z": "dee68aa0c07e4c62",
         "name": "TMC Data Hub Server",
         "logEnabled": false,
         "hostname": "0.0.0.0",
@@ -335,8 +432,8 @@
         "discreteBufferSize": "1024",
         "showErrors": false,
         "showStatusActivities": false,
-        "x": 160,
-        "y": 100,
+        "x": 180,
+        "y": 60,
         "wires": [
             [],
             [],
@@ -346,43 +443,83 @@
         ]
     },
     {
-        "id": "sim_inject",
+        "id": "278223d0495bf003",
         "type": "inject",
-        "z": "9251d5525d119844",
+        "z": "dee68aa0c07e4c62",
         "name": "Traffic Simulator Tick",
         "props": [],
-        "repeat": "20",
+        "repeat": "5",
         "crontab": "",
         "once": true,
         "onceDelay": 0.1,
         "topic": "",
-        "x": 120,
-        "y": 180,
+        "x": 160,
+        "y": 140,
         "wires": [
             [
-                "sim_function"
+                "9d3539210aaef774"
             ]
         ]
     },
     {
-        "id": "sim_function",
+        "id": "9d3539210aaef774",
         "type": "function",
-        "z": "9251d5525d119844",
-        "name": "Generate & Format Traffic Data",
-        "func": "const trafficVolumes = [];\nfor (let i = 0; i < 4; i++) {\n    const volumeNS = Math.floor(Math.random() * 100);\n    const volumeEW = Math.floor(Math.random() * 100);\n    trafficVolumes.push(volumeNS, volumeEW);\n}\nmsg.payload = { \n    value: trafficVolumes, \n    'fc': 16, \n    'unitid': 1, \n    'address': 100, \n    'quantity': 8 \n};\nreturn msg;",
+        "z": "dee68aa0c07e4c62",
+        "name": "Intelligent Traffic Simulator",
+        "func": "// === 지능형 트래픽 시뮬레이터 ===\n\nconst currentTime = new Date();\nconst hour = currentTime.getHours();\nconst minute = currentTime.getMinutes();\nconst dayOfWeek = currentTime.getDay();\n\n// 시간대별 트래픽 패턴 정의\nfunction getTrafficPattern(hour, isWeekend) {\n    if (isWeekend) {\n        // 주말 패턴\n        if (hour >= 11 && hour <= 15) return { base: 60, variance: 20 };\n        if (hour >= 18 && hour <= 21) return { base: 50, variance: 15 };\n        return { base: 30, variance: 10 };\n    } else {\n        // 평일 패턴\n        if (hour >= 7 && hour <= 9) return { base: 85, variance: 10 };   // 아침 러시\n        if (hour >= 18 && hour <= 20) return { base: 90, variance: 10 }; // 저녁 러시\n        if (hour >= 12 && hour <= 13) return { base: 60, variance: 15 }; // 점심시간\n        if (hour >= 22 || hour <= 5) return { base: 15, variance: 5 };   // 심야\n        return { base: 40, variance: 15 };\n    }\n}\n\n// 교차로별 트래픽 특성 (위치별 가중치)\nconst intersectionWeights = [\n    { ns: 1.0, ew: 0.9 },  // 교차로 A - 주도로/부도로\n    { ns: 0.8, ew: 1.1 },  // 교차로 B - 부도로/상업지구\n    { ns: 1.2, ew: 0.7 },  // 교차로 C - 대로/골목길\n    { ns: 0.9, ew: 0.9 }   // 교차로 D - 균등\n];\n\nconst isWeekend = dayOfWeek === 0 || dayOfWeek === 6;\nconst pattern = getTrafficPattern(hour, isWeekend);\n\n// 각 교차로별 트래픽 볼륨 생성\nconst trafficVolumes = [];\nfor (let i = 0; i < 4; i++) {\n    const weight = intersectionWeights[i];\n    \n    // 기본 트래픽에 변동성 추가\n    let volumeNS = pattern.base * weight.ns;\n    let volumeEW = pattern.base * weight.ew;\n    \n    // 랜덤 변동 추가 (±variance)\n    volumeNS += (Math.random() - 0.5) * pattern.variance * 2;\n    volumeEW += (Math.random() - 0.5) * pattern.variance * 2;\n    \n    // 특별 이벤트 시뮬레이션 (10% 확률로 한 방향 혼잡)\n    if (Math.random() < 0.1) {\n        if (Math.random() < 0.5) {\n            volumeNS = Math.min(volumeNS * 1.5, 100);\n        } else {\n            volumeEW = Math.min(volumeEW * 1.5, 100);\n        }\n    }\n    \n    // 범위 제한 (0-100)\n    volumeNS = Math.max(0, Math.min(100, Math.round(volumeNS)));\n    volumeEW = Math.max(0, Math.min(100, Math.round(volumeEW)));\n    \n    trafficVolumes.push(volumeNS, volumeEW);\n}\n\n// TMC 허브에 데이터 쓰기\nmsg.payload = { \n    value: trafficVolumes, \n    fc: 16, \n    unitid: 1, \n    address: 100, \n    quantity: 8 \n};\n\n// 진단 정보 추가\nmsg.diagnostics = {\n    timestamp: currentTime.toISOString(),\n    hour: hour,\n    isWeekend: isWeekend,\n    pattern: pattern.base,\n    volumes: trafficVolumes\n};\n\nreturn msg;",
         "outputs": 1,
-        "x": 390,
-        "y": 180,
+        "x": 430,
+        "y": 140,
         "wires": [
             [
-                "2fe6e6594d1ece36"
+                "fb1879e1a12ea9cb",
+                "468f90596b387d2b"
             ]
         ]
     },
     {
-        "id": "logic_reader",
+        "id": "468f90596b387d2b",
+        "type": "function",
+        "z": "dee68aa0c07e4c62",
+        "name": "Traffic Prediction Engine",
+        "func": "// === 교통량 예측 엔진 ===\n\n// 이력 데이터 관리\nlet history = flow.get('trafficHistory') || [];\nconst MAX_HISTORY = 60; // 최근 5분 데이터 유지 (5초마다 샘플링)\n\n// 현재 데이터 추가\nif (msg.diagnostics && msg.diagnostics.volumes) {\n    history.push({\n        timestamp: Date.now(),\n        volumes: msg.diagnostics.volumes,\n        hour: msg.diagnostics.hour\n    });\n    \n    // 최대 크기 유지\n    if (history.length > MAX_HISTORY) {\n        history = history.slice(-MAX_HISTORY);\n    }\n    \n    flow.set('trafficHistory', history);\n}\n\n// 예측 수행\nif (history.length >= 12) { // 최소 1분 데이터 필요\n    const predictions = [];\n    \n    for (let i = 0; i < 8; i++) {\n        // 각 차선별 이동 평균 계산\n        const recentValues = history.slice(-12).map(h => h.volumes[i]);\n        const average = recentValues.reduce((a, b) => a + b, 0) / recentValues.length;\n        \n        // 추세 계산\n        const oldAvg = recentValues.slice(0, 6).reduce((a, b) => a + b, 0) / 6;\n        const newAvg = recentValues.slice(6, 12).reduce((a, b) => a + b, 0) / 6;\n        const trend = newAvg - oldAvg;\n        \n        // 예측값 = 평균 + 추세\n        let prediction = average + trend * 0.5;\n        prediction = Math.max(0, Math.min(100, Math.round(prediction)));\n        \n        predictions.push(prediction);\n    }\n    \n    // 예측 데이터를 별도 주소에 저장\n    msg.payload = {\n        value: predictions,\n        fc: 16,\n        unitid: 1,\n        address: 110, // 예측 데이터 주소\n        quantity: 8\n    };\n    \n    msg.predictions = predictions;\n    return msg;\n}\n\nreturn null;",
+        "outputs": 1,
+        "x": 670,
+        "y": 80,
+        "wires": [
+            [
+                "223e93b4e2c9e071"
+            ]
+        ]
+    },
+    {
+        "id": "223e93b4e2c9e071",
+        "type": "modbus-write",
+        "z": "dee68aa0c07e4c62",
+        "name": "Write Predictions",
+        "showStatusActivities": false,
+        "showErrors": false,
+        "showWarnings": true,
+        "unitid": "",
+        "dataType": "MHoldingRegisters",
+        "adr": "110",
+        "quantity": "8",
+        "server": "bb07d44f9dcc13ad",
+        "emptyMsgOnFail": false,
+        "keepMsgProperties": false,
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "x": 890,
+        "y": 80,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "a7a5a31291fb4705",
         "type": "modbus-read",
-        "z": "9251d5525d119844",
+        "z": "dee68aa0c07e4c62",
         "name": "Read Traffic Data from Hub",
         "topic": "",
         "showStatusActivities": false,
@@ -392,7 +529,7 @@
         "unitid": "",
         "dataType": "HoldingRegister",
         "adr": "100",
-        "quantity": "8",
+        "quantity": "18",
         "rate": "1",
         "rateUnit": "s",
         "delayOnStart": false,
@@ -403,35 +540,61 @@
         "ioFile": "",
         "useIOForPayload": false,
         "emptyMsgOnFail": false,
-        "x": 160,
-        "y": 280,
+        "x": 180,
+        "y": 240,
         "wires": [
             [
-                "adaptive_logic_func",
-                "split_for_gauges"
+                "6a06a5046785d1d9",
+                "1ecf8a0a99bb9fe8"
             ],
-            []
-        ]
-    },
-    {
-        "id": "adaptive_logic_func",
-        "type": "function",
-        "z": "9251d5525d119844",
-        "name": "Adaptive Control Logic",
-        "func": "const volumes = msg.payload;\nconst intersections = ['a', 'b', 'c', 'd'];\n\n// 데이터가 유효하지 않으면 로직을 실행하지 않음\nif (!Array.isArray(volumes) || volumes.length < 8) {\n    return null;\n}\n\nfunction calculateGreenTime(volume) {\n    return 5 + Math.round((volume / 100) * 10);\n}\nfor (let i = 0; i < intersections.length; i++) {\n    const ns_green_time = calculateGreenTime(volumes[i * 2]);\n    const ew_green_time = calculateGreenTime(volumes[i * 2 + 1]);\n    node.send({\n        topic: intersections[i],\n        payload: { \n            value: [ns_green_time, ew_green_time],\n            'fc': 16, \n            'unitid': 1, \n            'address': 10, \n            'quantity': 2\n        }\n    });\n}\nreturn null;",
-        "outputs": 1,
-        "x": 470,
-        "y": 280,
-        "wires": [
             [
-                "dispatch_control_cmd"
+                "110423e07dba0598",
+                "170f1192e7948685"
             ]
         ]
     },
     {
-        "id": "dispatch_control_cmd",
+        "id": "6a06a5046785d1d9",
+        "type": "function",
+        "z": "dee68aa0c07e4c62",
+        "name": "Enhanced Adaptive Control Logic",
+        "func": "// === 향상된 적응형 제어 로직 ===\n\nconst volumes = msg.payload.slice(0, 8);      // 현재 트래픽\nconst predictions = msg.payload.slice(8, 16); // 예측 트래픽 (있으면)\nconst intersections = ['a', 'b', 'c', 'd'];\n\nif (!Array.isArray(volumes) || volumes.length < 8) {\n    node.warn(\"유효하지 않은 트래픽 데이터\");\n    return null;\n}\n\nconst currentHour = new Date().getHours();\nconst isPeakHour = (currentHour >= 7 && currentHour <= 9) || \n                   (currentHour >= 18 && currentHour <= 20);\n\n// 교차로 간 동기화를 위한 오프셋 계산\nfunction calculateSyncOffset(index) {\n    // 인접 교차로와 녹색 시작 시간을 조정하여 녹색파 생성\n    const baseOffset = index * 15; // 15초씩 차이\n    return baseOffset;\n}\n\n// 혼잡도 계산\nfunction calculateCongestionLevel(volumeNS, volumeEW) {\n    const maxVolume = Math.max(volumeNS, volumeEW);\n    if (maxVolume > 85) return 2; // 높음\n    if (maxVolume > 60) return 1; // 중간\n    return 0; // 낮음\n}\n\n// 적응형 녹색 시간 계산\nfunction calculateOptimalGreenTime(currentVolume, predictedVolume, isPeak) {\n    // 현재와 예측값의 가중 평균\n    const effectiveVolume = predictedVolume \n        ? currentVolume * 0.7 + predictedVolume * 0.3 \n        : currentVolume;\n    \n    // 기본 녹색 시간 (5-30초)\n    let greenTime = 5 + Math.round((effectiveVolume / 100) * 20);\n    \n    // 피크 시간 보정\n    if (isPeak) {\n        greenTime = Math.min(greenTime * 1.2, 30);\n    }\n    \n    // 최소/최대 제한\n    return Math.max(5, Math.min(30, Math.round(greenTime)));\n}\n\n// 각 교차로별로 제어 명령 생성\nfor (let i = 0; i < 4; i++) {\n    const ns_volume = volumes[i * 2];\n    const ew_volume = volumes[i * 2 + 1];\n    \n    const ns_predicted = predictions ? predictions[i * 2] : ns_volume;\n    const ew_predicted = predictions ? predictions[i * 2 + 1] : ew_volume;\n    \n    const ns_green_time = calculateOptimalGreenTime(ns_volume, ns_predicted, isPeakHour);\n    const ew_green_time = calculateOptimalGreenTime(ew_volume, ew_predicted, isPeakHour);\n    \n    const congestionLevel = calculateCongestionLevel(ns_volume, ew_volume);\n    const syncOffset = calculateSyncOffset(i);\n    \n    // PLC에 전송할 데이터 패킷 구성\n    // 주소 10-18: 제어 파라미터\n    const controlData = [\n        ns_green_time,     // 주소 10: NS 녹색 시간\n        ew_green_time,     // 주소 11: EW 녹색 시간\n        ns_volume,         // 주소 12: NS 트래픽 볼륨\n        ew_volume,         // 주소 13: EW 트래픽 볼륨\n        currentHour,       // 주소 14: 현재 시간\n        0,                 // 주소 15: NS 보행자 요청 (PLC에서 관리)\n        0,                 // 주소 16: EW 보행자 요청 (PLC에서 관리)\n        congestionLevel,   // 주소 17: 혼잡도\n        syncOffset         // 주소 18: 동기화 오프셋\n    ];\n    \n    // 각 교차로 PLC로 전송\n    node.send({\n        topic: intersections[i],\n        payload: {\n            value: controlData,\n            fc: 16,\n            unitid: 1,\n            address: 10,\n            quantity: 9\n        },\n        diagnostics: {\n            intersection: intersections[i].toUpperCase(),\n            ns_volume: ns_volume,\n            ew_volume: ew_volume,\n            ns_green: ns_green_time,\n            ew_green: ew_green_time,\n            congestion: congestionLevel,\n            syncOffset: syncOffset\n        }\n    });\n}\n\nreturn null;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 530,
+        "y": 240,
+        "wires": [
+            [
+                "7d96c572120206c6",
+                "85931d3bd83b58c5"
+            ]
+        ]
+    },
+    {
+        "id": "85931d3bd83b58c5",
+        "type": "debug",
+        "z": "dee68aa0c07e4c62",
+        "name": "Control Diagnostics",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "diagnostics",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 800,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "7d96c572120206c6",
         "type": "switch",
-        "z": "9251d5525d119844",
+        "z": "dee68aa0c07e4c62",
         "name": "Dispatch to PLC",
         "property": "topic",
         "propertyType": "msg",
@@ -460,72 +623,365 @@
         "checkall": "true",
         "repair": false,
         "outputs": 4,
-        "x": 710,
+        "x": 810,
+        "y": 240,
+        "wires": [
+            [
+                "2e12b6811b9bc974"
+            ],
+            [
+                "fed1d509a9e7d0ca"
+            ],
+            [
+                "17293110ae423556"
+            ],
+            [
+                "b1021c40c5264768"
+            ]
+        ]
+    },
+    {
+        "id": "2e12b6811b9bc974",
+        "type": "modbus-write",
+        "z": "dee68aa0c07e4c62",
+        "name": "Write PLC A Control",
+        "showStatusActivities": false,
+        "showErrors": false,
+        "showWarnings": true,
+        "unitid": "",
+        "dataType": "MHoldingRegisters",
+        "adr": "10",
+        "quantity": "9",
+        "server": "002416d95ed618bb",
+        "emptyMsgOnFail": false,
+        "keepMsgProperties": false,
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "x": 1040,
+        "y": 200,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "fed1d509a9e7d0ca",
+        "type": "modbus-write",
+        "z": "dee68aa0c07e4c62",
+        "name": "Write PLC B Control",
+        "showStatusActivities": false,
+        "showErrors": false,
+        "showWarnings": true,
+        "unitid": "",
+        "dataType": "MHoldingRegisters",
+        "adr": "10",
+        "quantity": "9",
+        "server": "86497a2f59dbf570",
+        "emptyMsgOnFail": false,
+        "keepMsgProperties": false,
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "x": 1040,
+        "y": 240,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "17293110ae423556",
+        "type": "modbus-write",
+        "z": "dee68aa0c07e4c62",
+        "name": "Write PLC C Control",
+        "showStatusActivities": false,
+        "showErrors": false,
+        "showWarnings": true,
+        "unitid": "",
+        "dataType": "MHoldingRegisters",
+        "adr": "10",
+        "quantity": "9",
+        "server": "946a34dccba15f97",
+        "emptyMsgOnFail": false,
+        "keepMsgProperties": false,
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "x": 1040,
         "y": 280,
         "wires": [
-            [
-                "dfd1dba2ea86acf9"
-            ],
-            [
-                "345aa0da70baf62f"
-            ],
-            [
-                "3083869f26f9a8e9"
-            ],
-            [
-                "70acb6a73e0143ed"
-            ]
+            [],
+            []
         ]
     },
     {
-        "id": "split_for_gauges",
+        "id": "b1021c40c5264768",
+        "type": "modbus-write",
+        "z": "dee68aa0c07e4c62",
+        "name": "Write PLC D Control",
+        "showStatusActivities": false,
+        "showErrors": false,
+        "showWarnings": true,
+        "unitid": "",
+        "dataType": "MHoldingRegisters",
+        "adr": "10",
+        "quantity": "9",
+        "server": "282a9bdec27cff20",
+        "emptyMsgOnFail": false,
+        "keepMsgProperties": false,
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "x": 1040,
+        "y": 320,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "1ecf8a0a99bb9fe8",
         "type": "function",
-        "z": "9251d5525d119844",
-        "name": "Split for Gauges (Robust)",
-        "func": "const topics = ['A_NS', 'A_EW', 'B_NS', 'B_EW', 'C_NS', 'C_EW', 'D_NS', 'D_EW'];\nconst outputs = [];\n\n// 데이터가 배열이 아니거나 길이가 맞지 않으면 (초기화, 에러 상황)\nif (!Array.isArray(msg.payload) || msg.payload.length < 8) {\n    // 모든 게이지에 안전한 기본값 0을 보냄\n    for (let i = 0; i < 8; i++) {\n        outputs.push({\n            topic: topics[i],\n            payload: 0\n        });\n    }\n    node.warn(\"Invalid Modbus data. Sending default 0 to gauges.\");\n    return outputs;\n}\n\n// 정상 데이터 처리\nfor (let i = 0; i < 8; i++) {\n    outputs.push({\n        topic: topics[i],\n        payload: msg.payload[i]\n    });\n}\n\nreturn outputs;",
+        "z": "dee68aa0c07e4c62",
+        "name": "Enhanced Data Splitter",
+        "func": "// === 향상된 데이터 분배기 ===\n\nconst topics = ['A_NS', 'A_EW', 'B_NS', 'B_EW', 'C_NS', 'C_EW', 'D_NS', 'D_EW'];\nconst outputs = [];\n\n// 현재 트래픽 데이터\nif (!Array.isArray(msg.payload) || msg.payload.length < 8) {\n    for (let i = 0; i < 8; i++) {\n        outputs.push({\n            topic: topics[i],\n            payload: 0,\n            predicted: 0\n        });\n    }\n    node.warn(\"Invalid traffic data, sending defaults\");\n    return outputs;\n}\n\n// 현재 및 예측 데이터 처리\nfor (let i = 0; i < 8; i++) {\n    const current = msg.payload[i] || 0;\n    const predicted = msg.payload[i + 8] || current;\n    \n    outputs.push({\n        topic: topics[i],\n        payload: current,\n        predicted: predicted,\n        trend: predicted > current ? 'up' : (predicted < current ? 'down' : 'stable')\n    });\n}\n\nreturn outputs;",
         "outputs": 8,
-        "x": 470,
-        "y": 480,
+        "x": 1050,
+        "y": 440,
         "wires": [
             [
-                "ui_gauge_a_ns"
+                "14cc504ba7616766",
+                "9478551b93ae47fc"
             ],
             [
-                "ui_gauge_a_ew"
+                "d32efdc43afea1ec",
+                "31eb5358faa77077"
             ],
             [
-                "ui_gauge_b_ns"
+                "46175ca4dd108094",
+                "7dd7a64caa59c4c5"
             ],
             [
-                "ui_gauge_b_ew"
+                "be1c32ba317ca42a",
+                "c16e4a1bce1125f3"
             ],
             [
-                "ui_gauge_c_ns"
+                "dd4016fc5dd46543",
+                "69c25312d7754ca4"
             ],
             [
-                "ui_gauge_c_ew"
+                "40ec8a5b8e9b40b1",
+                "b5f8bdbdb54cd929"
             ],
             [
-                "ui_gauge_d_ns"
+                "314fe059db67a47b",
+                "493bed492d4f76fe"
             ],
             [
-                "ui_gauge_d_ew"
+                "8ee3a0e56a20d375",
+                "31ead39a8d44dd01"
             ]
         ]
     },
     {
-        "id": "ui_gauge_a_ns",
+        "id": "fb1879e1a12ea9cb",
+        "type": "modbus-write",
+        "z": "dee68aa0c07e4c62",
+        "name": "Write to TMC Data Hub",
+        "showStatusActivities": false,
+        "showErrors": false,
+        "showWarnings": true,
+        "unitid": "",
+        "dataType": "MHoldingRegisters",
+        "adr": "100",
+        "quantity": "8",
+        "server": "bb07d44f9dcc13ad",
+        "emptyMsgOnFail": false,
+        "keepMsgProperties": false,
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "x": 710,
+        "y": 140,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "093834d3a2a6e16f",
+        "type": "function",
+        "z": "dee68aa0c07e4c62",
+        "name": "Emergency Vehicle Controller",
+        "func": "// === 긴급차량 우선 신호 제어 (수정된 코드) ===\n\n// msg.payload로부터 command와 direction을 올바르게 추출합니다.\nconst payloadValue = msg.payload; // 버튼에서 온 값 (0, 1, 또는 2)\nconst command = (payloadValue > 0) ? 1 : 0; // 1 또는 2는 활성화(1), 0은 해제(0)\nconst direction = payloadValue; // 1=NS, 2=EW, 0=해제 시 사용 안함\n\n// UI에서 시작 교차로를 선택할 수 있도록 msg.intersection 사용 (기본값 'a')\nconst intersection = msg.intersection || 'a';\n\n// 긴급차량 경로 계산 (연속된 교차로 처리)\nconst route = [];\nif (command === 1) {\n    // 긴급 모드 활성화\n    const intersectionIndex = ['a', 'b', 'c', 'd'].indexOf(intersection);\n\n    // 현재 및 다음 교차로에 신호 전송\n    for (let i = intersectionIndex; i < Math.min(intersectionIndex + 2, 4); i++) {\n        route.push({\n            intersection: ['a', 'b', 'c', 'd'][i],\n            delay: (i - intersectionIndex) * 10 // 10초 간격\n        });\n    }\n}\n\n// 각 교차로에 EVP 신호 전송\nroute.forEach((r, index) => {\n    setTimeout(() => {\n        node.send({\n            payload: {\n                value: [command, direction],\n                fc: 16,\n                unitid: 1,\n                address: 20,\n                quantity: 2\n            },\n            topic: r.intersection\n        });\n    }, r.delay * 1000);\n});\n\nif (command === 0) {\n    // 모든 교차로 EVP 해제\n    ['a', 'b', 'c', 'd'].forEach(int => {\n        node.send({\n            payload: {\n                value: [0, 0],\n                fc: 16,\n                unitid: 1,\n                address: 20,\n                quantity: 2\n            },\n            topic: int\n        });\n    });\n}\n\nreturn null;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 470,
+        "y": 500,
+        "wires": [
+            [
+                "c4b4e4940cc3b9f8"
+            ]
+        ]
+    },
+    {
+        "id": "c4b4e4940cc3b9f8",
+        "type": "switch",
+        "z": "dee68aa0c07e4c62",
+        "name": "EVP Dispatcher",
+        "property": "topic",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "a",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "b",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "c",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "d",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 4,
+        "x": 560,
+        "y": 600,
+        "wires": [
+            [
+                "dd583ac415fae222"
+            ],
+            [
+                "473abf6701d25154"
+            ],
+            [
+                "37250cf1a3fb37c3"
+            ],
+            [
+                "c9179e0721543d90"
+            ]
+        ]
+    },
+    {
+        "id": "dd583ac415fae222",
+        "type": "modbus-write",
+        "z": "dee68aa0c07e4c62",
+        "name": "Write EVP A",
+        "showStatusActivities": false,
+        "showErrors": false,
+        "showWarnings": true,
+        "unitid": "",
+        "dataType": "MHoldingRegisters",
+        "adr": "20",
+        "quantity": "2",
+        "server": "002416d95ed618bb",
+        "emptyMsgOnFail": false,
+        "keepMsgProperties": false,
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "x": 810,
+        "y": 460,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "473abf6701d25154",
+        "type": "modbus-write",
+        "z": "dee68aa0c07e4c62",
+        "name": "Write EVP B",
+        "showStatusActivities": false,
+        "showErrors": false,
+        "showWarnings": true,
+        "unitid": "",
+        "dataType": "MHoldingRegisters",
+        "adr": "20",
+        "quantity": "2",
+        "server": "86497a2f59dbf570",
+        "emptyMsgOnFail": false,
+        "keepMsgProperties": false,
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "x": 810,
+        "y": 500,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "37250cf1a3fb37c3",
+        "type": "modbus-write",
+        "z": "dee68aa0c07e4c62",
+        "name": "Write EVP C",
+        "showStatusActivities": false,
+        "showErrors": false,
+        "showWarnings": true,
+        "unitid": "",
+        "dataType": "MHoldingRegisters",
+        "adr": "20",
+        "quantity": "2",
+        "server": "946a34dccba15f97",
+        "emptyMsgOnFail": false,
+        "keepMsgProperties": false,
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "x": 810,
+        "y": 540,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "c9179e0721543d90",
+        "type": "modbus-write",
+        "z": "dee68aa0c07e4c62",
+        "name": "Write EVP D",
+        "showStatusActivities": false,
+        "showErrors": false,
+        "showWarnings": true,
+        "unitid": "",
+        "dataType": "MHoldingRegisters",
+        "adr": "20",
+        "quantity": "2",
+        "server": "282a9bdec27cff20",
+        "emptyMsgOnFail": false,
+        "keepMsgProperties": false,
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "x": 810,
+        "y": 580,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "14cc504ba7616766",
         "type": "ui_gauge",
-        "z": "9251d5525d119844",
+        "z": "dee68aa0c07e4c62",
         "name": "A (남↔북)",
         "group": "group_tmc_control",
         "order": 1,
-        "width": 2,
+        "width": 3,
         "height": 2,
         "gtype": "gage",
         "title": "A (남↔북)",
-        "label": "Traffic",
-        "format": "{{value}}",
+        "label": "Volume",
+        "format": "{{value}}%",
         "min": 0,
         "max": "100",
         "colors": [
@@ -533,23 +989,181 @@
             "#e6e600",
             "#ca3838"
         ],
-        "x": 710,
+        "seg1": "40",
+        "seg2": "70",
+        "x": 1360,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "d32efdc43afea1ec",
+        "type": "ui_gauge",
+        "z": "dee68aa0c07e4c62",
+        "name": "A (동↔서)",
+        "group": "group_tmc_control",
+        "order": 2,
+        "width": 3,
+        "height": 2,
+        "gtype": "gage",
+        "title": "A (동↔서)",
+        "label": "Volume",
+        "format": "{{value}}%",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "40",
+        "seg2": "70",
+        "x": 1360,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "46175ca4dd108094",
+        "type": "ui_gauge",
+        "z": "dee68aa0c07e4c62",
+        "name": "B (남↔북)",
+        "group": "group_tmc_control",
+        "order": 3,
+        "width": 3,
+        "height": 2,
+        "gtype": "gage",
+        "title": "B (남↔북)",
+        "label": "Volume",
+        "format": "{{value}}%",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "40",
+        "seg2": "70",
+        "x": 1360,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "be1c32ba317ca42a",
+        "type": "ui_gauge",
+        "z": "dee68aa0c07e4c62",
+        "name": "B (동↔서)",
+        "group": "group_tmc_control",
+        "order": 4,
+        "width": 3,
+        "height": 2,
+        "gtype": "gage",
+        "title": "B (동↔서)",
+        "label": "Volume",
+        "format": "{{value}}%",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "40",
+        "seg2": "70",
+        "x": 1360,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "dd4016fc5dd46543",
+        "type": "ui_gauge",
+        "z": "dee68aa0c07e4c62",
+        "name": "C (남↔북)",
+        "group": "group_tmc_control",
+        "order": 5,
+        "width": 3,
+        "height": 2,
+        "gtype": "gage",
+        "title": "C (남↔북)",
+        "label": "Volume",
+        "format": "{{value}}%",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "40",
+        "seg2": "70",
+        "x": 1360,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "40ec8a5b8e9b40b1",
+        "type": "ui_gauge",
+        "z": "dee68aa0c07e4c62",
+        "name": "C (동↔서)",
+        "group": "group_tmc_control",
+        "order": 6,
+        "width": 3,
+        "height": 2,
+        "gtype": "gage",
+        "title": "C (동↔서)",
+        "label": "Volume",
+        "format": "{{value}}%",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "40",
+        "seg2": "70",
+        "x": 1360,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "314fe059db67a47b",
+        "type": "ui_gauge",
+        "z": "dee68aa0c07e4c62",
+        "name": "D (남↔북)",
+        "group": "group_tmc_control",
+        "order": 7,
+        "width": 3,
+        "height": 2,
+        "gtype": "gage",
+        "title": "D (남↔북)",
+        "label": "Volume",
+        "format": "{{value}}%",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "40",
+        "seg2": "70",
+        "x": 1360,
         "y": 340,
         "wires": []
     },
     {
-        "id": "ui_gauge_a_ew",
+        "id": "8ee3a0e56a20d375",
         "type": "ui_gauge",
-        "z": "9251d5525d119844",
-        "name": "A (동↔서)",
+        "z": "dee68aa0c07e4c62",
+        "name": "D (동↔서)",
         "group": "group_tmc_control",
-        "order": 2,
-        "width": 2,
+        "order": 8,
+        "width": 3,
         "height": 2,
         "gtype": "gage",
-        "title": "A (동↔서)",
-        "label": "Traffic",
-        "format": "{{value}}",
+        "title": "D (동↔서)",
+        "label": "Volume",
+        "format": "{{value}}%",
         "min": 0,
         "max": "100",
         "colors": [
@@ -557,158 +1171,465 @@
             "#e6e600",
             "#ca3838"
         ],
-        "x": 710,
+        "seg1": "40",
+        "seg2": "70",
+        "x": 1360,
         "y": 380,
         "wires": []
     },
     {
-        "id": "ui_gauge_b_ns",
-        "type": "ui_gauge",
-        "z": "9251d5525d119844",
-        "name": "B (남↔북)",
-        "group": "group_tmc_control",
-        "order": 3,
-        "width": 2,
-        "height": 2,
-        "gtype": "gage",
-        "title": "B (남↔북)",
-        "label": "Traffic",
-        "format": "{{value}}",
-        "min": 0,
-        "max": "100",
+        "id": "9478551b93ae47fc",
+        "type": "ui_chart",
+        "z": "dee68aa0c07e4c62",
+        "name": "A NS Trend",
+        "group": "group_traffic_trends",
+        "order": 1,
+        "width": 6,
+        "height": 4,
+        "label": "A 교차로 남북 추세",
+        "chartType": "line",
+        "legend": "true",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "100",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "60",
+        "cutout": 0,
+        "useOneColor": false,
         "colors": [
-            "#00b500",
-            "#e6e600",
-            "#ca3838"
+            "#1f77b4",
+            "#ff7f0e",
+            "#2ca02c",
+            "#d62728",
+            "#9467bd",
+            "#8c564b",
+            "#e377c2",
+            "#7f7f7f",
+            "#bcbd22"
         ],
-        "x": 710,
-        "y": 420,
-        "wires": []
-    },
-    {
-        "id": "ui_gauge_b_ew",
-        "type": "ui_gauge",
-        "z": "9251d5525d119844",
-        "name": "B (동↔서)",
-        "group": "group_tmc_control",
-        "order": 4,
-        "width": 2,
-        "height": 2,
-        "gtype": "gage",
-        "title": "B (동↔서)",
-        "label": "Traffic",
-        "format": "{{value}}",
-        "min": 0,
-        "max": "100",
-        "colors": [
-            "#00b500",
-            "#e6e600",
-            "#ca3838"
-        ],
-        "x": 710,
+        "outputs": 1,
+        "x": 1350,
         "y": 460,
-        "wires": []
+        "wires": [
+            []
+        ]
     },
     {
-        "id": "ui_gauge_c_ns",
-        "type": "ui_gauge",
-        "z": "9251d5525d119844",
-        "name": "C (남↔북)",
-        "group": "group_tmc_control",
-        "order": 5,
-        "width": 2,
-        "height": 2,
-        "gtype": "gage",
-        "title": "C (남↔북)",
-        "label": "Traffic",
-        "format": "{{value}}",
-        "min": 0,
-        "max": "100",
+        "id": "31eb5358faa77077",
+        "type": "ui_chart",
+        "z": "dee68aa0c07e4c62",
+        "name": "A EW Trend",
+        "group": "group_traffic_trends",
+        "order": 2,
+        "width": 6,
+        "height": 4,
+        "label": "A 교차로 동서 추세",
+        "chartType": "line",
+        "legend": "true",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "100",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "60",
+        "cutout": 0,
+        "useOneColor": false,
         "colors": [
-            "#00b500",
-            "#e6e600",
-            "#ca3838"
+            "#1f77b4",
+            "#ff7f0e",
+            "#2ca02c",
+            "#d62728",
+            "#9467bd",
+            "#8c564b",
+            "#e377c2",
+            "#7f7f7f",
+            "#bcbd22"
         ],
-        "x": 710,
+        "outputs": 1,
+        "x": 1350,
         "y": 500,
-        "wires": []
+        "wires": [
+            []
+        ]
     },
     {
-        "id": "ui_gauge_c_ew",
-        "type": "ui_gauge",
-        "z": "9251d5525d119844",
-        "name": "C (동↔서)",
-        "group": "group_tmc_control",
-        "order": 6,
-        "width": 2,
-        "height": 2,
-        "gtype": "gage",
-        "title": "C (동↔서)",
-        "label": "Traffic",
-        "format": "{{value}}",
-        "min": 0,
-        "max": "100",
+        "id": "7dd7a64caa59c4c5",
+        "type": "ui_chart",
+        "z": "dee68aa0c07e4c62",
+        "name": "B NS Trend",
+        "group": "group_traffic_trends",
+        "order": 3,
+        "width": 6,
+        "height": 4,
+        "label": "B 교차로 남북 추세",
+        "chartType": "line",
+        "legend": "true",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "100",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "60",
+        "cutout": 0,
+        "useOneColor": false,
         "colors": [
-            "#00b500",
-            "#e6e600",
-            "#ca3838"
+            "#1f77b4",
+            "#ff7f0e",
+            "#2ca02c",
+            "#d62728",
+            "#9467bd",
+            "#8c564b",
+            "#e377c2",
+            "#7f7f7f",
+            "#bcbd22"
         ],
-        "x": 710,
+        "outputs": 1,
+        "x": 1350,
         "y": 540,
-        "wires": []
+        "wires": [
+            []
+        ]
     },
     {
-        "id": "ui_gauge_d_ns",
-        "type": "ui_gauge",
-        "z": "9251d5525d119844",
-        "name": "D (남↔북)",
-        "group": "group_tmc_control",
-        "order": 7,
-        "width": 2,
-        "height": 2,
-        "gtype": "gage",
-        "title": "D (남↔북)",
-        "label": "Traffic",
-        "format": "{{value}}",
-        "min": 0,
-        "max": "100",
+        "id": "c16e4a1bce1125f3",
+        "type": "ui_chart",
+        "z": "dee68aa0c07e4c62",
+        "name": "B EW Trend",
+        "group": "group_traffic_trends",
+        "order": 4,
+        "width": 6,
+        "height": 4,
+        "label": "B 교차로 동서 추세",
+        "chartType": "line",
+        "legend": "true",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "100",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "60",
+        "cutout": 0,
+        "useOneColor": false,
         "colors": [
-            "#00b500",
-            "#e6e600",
-            "#ca3838"
+            "#1f77b4",
+            "#ff7f0e",
+            "#d62728",
+            "#2ca02c",
+            "#9467bd",
+            "#8c564b",
+            "#e377c2",
+            "#7f7f7f",
+            "#bcbd22"
         ],
-        "x": 710,
+        "outputs": 1,
+        "x": 1350,
         "y": 580,
-        "wires": []
+        "wires": [
+            []
+        ]
     },
     {
-        "id": "ui_gauge_d_ew",
-        "type": "ui_gauge",
-        "z": "9251d5525d119844",
-        "name": "D (동↔서)",
-        "group": "group_tmc_control",
-        "order": 8,
-        "width": 2,
-        "height": 2,
-        "gtype": "gage",
-        "title": "D (동↔서)",
-        "label": "Traffic",
-        "format": "{{value}}",
-        "min": 0,
-        "max": "100",
+        "id": "69c25312d7754ca4",
+        "type": "ui_chart",
+        "z": "dee68aa0c07e4c62",
+        "name": "C NS Trend",
+        "group": "group_traffic_trends",
+        "order": 5,
+        "width": 6,
+        "height": 4,
+        "label": "C 교차로 남북 추세",
+        "chartType": "line",
+        "legend": "true",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "100",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "60",
+        "cutout": 0,
+        "useOneColor": false,
         "colors": [
-            "#00b500",
-            "#e6e600",
-            "#ca3838"
+            "#1f77b4",
+            "#ff7f0e",
+            "#2ca02c",
+            "#d62728",
+            "#9467bd",
+            "#8c564b",
+            "#e377c2",
+            "#7f7f7f",
+            "#bcbd22"
         ],
-        "x": 710,
+        "outputs": 1,
+        "x": 1350,
         "y": 620,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b5f8bdbdb54cd929",
+        "type": "ui_chart",
+        "z": "dee68aa0c07e4c62",
+        "name": "C EW Trend",
+        "group": "group_traffic_trends",
+        "order": 6,
+        "width": 6,
+        "height": 4,
+        "label": "C 교차로 동서 추세",
+        "chartType": "line",
+        "legend": "true",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "100",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "60",
+        "cutout": 0,
+        "useOneColor": false,
+        "colors": [
+            "#1f77b4",
+            "#ff7f0e",
+            "#2ca02c",
+            "#d62728",
+            "#9467bd",
+            "#8c564b",
+            "#e377c2",
+            "#7f7f7f",
+            "#bcbd22"
+        ],
+        "outputs": 1,
+        "x": 1350,
+        "y": 660,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "493bed492d4f76fe",
+        "type": "ui_chart",
+        "z": "dee68aa0c07e4c62",
+        "name": "D NS Trend",
+        "group": "group_traffic_trends",
+        "order": 7,
+        "width": 6,
+        "height": 4,
+        "label": "D 교차로 남북 추세",
+        "chartType": "line",
+        "legend": "true",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "100",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "60",
+        "cutout": 0,
+        "useOneColor": false,
+        "colors": [
+            "#1f77b4",
+            "#ff7f0e",
+            "#2ca02c",
+            "#d62728",
+            "#9467bd",
+            "#8c564b",
+            "#e377c2",
+            "#7f7f7f",
+            "#bcbd22"
+        ],
+        "outputs": 1,
+        "x": 1350,
+        "y": 700,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "31ead39a8d44dd01",
+        "type": "ui_chart",
+        "z": "dee68aa0c07e4c62",
+        "name": "D EW Trend",
+        "group": "group_traffic_trends",
+        "order": 8,
+        "width": 6,
+        "height": 4,
+        "label": "D 교차로 동서 추세",
+        "chartType": "line",
+        "legend": "true",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "100",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "60",
+        "cutout": 0,
+        "useOneColor": false,
+        "colors": [
+            "#1f77b4",
+            "#ff7f0e",
+            "#2ca02c",
+            "#d62728",
+            "#9467bd",
+            "#8c564b",
+            "#e377c2",
+            "#7f7f7f",
+            "#bcbd22"
+        ],
+        "outputs": 1,
+        "x": 1350,
+        "y": 740,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "3635e3a724ec82ed",
+        "type": "ui_button",
+        "z": "dee68aa0c07e4c62",
+        "name": "",
+        "group": "group_emergency_control",
+        "order": 1,
+        "width": 4,
+        "height": 1,
+        "passthru": false,
+        "label": "긴급차량 남↔북",
+        "tooltip": "",
+        "color": "#FFFFFF",
+        "bgcolor": "#B73322",
+        "className": "",
+        "icon": "fa-ambulance",
+        "payload": "1",
+        "payloadType": "num",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 120,
+        "y": 340,
+        "wires": [
+            [
+                "093834d3a2a6e16f"
+            ]
+        ]
+    },
+    {
+        "id": "7ee850d66bec42c7",
+        "type": "ui_button",
+        "z": "dee68aa0c07e4c62",
+        "name": "",
+        "group": "group_emergency_control",
+        "order": 2,
+        "width": 4,
+        "height": 1,
+        "passthru": false,
+        "label": "긴급차량 동↔서",
+        "tooltip": "",
+        "color": "#FFFFFF",
+        "bgcolor": "#B73322",
+        "className": "",
+        "icon": "fa-ambulance",
+        "payload": "2",
+        "payloadType": "num",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 120,
+        "y": 380,
+        "wires": [
+            [
+                "093834d3a2a6e16f"
+            ]
+        ]
+    },
+    {
+        "id": "fb47b00efd06b713",
+        "type": "ui_button",
+        "z": "dee68aa0c07e4c62",
+        "name": "",
+        "group": "group_emergency_control",
+        "order": 3,
+        "width": 4,
+        "height": 1,
+        "passthru": false,
+        "label": "긴급상황 해제",
+        "tooltip": "",
+        "color": "#FFFFFF",
+        "bgcolor": "#52A062",
+        "className": "",
+        "icon": "fa-check-circle",
+        "payload": "0",
+        "payloadType": "num",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 110,
+        "y": 420,
+        "wires": [
+            [
+                "093834d3a2a6e16f"
+            ]
+        ]
+    },
+    {
+        "id": "110423e07dba0598",
+        "type": "function",
+        "z": "dee68aa0c07e4c62",
+        "name": "System Status Monitor",
+        "func": "// === 시스템 상태 모니터링 (최종 수정 코드) ===\n\nconst status = {\n    timestamp: new Date().toISOString(),\n    traffic: {\n        avgVolume: 0,\n        congestionLevel: 'low'\n    },\n    performance: {\n        avgWaitTime: 0,\n        throughput: 0,\n        efficiency: 0\n    }\n};\n\n// msg.payload.data 에서 데이터 배열을 가져오도록 수정\nconst payloadData = msg.payload.data || [];\n\nif (Array.isArray(payloadData) && payloadData.length >= 8) {\n\n    const actualVolumes = payloadData.slice(0, 8);\n    const avgVolume = actualVolumes.reduce((a, b) => a + b, 0) / actualVolumes.length;\n\n    status.traffic.avgVolume = Math.round(avgVolume);\n\n    if (avgVolume > 0) {\n        if (avgVolume > 80) {\n            status.traffic.congestionLevel = 'high';\n        } else if (avgVolume > 50) {\n            status.traffic.congestionLevel = 'medium';\n        }\n\n        status.performance.efficiency = Math.round(100 - avgVolume * 0.4);\n        status.performance.avgWaitTime = Math.round(5 + avgVolume * 0.5);\n        status.performance.throughput = Math.round(avgVolume * 15);\n    }\n}\n\nmsg.payload = status;\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 460,
+        "y": 400,
+        "wires": [
+            [
+                "310d8ce40f3428d3"
+            ]
+        ]
+    },
+    {
+        "id": "310d8ce40f3428d3",
+        "type": "ui_text",
+        "z": "dee68aa0c07e4c62",
+        "group": "group_tmc_control",
+        "order": 9,
+        "width": 24,
+        "height": 1,
+        "name": "",
+        "label": "",
+        "format": "<div style=\"padding: 5px; display: flex; justify-content: space-around; align-items: center; width: 100%; font-size: 0.9em;\">\n    <span>📅 <b>Time:</b> {{msg.payload.timestamp | date:'yyyy-MM-dd HH:mm:ss'}}</span>\n    <span>🚦 <b>평균 교통량:</b> {{msg.payload.traffic.avgVolume}}%</span>\n    <span>⚡ <b>혼잡도:</b> {{msg.payload.traffic.congestionLevel}}</span>\n    <span>⏱️ <b>평균 대기시간:</b> {{msg.payload.performance.avgWaitTime}}초</span>\n    <span>📊 <b>효율성:</b> {{msg.payload.performance.efficiency}}%</span>\n    <span>🚗 <b>처리량:</b> {{msg.payload.performance.throughput}} 대/시간</span>\n</div>",
+        "layout": "col-center",
+        "className": "",
+        "x": 690,
+        "y": 400,
         "wires": []
     },
     {
-        "id": "read_plc_a_coils",
+        "id": "5507dd2cf4cfd7dc",
         "type": "modbus-read",
-        "z": "9251d5525d119844",
+        "z": "dee68aa0c07e4c62",
         "name": "Read PLC A Coils",
         "topic": "",
         "showStatusActivities": false,
@@ -729,19 +1650,19 @@
         "ioFile": "",
         "useIOForPayload": false,
         "emptyMsgOnFail": false,
-        "x": 130,
-        "y": 1040,
+        "x": 150,
+        "y": 720,
         "wires": [
             [
-                "process_plc_a_data"
+                "281ec85fac6d3ca6"
             ],
             []
         ]
     },
     {
-        "id": "read_plc_b_coils",
+        "id": "529be6ae4d8be354",
         "type": "modbus-read",
-        "z": "9251d5525d119844",
+        "z": "dee68aa0c07e4c62",
         "name": "Read PLC B Coils",
         "topic": "",
         "showStatusActivities": false,
@@ -762,19 +1683,19 @@
         "ioFile": "",
         "useIOForPayload": false,
         "emptyMsgOnFail": false,
-        "x": 130,
-        "y": 1100,
+        "x": 150,
+        "y": 780,
         "wires": [
             [
-                "process_plc_b_data"
+                "fc1f55032141dbd9"
             ],
             []
         ]
     },
     {
-        "id": "read_plc_c_coils",
+        "id": "375f9cf8e1eb6a8c",
         "type": "modbus-read",
-        "z": "9251d5525d119844",
+        "z": "dee68aa0c07e4c62",
         "name": "Read PLC C Coils",
         "topic": "",
         "showStatusActivities": false,
@@ -795,19 +1716,19 @@
         "ioFile": "",
         "useIOForPayload": false,
         "emptyMsgOnFail": false,
-        "x": 130,
-        "y": 1160,
+        "x": 150,
+        "y": 840,
         "wires": [
             [
-                "process_plc_c_data"
+                "f156ea2ea8f9feef"
             ],
             []
         ]
     },
     {
-        "id": "read_plc_d_coils",
+        "id": "9f45f5e0a5a306e1",
         "type": "modbus-read",
-        "z": "9251d5525d119844",
+        "z": "dee68aa0c07e4c62",
         "name": "Read PLC D Coils",
         "topic": "",
         "showStatusActivities": false,
@@ -828,147 +1749,167 @@
         "ioFile": "",
         "useIOForPayload": false,
         "emptyMsgOnFail": false,
-        "x": 130,
-        "y": 1220,
+        "x": 150,
+        "y": 900,
         "wires": [
             [
-                "process_plc_d_data"
+                "c26e0ee4e290f826"
             ],
             []
         ]
     },
     {
-        "id": "process_plc_a_data",
+        "id": "281ec85fac6d3ca6",
         "type": "function",
-        "z": "9251d5525d119844",
+        "z": "dee68aa0c07e4c62",
         "name": "Process PLC A Data",
-        "func": "// ✅ 수정: 'wasGreen' 상태만 기억하면 충분합니다.\nlet contextData = flow.get('intersection_A_data') || { wasGreen: false, startTime: Date.now() };\n\nconst plcData = msg.payload;\n\nif (!Array.isArray(plcData) || plcData.length < 12) {\n    node.warn(\"PLC 램프 데이터가 올바르지 않거나 길이가 짧습니다.\");\n    return null;\n}\n\nconst l = plcData.map(val => val ? 1 : 0);\n\n// --- 현재 녹색불 상태 판단 (단순화) ---\n// 4개의 녹색 램프 중 하나라도 켜져 있으면 'isGreen'은 true가 됩니다.\nconst isGreen = (l[2] === 1 || l[5] === 1 || l[8] === 1 || l[11] === 1);\n\n// --- ✅ 더 안정적인 타임스탬프 로직 ---\nconst wasGreen = contextData.wasGreen;\nlet calculatedTimer = 0;\n\nif (!wasGreen && isGreen) {\n    // 1. 방금 녹색불로 바뀐 경우 (꺼짐 -> 켜짐)\n    contextData.startTime = Date.now(); // 시작 시간 리셋\n    calculatedTimer = 0; // 0부터 시작\n} else if (wasGreen && isGreen) {\n    // 2. 계속 녹색불인 경우 (켜짐 -> 켜짐)\n    const elapsedTime = Date.now() - contextData.startTime; // 경과 시간 계산\n    calculatedTimer = Math.floor(elapsedTime / 1000);\n} else {\n    // 3. 녹색불이 아닌 모든 경우 (켜짐 -> 꺼짐, 꺼짐 -> 꺼짐)\n    calculatedTimer = 0;\n}\n\n// 다음 실행을 위해 현재 '녹색 여부' 상태를 저장\ncontextData.wasGreen = isGreen;\nflow.set('intersection_A_data', contextData);\n\n\n// --- 신호등 UI용 메시지 생성 ---\nconst msg1 = { payload: { r: l[0], y: l[1], g: l[2] } };\nconst msg2 = { payload: { r: l[3], y: l[4], g: l[5] } };\nconst msg3 = { payload: { r: l[6], y: l[7], g: l[8] } };\nconst msg4 = { payload: { r: l[9], y: l[10], g: l[11] } };\n\n// --- 타이머 UI용 메시지 생성 ---\n// 위 로직에서 계산된 값은 이미 녹색이 아닐 때 0이므로 바로 사용 가능\nconst timerMsg = { payload: calculatedTimer };\n\nreturn [msg1, msg2, msg3, msg4, timerMsg];",
-        "outputs": 5,
+        "func": "let contextNS = flow.get('intersection_A_data_NS') || { wasGreen: false, startTime: Date.now() };\nlet contextEW = flow.get('intersection_A_data_EW') || { wasGreen: false, startTime: Date.now() };\n\nconst plcData = msg.payload;\n\nif (!Array.isArray(plcData) || plcData.length < 12) {\n    node.warn(\"PLC lamp data is invalid or too short.\");\n    return null;\n}\n\nconst l = plcData.map(val => val ? 1 : 0);\n\n// South(l[2])/North(l[8]) are NS, East(l[5])/West(l[11]) are EW\nconst isGreenNS = (l[2] === 1 || l[8] === 1);\nconst isGreenEW = (l[5] === 1 || l[11] === 1);\n\n// --- Calculate NS Timer ---\nlet calculatedTimerNS = 0;\nif (!contextNS.wasGreen && isGreenNS) {\n    contextNS.startTime = Date.now();\n    calculatedTimerNS = 0;\n} else if (contextNS.wasGreen && isGreenNS) {\n    const elapsedTime = Date.now() - contextNS.startTime;\n    calculatedTimerNS = Math.floor(elapsedTime / 1000);\n}\n\n// --- Calculate EW Timer ---\nlet calculatedTimerEW = 0;\nif (!contextEW.wasGreen && isGreenEW) {\n    contextEW.startTime = Date.now();\n    calculatedTimerEW = 0;\n} else if (contextEW.wasGreen && isGreenEW) {\n    const elapsedTime = Date.now() - contextEW.startTime;\n    calculatedTimerEW = Math.floor(elapsedTime / 1000);\n}\n\n// Store current state for next execution\ncontextNS.wasGreen = isGreenNS;\ncontextEW.wasGreen = isGreenEW;\nflow.set('intersection_A_data_NS', contextNS);\nflow.set('intersection_A_data_EW', contextEW);\n\n// --- Create messages for UI ---\nconst lampMsg1 = { payload: { r: l[0], y: l[1], g: l[2] } }; // South\nconst lampMsg2 = { payload: { r: l[3], y: l[4], g: l[5] } }; // East\nconst lampMsg3 = { payload: { r: l[6], y: l[7], g: l[8] } }; // North\nconst lampMsg4 = { payload: { r: l[9], y: l[10], g: l[11] } }; // West\n\nconst timerMsgNS = { payload: calculatedTimerNS };\nconst timerMsgEW = { payload: calculatedTimerEW };\n\nreturn [lampMsg1, lampMsg2, lampMsg3, lampMsg4, timerMsgNS, timerMsgEW];",
+        "outputs": 6,
         "timeout": "",
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 380,
-        "y": 1000,
+        "x": 620,
+        "y": 960,
         "wires": [
             [
-                "light_a_s"
+                "a6479cc9b4013e56"
             ],
             [
-                "light_a_e"
+                "2abf29966346a4a1"
             ],
             [
-                "light_a_n"
+                "44d3d5a1a576312c"
             ],
             [
-                "light_a_w"
+                "e596887c1b6a5b45"
             ],
             [
-                "bc007d0a11771fb2"
+                "d7269ed51651ddb6",
+                "6c0b272f7162bc2e"
+            ],
+            [
+                "0aef3686c939f96f",
+                "c75d7dca645bc566"
             ]
         ]
     },
     {
-        "id": "process_plc_b_data",
+        "id": "fc1f55032141dbd9",
         "type": "function",
-        "z": "9251d5525d119844",
+        "z": "dee68aa0c07e4c62",
         "name": "Process PLC B Data",
-        "func": "// ✅ 수정: 'wasGreen' 상태만 기억하면 충분합니다.\nlet contextData = flow.get('intersection_B_data') || { wasGreen: false, startTime: Date.now() };\n\nconst plcData = msg.payload;\n\nif (!Array.isArray(plcData) || plcData.length < 12) {\n    node.warn(\"PLC 램프 데이터가 올바르지 않거나 길이가 짧습니다.\");\n    return null;\n}\n\nconst l = plcData.map(val => val ? 1 : 0);\n\n// --- 현재 녹색불 상태 판단 (단순화) ---\n// 4개의 녹색 램프 중 하나라도 켜져 있으면 'isGreen'은 true가 됩니다.\nconst isGreen = (l[2] === 1 || l[5] === 1 || l[8] === 1 || l[11] === 1);\n\n// --- ✅ 더 안정적인 타임스탬프 로직 ---\nconst wasGreen = contextData.wasGreen;\nlet calculatedTimer = 0;\n\nif (!wasGreen && isGreen) {\n    // 1. 방금 녹색불로 바뀐 경우 (꺼짐 -> 켜짐)\n    contextData.startTime = Date.now(); // 시작 시간 리셋\n    calculatedTimer = 0; // 0부터 시작\n} else if (wasGreen && isGreen) {\n    // 2. 계속 녹색불인 경우 (켜짐 -> 켜짐)\n    const elapsedTime = Date.now() - contextData.startTime; // 경과 시간 계산\n    calculatedTimer = Math.floor(elapsedTime / 1000);\n} else {\n    // 3. 녹색불이 아닌 모든 경우 (켜짐 -> 꺼짐, 꺼짐 -> 꺼짐)\n    calculatedTimer = 0;\n}\n\n// 다음 실행을 위해 현재 '녹색 여부' 상태를 저장\ncontextData.wasGreen = isGreen;\nflow.set('intersection_B_data', contextData);\n\n\n// --- 신호등 UI용 메시지 생성 ---\nconst msg1 = { payload: { r: l[0], y: l[1], g: l[2] } };\nconst msg2 = { payload: { r: l[3], y: l[4], g: l[5] } };\nconst msg3 = { payload: { r: l[6], y: l[7], g: l[8] } };\nconst msg4 = { payload: { r: l[9], y: l[10], g: l[11] } };\n\n// --- 타이머 UI용 메시지 생성 ---\n// 위 로직에서 계산된 값은 이미 녹색이 아닐 때 0이므로 바로 사용 가능\nconst timerMsg = { payload: calculatedTimer };\n\nreturn [msg1, msg2, msg3, msg4, timerMsg];",
-        "outputs": 5,
+        "func": "let contextNS = flow.get('intersection_B_data_NS') || { wasGreen: false, startTime: Date.now() };\nlet contextEW = flow.get('intersection_B_data_EW') || { wasGreen: false, startTime: Date.now() };\n\nconst plcData = msg.payload;\n\nif (!Array.isArray(plcData) || plcData.length < 12) {\n    node.warn(\"PLC lamp data is invalid or too short.\");\n    return null;\n}\n\nconst l = plcData.map(val => val ? 1 : 0);\n\n// South(l[2])/North(l[8]) are NS, East(l[5])/West(l[11]) are EW\nconst isGreenNS = (l[2] === 1 || l[8] === 1);\nconst isGreenEW = (l[5] === 1 || l[11] === 1);\n\n// --- Calculate NS Timer ---\nlet calculatedTimerNS = 0;\nif (!contextNS.wasGreen && isGreenNS) {\n    contextNS.startTime = Date.now();\n    calculatedTimerNS = 0;\n} else if (contextNS.wasGreen && isGreenNS) {\n    const elapsedTime = Date.now() - contextNS.startTime;\n    calculatedTimerNS = Math.floor(elapsedTime / 1000);\n}\n\n// --- Calculate EW Timer ---\nlet calculatedTimerEW = 0;\nif (!contextEW.wasGreen && isGreenEW) {\n    contextEW.startTime = Date.now();\n    calculatedTimerEW = 0;\n} else if (contextEW.wasGreen && isGreenEW) {\n    const elapsedTime = Date.now() - contextEW.startTime;\n    calculatedTimerEW = Math.floor(elapsedTime / 1000);\n}\n\n// Store current state for next execution\ncontextNS.wasGreen = isGreenNS;\ncontextEW.wasGreen = isGreenEW;\nflow.set('intersection_B_data_NS', contextNS);\nflow.set('intersection_B_data_EW', contextEW);\n\n// --- Create messages for UI ---\nconst lampMsg1 = { payload: { r: l[0], y: l[1], g: l[2] } }; // South\nconst lampMsg2 = { payload: { r: l[3], y: l[4], g: l[5] } }; // East\nconst lampMsg3 = { payload: { r: l[6], y: l[7], g: l[8] } }; // North\nconst lampMsg4 = { payload: { r: l[9], y: l[10], g: l[11] } }; // West\n\nconst timerMsgNS = { payload: calculatedTimerNS };\nconst timerMsgEW = { payload: calculatedTimerEW };\n\nreturn [lampMsg1, lampMsg2, lampMsg3, lampMsg4, timerMsgNS, timerMsgEW];",
+        "outputs": 6,
         "timeout": "",
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 380,
-        "y": 1080,
+        "x": 620,
+        "y": 1060,
         "wires": [
             [
-                "light_b_s"
+                "9a048ca60583efe1"
             ],
             [
-                "light_b_e"
+                "10e0be185bdfb22a"
             ],
             [
-                "light_b_n"
+                "7f56603b9d11f432"
             ],
             [
-                "light_b_w"
+                "0f3b052713c5a109"
             ],
             [
-                "e888a29976d1d530"
+                "b87bbd73fddbdbd8",
+                "408619d9673cd7ba"
+            ],
+            [
+                "722d642851a02237",
+                "eb76d62d7df730b1"
             ]
         ]
     },
     {
-        "id": "process_plc_c_data",
+        "id": "f156ea2ea8f9feef",
         "type": "function",
-        "z": "9251d5525d119844",
+        "z": "dee68aa0c07e4c62",
         "name": "Process PLC C Data",
-        "func": "// ✅ 수정: 'wasGreen' 상태만 기억하면 충분합니다.\nlet contextData = flow.get('intersection_C_data') || { wasGreen: false, startTime: Date.now() };\n\nconst plcData = msg.payload;\n\nif (!Array.isArray(plcData) || plcData.length < 12) {\n    node.warn(\"PLC 램프 데이터가 올바르지 않거나 길이가 짧습니다.\");\n    return null;\n}\n\nconst l = plcData.map(val => val ? 1 : 0);\n\n// --- 현재 녹색불 상태 판단 (단순화) ---\n// 4개의 녹색 램프 중 하나라도 켜져 있으면 'isGreen'은 true가 됩니다.\nconst isGreen = (l[2] === 1 || l[5] === 1 || l[8] === 1 || l[11] === 1);\n\n// --- ✅ 더 안정적인 타임스탬프 로직 ---\nconst wasGreen = contextData.wasGreen;\nlet calculatedTimer = 0;\n\nif (!wasGreen && isGreen) {\n    // 1. 방금 녹색불로 바뀐 경우 (꺼짐 -> 켜짐)\n    contextData.startTime = Date.now(); // 시작 시간 리셋\n    calculatedTimer = 0; // 0부터 시작\n} else if (wasGreen && isGreen) {\n    // 2. 계속 녹색불인 경우 (켜짐 -> 켜짐)\n    const elapsedTime = Date.now() - contextData.startTime; // 경과 시간 계산\n    calculatedTimer = Math.floor(elapsedTime / 1000);\n} else {\n    // 3. 녹색불이 아닌 모든 경우 (켜짐 -> 꺼짐, 꺼짐 -> 꺼짐)\n    calculatedTimer = 0;\n}\n\n// 다음 실행을 위해 현재 '녹색 여부' 상태를 저장\ncontextData.wasGreen = isGreen;\nflow.set('intersection_C_data', contextData);\n\n\n// --- 신호등 UI용 메시지 생성 ---\nconst msg1 = { payload: { r: l[0], y: l[1], g: l[2] } };\nconst msg2 = { payload: { r: l[3], y: l[4], g: l[5] } };\nconst msg3 = { payload: { r: l[6], y: l[7], g: l[8] } };\nconst msg4 = { payload: { r: l[9], y: l[10], g: l[11] } };\n\n// --- 타이머 UI용 메시지 생성 ---\n// 위 로직에서 계산된 값은 이미 녹색이 아닐 때 0이므로 바로 사용 가능\nconst timerMsg = { payload: calculatedTimer };\n\nreturn [msg1, msg2, msg3, msg4, timerMsg];",
-        "outputs": 5,
+        "func": "let contextNS = flow.get('intersection_C_data_NS') || { wasGreen: false, startTime: Date.now() };\nlet contextEW = flow.get('intersection_C_data_EW') || { wasGreen: false, startTime: Date.now() };\n\nconst plcData = msg.payload;\n\nif (!Array.isArray(plcData) || plcData.length < 12) {\n    node.warn(\"PLC lamp data is invalid or too short.\");\n    return null;\n}\n\nconst l = plcData.map(val => val ? 1 : 0);\n\n// South(l[2])/North(l[8]) are NS, East(l[5])/West(l[11]) are EW\nconst isGreenNS = (l[2] === 1 || l[8] === 1);\nconst isGreenEW = (l[5] === 1 || l[11] === 1);\n\n// --- Calculate NS Timer ---\nlet calculatedTimerNS = 0;\nif (!contextNS.wasGreen && isGreenNS) {\n    contextNS.startTime = Date.now();\n    calculatedTimerNS = 0;\n} else if (contextNS.wasGreen && isGreenNS) {\n    const elapsedTime = Date.now() - contextNS.startTime;\n    calculatedTimerNS = Math.floor(elapsedTime / 1000);\n}\n\n// --- Calculate EW Timer ---\nlet calculatedTimerEW = 0;\nif (!contextEW.wasGreen && isGreenEW) {\n    contextEW.startTime = Date.now();\n    calculatedTimerEW = 0;\n} else if (contextEW.wasGreen && isGreenEW) {\n    const elapsedTime = Date.now() - contextEW.startTime;\n    calculatedTimerEW = Math.floor(elapsedTime / 1000);\n}\n\n// Store current state for next execution\ncontextNS.wasGreen = isGreenNS;\ncontextEW.wasGreen = isGreenEW;\nflow.set('intersection_C_data_NS', contextNS);\nflow.set('intersection_C_data_EW', contextEW);\n\n// --- Create messages for UI ---\nconst lampMsg1 = { payload: { r: l[0], y: l[1], g: l[2] } }; // South\nconst lampMsg2 = { payload: { r: l[3], y: l[4], g: l[5] } }; // East\nconst lampMsg3 = { payload: { r: l[6], y: l[7], g: l[8] } }; // North\nconst lampMsg4 = { payload: { r: l[9], y: l[10], g: l[11] } }; // West\n\nconst timerMsgNS = { payload: calculatedTimerNS };\nconst timerMsgEW = { payload: calculatedTimerEW };\n\nreturn [lampMsg1, lampMsg2, lampMsg3, lampMsg4, timerMsgNS, timerMsgEW];",
+        "outputs": 6,
         "timeout": "",
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 380,
-        "y": 1180,
+        "x": 620,
+        "y": 1160,
         "wires": [
             [
-                "light_c_s"
+                "58a36292760e10e5"
             ],
             [
-                "light_c_e"
+                "e9854ca38e3931d2"
             ],
             [
-                "light_c_n"
+                "f97c33c29672a15a"
             ],
             [
-                "light_c_w"
+                "f8263d917d5d1358"
             ],
             [
-                "88c7112ed3981bc6"
+                "771639f0b2b32947",
+                "acad591496809861"
+            ],
+            [
+                "fd211c9e070fa142",
+                "d879f0534c8e59b4"
             ]
         ]
     },
     {
-        "id": "process_plc_d_data",
+        "id": "c26e0ee4e290f826",
         "type": "function",
-        "z": "9251d5525d119844",
+        "z": "dee68aa0c07e4c62",
         "name": "Process PLC D Data",
-        "func": "// ✅ 수정: 'wasGreen' 상태만 기억하면 충분합니다.\nlet contextData = flow.get('intersection_D_data') || { wasGreen: false, startTime: Date.now() };\n\nconst plcData = msg.payload;\n\nif (!Array.isArray(plcData) || plcData.length < 12) {\n    node.warn(\"PLC 램프 데이터가 올바르지 않거나 길이가 짧습니다.\");\n    return null;\n}\n\nconst l = plcData.map(val => val ? 1 : 0);\n\n// --- 현재 녹색불 상태 판단 (단순화) ---\n// 4개의 녹색 램프 중 하나라도 켜져 있으면 'isGreen'은 true가 됩니다.\nconst isGreen = (l[2] === 1 || l[5] === 1 || l[8] === 1 || l[11] === 1);\n\n// --- ✅ 더 안정적인 타임스탬프 로직 ---\nconst wasGreen = contextData.wasGreen;\nlet calculatedTimer = 0;\n\nif (!wasGreen && isGreen) {\n    // 1. 방금 녹색불로 바뀐 경우 (꺼짐 -> 켜짐)\n    contextData.startTime = Date.now(); // 시작 시간 리셋\n    calculatedTimer = 0; // 0부터 시작\n} else if (wasGreen && isGreen) {\n    // 2. 계속 녹색불인 경우 (켜짐 -> 켜짐)\n    const elapsedTime = Date.now() - contextData.startTime; // 경과 시간 계산\n    calculatedTimer = Math.floor(elapsedTime / 1000);\n} else {\n    // 3. 녹색불이 아닌 모든 경우 (켜짐 -> 꺼짐, 꺼짐 -> 꺼짐)\n    calculatedTimer = 0;\n}\n\n// 다음 실행을 위해 현재 '녹색 여부' 상태를 저장\ncontextData.wasGreen = isGreen;\nflow.set('intersection_D_data', contextData);\n\n\n// --- 신호등 UI용 메시지 생성 ---\nconst msg1 = { payload: { r: l[0], y: l[1], g: l[2] } };\nconst msg2 = { payload: { r: l[3], y: l[4], g: l[5] } };\nconst msg3 = { payload: { r: l[6], y: l[7], g: l[8] } };\nconst msg4 = { payload: { r: l[9], y: l[10], g: l[11] } };\n\n// --- 타이머 UI용 메시지 생성 ---\n// 위 로직에서 계산된 값은 이미 녹색이 아닐 때 0이므로 바로 사용 가능\nconst timerMsg = { payload: calculatedTimer };\n\nreturn [msg1, msg2, msg3, msg4, timerMsg];",
-        "outputs": 5,
+        "func": "let contextNS = flow.get('intersection_D_data_NS') || { wasGreen: false, startTime: Date.now() };\nlet contextEW = flow.get('intersection_D_data_EW') || { wasGreen: false, startTime: Date.now() };\n\nconst plcData = msg.payload;\n\nif (!Array.isArray(plcData) || plcData.length < 12) {\n    node.warn(\"PLC lamp data is invalid or too short.\");\n    return null;\n}\n\nconst l = plcData.map(val => val ? 1 : 0);\n\n// South(l[2])/North(l[8]) are NS, East(l[5])/West(l[11]) are EW\nconst isGreenNS = (l[2] === 1 || l[8] === 1);\nconst isGreenEW = (l[5] === 1 || l[11] === 1);\n\n// --- Calculate NS Timer ---\nlet calculatedTimerNS = 0;\nif (!contextNS.wasGreen && isGreenNS) {\n    contextNS.startTime = Date.now();\n    calculatedTimerNS = 0;\n} else if (contextNS.wasGreen && isGreenNS) {\n    const elapsedTime = Date.now() - contextNS.startTime;\n    calculatedTimerNS = Math.floor(elapsedTime / 1000);\n}\n\n// --- Calculate EW Timer ---\nlet calculatedTimerEW = 0;\nif (!contextEW.wasGreen && isGreenEW) {\n    contextEW.startTime = Date.now();\n    calculatedTimerEW = 0;\n} else if (contextEW.wasGreen && isGreenEW) {\n    const elapsedTime = Date.now() - contextEW.startTime;\n    calculatedTimerEW = Math.floor(elapsedTime / 1000);\n}\n\n// Store current state for next execution\ncontextNS.wasGreen = isGreenNS;\ncontextEW.wasGreen = isGreenEW;\nflow.set('intersection_D_data_NS', contextNS);\nflow.set('intersection_D_data_EW', contextEW);\n\n// --- Create messages for UI ---\nconst lampMsg1 = { payload: { r: l[0], y: l[1], g: l[2] } }; // South\nconst lampMsg2 = { payload: { r: l[3], y: l[4], g: l[5] } }; // East\nconst lampMsg3 = { payload: { r: l[6], y: l[7], g: l[8] } }; // North\nconst lampMsg4 = { payload: { r: l[9], y: l[10], g: l[11] } }; // West\n\nconst timerMsgNS = { payload: calculatedTimerNS };\nconst timerMsgEW = { payload: calculatedTimerEW };\n\nreturn [lampMsg1, lampMsg2, lampMsg3, lampMsg4, timerMsgNS, timerMsgEW];",
+        "outputs": 6,
         "timeout": "",
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 380,
+        "x": 620,
         "y": 1260,
         "wires": [
             [
-                "light_d_s"
+                "e88a0be821975599"
             ],
             [
-                "light_d_e"
+                "2db686d5361a6c71"
             ],
             [
-                "light_d_n"
+                "00a77946432e50f2"
             ],
             [
-                "light_d_w"
+                "a8dba15a55818de7"
             ],
             [
-                "113c0a24db06fd05"
+                "6104f0fa5b971a96",
+                "81ea1ea3ce029d49"
+            ],
+            [
+                "d6455d0a1f56ff49",
+                "d6db03f9b8f5812b"
             ]
         ]
     },
     {
-        "id": "light_a_s",
+        "id": "a6479cc9b4013e56",
         "type": "ui_template",
-        "z": "9251d5525d119844",
+        "z": "dee68aa0c07e4c62",
         "group": "group_intersection_a",
         "name": "남쪽",
         "order": 1,
@@ -980,16 +1921,16 @@
         "resendOnRefresh": false,
         "templateScope": "local",
         "className": "",
-        "x": 810,
-        "y": 740,
+        "x": 1030,
+        "y": 1340,
         "wires": [
             []
         ]
     },
     {
-        "id": "light_a_e",
+        "id": "2abf29966346a4a1",
         "type": "ui_template",
-        "z": "9251d5525d119844",
+        "z": "dee68aa0c07e4c62",
         "group": "group_intersection_a",
         "name": "동쪽",
         "order": 2,
@@ -1001,16 +1942,16 @@
         "resendOnRefresh": false,
         "templateScope": "local",
         "className": "",
-        "x": 810,
-        "y": 780,
+        "x": 1030,
+        "y": 1380,
         "wires": [
             []
         ]
     },
     {
-        "id": "light_a_n",
+        "id": "44d3d5a1a576312c",
         "type": "ui_template",
-        "z": "9251d5525d119844",
+        "z": "dee68aa0c07e4c62",
         "group": "group_intersection_a",
         "name": "북쪽",
         "order": 3,
@@ -1022,16 +1963,16 @@
         "resendOnRefresh": false,
         "templateScope": "local",
         "className": "",
-        "x": 810,
-        "y": 820,
+        "x": 1030,
+        "y": 1420,
         "wires": [
             []
         ]
     },
     {
-        "id": "light_a_w",
+        "id": "e596887c1b6a5b45",
         "type": "ui_template",
-        "z": "9251d5525d119844",
+        "z": "dee68aa0c07e4c62",
         "group": "group_intersection_a",
         "name": "서쪽",
         "order": 4,
@@ -1043,20 +1984,20 @@
         "resendOnRefresh": false,
         "templateScope": "local",
         "className": "",
-        "x": 810,
-        "y": 860,
+        "x": 1030,
+        "y": 1460,
         "wires": [
             []
         ]
     },
     {
-        "id": "dropdown_a",
+        "id": "9d0ce51e44b838d2",
         "type": "ui_dropdown",
-        "z": "9251d5525d119844",
+        "z": "dee68aa0c07e4c62",
         "name": "운전 모드",
         "label": "운전 모드",
         "group": "group_intersection_a",
-        "order": 5,
+        "order": 8,
         "width": 8,
         "height": 1,
         "passthru": true,
@@ -1080,17 +2021,17 @@
         "payload": "",
         "topic": "topic",
         "x": 120,
-        "y": 1340,
+        "y": 1240,
         "wires": [
             [
-                "write_mode_a"
+                "7916bb7ff97efe86"
             ]
         ]
     },
     {
-        "id": "write_mode_a",
+        "id": "7916bb7ff97efe86",
         "type": "modbus-write",
-        "z": "9251d5525d119844",
+        "z": "dee68aa0c07e4c62",
         "name": "Write Mode A",
         "showStatusActivities": false,
         "showErrors": false,
@@ -1105,16 +2046,16 @@
         "delayOnStart": false,
         "startDelayTime": "",
         "x": 360,
-        "y": 1340,
+        "y": 1240,
         "wires": [
             [],
             []
         ]
     },
     {
-        "id": "light_b_s",
+        "id": "9a048ca60583efe1",
         "type": "ui_template",
-        "z": "9251d5525d119844",
+        "z": "dee68aa0c07e4c62",
         "group": "group_intersection_b",
         "name": "남쪽",
         "order": 1,
@@ -1126,16 +2067,16 @@
         "resendOnRefresh": false,
         "templateScope": "local",
         "className": "",
-        "x": 810,
-        "y": 940,
+        "x": 1030,
+        "y": 1520,
         "wires": [
             []
         ]
     },
     {
-        "id": "light_b_e",
+        "id": "10e0be185bdfb22a",
         "type": "ui_template",
-        "z": "9251d5525d119844",
+        "z": "dee68aa0c07e4c62",
         "group": "group_intersection_b",
         "name": "동쪽",
         "order": 2,
@@ -1147,16 +2088,16 @@
         "resendOnRefresh": false,
         "templateScope": "local",
         "className": "",
-        "x": 810,
-        "y": 980,
+        "x": 1030,
+        "y": 1560,
         "wires": [
             []
         ]
     },
     {
-        "id": "light_b_n",
+        "id": "7f56603b9d11f432",
         "type": "ui_template",
-        "z": "9251d5525d119844",
+        "z": "dee68aa0c07e4c62",
         "group": "group_intersection_b",
         "name": "북쪽",
         "order": 3,
@@ -1168,16 +2109,16 @@
         "resendOnRefresh": false,
         "templateScope": "local",
         "className": "",
-        "x": 810,
-        "y": 1020,
+        "x": 1030,
+        "y": 1600,
         "wires": [
             []
         ]
     },
     {
-        "id": "light_b_w",
+        "id": "0f3b052713c5a109",
         "type": "ui_template",
-        "z": "9251d5525d119844",
+        "z": "dee68aa0c07e4c62",
         "group": "group_intersection_b",
         "name": "서쪽",
         "order": 4,
@@ -1189,20 +2130,20 @@
         "resendOnRefresh": false,
         "templateScope": "local",
         "className": "",
-        "x": 810,
-        "y": 1060,
+        "x": 1030,
+        "y": 1640,
         "wires": [
             []
         ]
     },
     {
-        "id": "dropdown_b",
+        "id": "ee5133310b21c132",
         "type": "ui_dropdown",
-        "z": "9251d5525d119844",
+        "z": "dee68aa0c07e4c62",
         "name": "운전 모드",
         "label": "운전 모드",
         "group": "group_intersection_b",
-        "order": 5,
+        "order": 8,
         "width": 8,
         "height": 1,
         "passthru": true,
@@ -1226,17 +2167,17 @@
         "payload": "",
         "topic": "topic",
         "x": 120,
-        "y": 1400,
+        "y": 1300,
         "wires": [
             [
-                "write_mode_b"
+                "65bf579875c482e4"
             ]
         ]
     },
     {
-        "id": "write_mode_b",
+        "id": "65bf579875c482e4",
         "type": "modbus-write",
-        "z": "9251d5525d119844",
+        "z": "dee68aa0c07e4c62",
         "name": "Write Mode B",
         "showStatusActivities": false,
         "showErrors": false,
@@ -1251,16 +2192,16 @@
         "delayOnStart": false,
         "startDelayTime": "",
         "x": 360,
-        "y": 1400,
+        "y": 1300,
         "wires": [
             [],
             []
         ]
     },
     {
-        "id": "light_c_s",
+        "id": "58a36292760e10e5",
         "type": "ui_template",
-        "z": "9251d5525d119844",
+        "z": "dee68aa0c07e4c62",
         "group": "group_intersection_c",
         "name": "남쪽",
         "order": 1,
@@ -1272,16 +2213,16 @@
         "resendOnRefresh": false,
         "templateScope": "local",
         "className": "",
-        "x": 810,
-        "y": 1140,
+        "x": 1030,
+        "y": 1700,
         "wires": [
             []
         ]
     },
     {
-        "id": "light_c_e",
+        "id": "e9854ca38e3931d2",
         "type": "ui_template",
-        "z": "9251d5525d119844",
+        "z": "dee68aa0c07e4c62",
         "group": "group_intersection_c",
         "name": "동쪽",
         "order": 2,
@@ -1293,16 +2234,16 @@
         "resendOnRefresh": false,
         "templateScope": "local",
         "className": "",
-        "x": 810,
-        "y": 1180,
+        "x": 1030,
+        "y": 1740,
         "wires": [
             []
         ]
     },
     {
-        "id": "light_c_n",
+        "id": "f97c33c29672a15a",
         "type": "ui_template",
-        "z": "9251d5525d119844",
+        "z": "dee68aa0c07e4c62",
         "group": "group_intersection_c",
         "name": "북쪽",
         "order": 3,
@@ -1314,16 +2255,16 @@
         "resendOnRefresh": false,
         "templateScope": "local",
         "className": "",
-        "x": 810,
-        "y": 1220,
+        "x": 1030,
+        "y": 1780,
         "wires": [
             []
         ]
     },
     {
-        "id": "light_c_w",
+        "id": "f8263d917d5d1358",
         "type": "ui_template",
-        "z": "9251d5525d119844",
+        "z": "dee68aa0c07e4c62",
         "group": "group_intersection_c",
         "name": "서쪽",
         "order": 4,
@@ -1335,20 +2276,20 @@
         "resendOnRefresh": false,
         "templateScope": "local",
         "className": "",
-        "x": 810,
-        "y": 1260,
+        "x": 1030,
+        "y": 1820,
         "wires": [
             []
         ]
     },
     {
-        "id": "dropdown_c",
+        "id": "0b08a77da5f4efc6",
         "type": "ui_dropdown",
-        "z": "9251d5525d119844",
+        "z": "dee68aa0c07e4c62",
         "name": "운전 모드",
         "label": "운전 모드",
         "group": "group_intersection_c",
-        "order": 5,
+        "order": 8,
         "width": 8,
         "height": 1,
         "passthru": true,
@@ -1372,17 +2313,17 @@
         "payload": "",
         "topic": "topic",
         "x": 120,
-        "y": 1460,
+        "y": 1360,
         "wires": [
             [
-                "write_mode_c"
+                "355e2c365f5fac33"
             ]
         ]
     },
     {
-        "id": "write_mode_c",
+        "id": "355e2c365f5fac33",
         "type": "modbus-write",
-        "z": "9251d5525d119844",
+        "z": "dee68aa0c07e4c62",
         "name": "Write Mode C",
         "showStatusActivities": false,
         "showErrors": false,
@@ -1397,16 +2338,16 @@
         "delayOnStart": false,
         "startDelayTime": "",
         "x": 360,
-        "y": 1460,
+        "y": 1360,
         "wires": [
             [],
             []
         ]
     },
     {
-        "id": "light_d_s",
+        "id": "e88a0be821975599",
         "type": "ui_template",
-        "z": "9251d5525d119844",
+        "z": "dee68aa0c07e4c62",
         "group": "group_intersection_d",
         "name": "남쪽",
         "order": 1,
@@ -1418,16 +2359,16 @@
         "resendOnRefresh": false,
         "templateScope": "local",
         "className": "",
-        "x": 810,
-        "y": 1340,
+        "x": 1030,
+        "y": 1880,
         "wires": [
             []
         ]
     },
     {
-        "id": "light_d_e",
+        "id": "2db686d5361a6c71",
         "type": "ui_template",
-        "z": "9251d5525d119844",
+        "z": "dee68aa0c07e4c62",
         "group": "group_intersection_d",
         "name": "동쪽",
         "order": 2,
@@ -1439,16 +2380,16 @@
         "resendOnRefresh": false,
         "templateScope": "local",
         "className": "",
-        "x": 810,
-        "y": 1380,
+        "x": 1030,
+        "y": 1920,
         "wires": [
             []
         ]
     },
     {
-        "id": "light_d_n",
+        "id": "00a77946432e50f2",
         "type": "ui_template",
-        "z": "9251d5525d119844",
+        "z": "dee68aa0c07e4c62",
         "group": "group_intersection_d",
         "name": "북쪽",
         "order": 3,
@@ -1460,16 +2401,16 @@
         "resendOnRefresh": false,
         "templateScope": "local",
         "className": "",
-        "x": 810,
-        "y": 1420,
+        "x": 1030,
+        "y": 1960,
         "wires": [
             []
         ]
     },
     {
-        "id": "light_d_w",
+        "id": "a8dba15a55818de7",
         "type": "ui_template",
-        "z": "9251d5525d119844",
+        "z": "dee68aa0c07e4c62",
         "group": "group_intersection_d",
         "name": "서쪽",
         "order": 4,
@@ -1481,20 +2422,20 @@
         "resendOnRefresh": false,
         "templateScope": "local",
         "className": "",
-        "x": 810,
-        "y": 1460,
+        "x": 1030,
+        "y": 2000,
         "wires": [
             []
         ]
     },
     {
-        "id": "dropdown_d",
+        "id": "806ac6fd79a1c443",
         "type": "ui_dropdown",
-        "z": "9251d5525d119844",
+        "z": "dee68aa0c07e4c62",
         "name": "운전 모드",
         "label": "운전 모드",
         "group": "group_intersection_d",
-        "order": 5,
+        "order": 8,
         "width": 8,
         "height": 1,
         "passthru": true,
@@ -1518,17 +2459,17 @@
         "payload": "",
         "topic": "topic",
         "x": 120,
-        "y": 1520,
+        "y": 1420,
         "wires": [
             [
-                "write_mode_d"
+                "7d5f4905bc95bfbf"
             ]
         ]
     },
     {
-        "id": "write_mode_d",
+        "id": "7d5f4905bc95bfbf",
         "type": "modbus-write",
-        "z": "9251d5525d119844",
+        "z": "dee68aa0c07e4c62",
         "name": "Write Mode D",
         "showStatusActivities": false,
         "showErrors": false,
@@ -1543,214 +2484,378 @@
         "delayOnStart": false,
         "startDelayTime": "",
         "x": 360,
-        "y": 1520,
+        "y": 1420,
         "wires": [
             [],
             []
         ]
     },
     {
-        "id": "2fe6e6594d1ece36",
-        "type": "modbus-write",
-        "z": "9251d5525d119844",
-        "name": "Write to TMC Data Hub",
-        "showStatusActivities": false,
-        "showErrors": false,
-        "showWarnings": true,
-        "unitid": "",
-        "dataType": "MHoldingRegisters",
-        "adr": "100",
-        "quantity": "8",
-        "server": "bb07d44f9dcc13ad",
-        "emptyMsgOnFail": false,
-        "keepMsgProperties": false,
-        "delayOnStart": false,
-        "startDelayTime": "",
-        "x": 690,
-        "y": 180,
-        "wires": [
-            [],
-            []
-        ]
-    },
-    {
-        "id": "dfd1dba2ea86acf9",
-        "type": "modbus-write",
-        "z": "9251d5525d119844",
-        "name": "Write PLC A Params",
-        "showStatusActivities": false,
-        "showErrors": false,
-        "showWarnings": true,
-        "unitid": "",
-        "dataType": "HoldingRegister",
-        "adr": "10",
-        "quantity": "1",
-        "server": "002416d95ed618bb",
-        "emptyMsgOnFail": false,
-        "keepMsgProperties": false,
-        "delayOnStart": false,
-        "startDelayTime": "",
-        "x": 940,
-        "y": 220,
-        "wires": [
-            [],
-            []
-        ]
-    },
-    {
-        "id": "345aa0da70baf62f",
-        "type": "modbus-write",
-        "z": "9251d5525d119844",
-        "name": "Write PLC B Params",
-        "showStatusActivities": false,
-        "showErrors": false,
-        "showWarnings": true,
-        "unitid": "",
-        "dataType": "HoldingRegister",
-        "adr": "10",
-        "quantity": "1",
-        "server": "86497a2f59dbf570",
-        "emptyMsgOnFail": false,
-        "keepMsgProperties": false,
-        "delayOnStart": false,
-        "startDelayTime": "",
-        "x": 940,
-        "y": 260,
-        "wires": [
-            [],
-            []
-        ]
-    },
-    {
-        "id": "3083869f26f9a8e9",
-        "type": "modbus-write",
-        "z": "9251d5525d119844",
-        "name": "Write PLC C Params",
-        "showStatusActivities": false,
-        "showErrors": false,
-        "showWarnings": true,
-        "unitid": "",
-        "dataType": "HoldingRegister",
-        "adr": "10",
-        "quantity": "1",
-        "server": "946a34dccba15f97",
-        "emptyMsgOnFail": false,
-        "keepMsgProperties": false,
-        "delayOnStart": false,
-        "startDelayTime": "",
-        "x": 940,
-        "y": 300,
-        "wires": [
-            [],
-            []
-        ]
-    },
-    {
-        "id": "70acb6a73e0143ed",
-        "type": "modbus-write",
-        "z": "9251d5525d119844",
-        "name": "Write PLC D Params",
-        "showStatusActivities": false,
-        "showErrors": false,
-        "showWarnings": true,
-        "unitid": "",
-        "dataType": "HoldingRegister",
-        "adr": "10",
-        "quantity": "1",
-        "server": "282a9bdec27cff20",
-        "emptyMsgOnFail": false,
-        "keepMsgProperties": false,
-        "delayOnStart": false,
-        "startDelayTime": "",
-        "x": 940,
-        "y": 340,
-        "wires": [
-            [],
-            []
-        ]
-    },
-    {
-        "id": "bc007d0a11771fb2",
+        "id": "d7269ed51651ddb6",
         "type": "ui_text",
-        "z": "9251d5525d119844",
+        "z": "dee68aa0c07e4c62",
         "group": "group_intersection_a",
         "order": 5,
-        "width": 0,
-        "height": 0,
+        "width": 4,
+        "height": 1,
         "name": "",
-        "label": "초록불 유지 시간",
+        "label": "남북 녹색 시간",
         "format": "{{msg.payload}} 초",
         "layout": "row-spread",
         "className": "",
-        "style": false,
-        "font": "",
-        "fontSize": 16,
-        "color": "#000000",
-        "x": 840,
-        "y": 900,
+        "x": 1050,
+        "y": 960,
         "wires": []
     },
     {
-        "id": "88c7112ed3981bc6",
+        "id": "771639f0b2b32947",
         "type": "ui_text",
-        "z": "9251d5525d119844",
+        "z": "dee68aa0c07e4c62",
         "group": "group_intersection_c",
         "order": 5,
-        "width": 0,
-        "height": 0,
+        "width": 4,
+        "height": 1,
         "name": "",
-        "label": "초록불 유지 시간",
+        "label": "남북 녹색 시간",
         "format": "{{msg.payload}} 초",
         "layout": "row-spread",
         "className": "",
-        "style": false,
-        "font": "",
-        "fontSize": 16,
-        "color": "#000000",
-        "x": 840,
-        "y": 1300,
+        "x": 1050,
+        "y": 1140,
         "wires": []
     },
     {
-        "id": "113c0a24db06fd05",
+        "id": "6104f0fa5b971a96",
         "type": "ui_text",
-        "z": "9251d5525d119844",
+        "z": "dee68aa0c07e4c62",
         "group": "group_intersection_d",
         "order": 5,
-        "width": 0,
-        "height": 0,
+        "width": 4,
+        "height": 1,
         "name": "",
-        "label": "초록불 유지 시간",
+        "label": "남북 녹색 시간",
         "format": "{{msg.payload}} 초",
         "layout": "row-spread",
         "className": "",
-        "style": false,
-        "font": "",
-        "fontSize": 16,
-        "color": "#000000",
-        "x": 840,
-        "y": 1500,
+        "x": 1050,
+        "y": 1220,
         "wires": []
     },
     {
-        "id": "e888a29976d1d530",
+        "id": "b87bbd73fddbdbd8",
         "type": "ui_text",
-        "z": "9251d5525d119844",
+        "z": "dee68aa0c07e4c62",
         "group": "group_intersection_b",
         "order": 5,
-        "width": 0,
-        "height": 0,
+        "width": 4,
+        "height": 1,
         "name": "",
-        "label": "초록불 유지 시간",
+        "label": "남북 녹색 시간",
         "format": "{{msg.payload}} 초",
         "layout": "row-spread",
         "className": "",
-        "style": false,
-        "font": "",
-        "fontSize": 16,
-        "color": "#000000",
-        "x": 840,
-        "y": 1100,
+        "x": 1050,
+        "y": 1040,
+        "wires": []
+    },
+    {
+        "id": "0aef3686c939f96f",
+        "type": "ui_text",
+        "z": "dee68aa0c07e4c62",
+        "group": "group_intersection_a",
+        "order": 6,
+        "width": 4,
+        "height": 1,
+        "name": "",
+        "label": "동서 녹색 시간",
+        "format": "{{msg.payload}} 초",
+        "layout": "row-spread",
+        "className": "",
+        "x": 1050,
+        "y": 1000,
+        "wires": []
+    },
+    {
+        "id": "722d642851a02237",
+        "type": "ui_text",
+        "z": "dee68aa0c07e4c62",
+        "group": "group_intersection_b",
+        "order": 6,
+        "width": 4,
+        "height": 1,
+        "name": "",
+        "label": "동서 녹색 시간",
+        "format": "{{msg.payload}} 초",
+        "layout": "row-spread",
+        "className": "",
+        "x": 1050,
+        "y": 1080,
+        "wires": []
+    },
+    {
+        "id": "fd211c9e070fa142",
+        "type": "ui_text",
+        "z": "dee68aa0c07e4c62",
+        "group": "group_intersection_c",
+        "order": 6,
+        "width": 4,
+        "height": 1,
+        "name": "",
+        "label": "동서 녹색 시간",
+        "format": "{{msg.payload}} 초",
+        "layout": "row-spread",
+        "className": "",
+        "x": 1050,
+        "y": 1180,
+        "wires": []
+    },
+    {
+        "id": "d6455d0a1f56ff49",
+        "type": "ui_text",
+        "z": "dee68aa0c07e4c62",
+        "group": "group_intersection_d",
+        "order": 6,
+        "width": 4,
+        "height": 1,
+        "name": "",
+        "label": "동서 녹색 시간",
+        "format": "{{msg.payload}} 초",
+        "layout": "row-spread",
+        "className": "",
+        "x": 1050,
+        "y": 1260,
+        "wires": []
+    },
+    {
+        "id": "6c0b272f7162bc2e",
+        "type": "change",
+        "z": "dee68aa0c07e4c62",
+        "name": "Set Topic '녹색 시간'",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "녹색 시간",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1070,
+        "y": 600,
+        "wires": [
+            [
+                "9478551b93ae47fc"
+            ]
+        ]
+    },
+    {
+        "id": "c75d7dca645bc566",
+        "type": "change",
+        "z": "dee68aa0c07e4c62",
+        "name": "Set Topic '녹색 시간'",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "녹색 시간",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1070,
+        "y": 640,
+        "wires": [
+            [
+                "31eb5358faa77077"
+            ]
+        ]
+    },
+    {
+        "id": "408619d9673cd7ba",
+        "type": "change",
+        "z": "dee68aa0c07e4c62",
+        "name": "Set Topic '녹색 시간'",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "녹색 시간",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1070,
+        "y": 680,
+        "wires": [
+            [
+                "7dd7a64caa59c4c5"
+            ]
+        ]
+    },
+    {
+        "id": "eb76d62d7df730b1",
+        "type": "change",
+        "z": "dee68aa0c07e4c62",
+        "name": "Set Topic '녹색 시간'",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "녹색 시간",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1070,
+        "y": 720,
+        "wires": [
+            [
+                "c16e4a1bce1125f3"
+            ]
+        ]
+    },
+    {
+        "id": "acad591496809861",
+        "type": "change",
+        "z": "dee68aa0c07e4c62",
+        "name": "Set Topic '녹색 시간'",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "녹색 시간",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1070,
+        "y": 760,
+        "wires": [
+            [
+                "69c25312d7754ca4"
+            ]
+        ]
+    },
+    {
+        "id": "d879f0534c8e59b4",
+        "type": "change",
+        "z": "dee68aa0c07e4c62",
+        "name": "Set Topic '녹색 시간'",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "녹색 시간",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1070,
+        "y": 800,
+        "wires": [
+            [
+                "b5f8bdbdb54cd929"
+            ]
+        ]
+    },
+    {
+        "id": "81ea1ea3ce029d49",
+        "type": "change",
+        "z": "dee68aa0c07e4c62",
+        "name": "Set Topic '녹색 시간'",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "녹색 시간",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1070,
+        "y": 840,
+        "wires": [
+            [
+                "493bed492d4f76fe"
+            ]
+        ]
+    },
+    {
+        "id": "d6db03f9b8f5812b",
+        "type": "change",
+        "z": "dee68aa0c07e4c62",
+        "name": "Set Topic '녹색 시간'",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "녹색 시간",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1070,
+        "y": 880,
+        "wires": [
+            [
+                "31ead39a8d44dd01"
+            ]
+        ]
+    },
+    {
+        "id": "170f1192e7948685",
+        "type": "debug",
+        "z": "dee68aa0c07e4c62",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 410,
+        "y": 360,
         "wires": []
     }
 ]
