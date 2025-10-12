@@ -809,7 +809,7 @@
         "type": "function",
         "z": "dee68aa0c07e4c62",
         "name": "Emergency Vehicle Controller",
-        "func": "// === 긴급차량 우선 신호 제어 (개별/전체 해제 기능 추가) ===\n\nconst payloadValue = msg.payload; // 버튼에서 온 값 (-1, 0, 1, 2)\nconst selectedIntersection = flow.get('selected_intersection') || 'a'; // 드롭다운에서 선택된 교차로\n\nif (payloadValue === -1) {\n    // === 개별 해제 로직 ===\n    // 선택된 교차로 하나에만 해제 신호([0, 0])를 보냅니다.\n    node.send({\n        topic: selectedIntersection,\n        payload: { value: [0, 0], fc: 16, unitid: 1, address: 20, quantity: 2 }\n    });\n\n} else if (payloadValue === 0) {\n    // === 전체 해제 로직 ===\n    // 모든 교차로에 해제 신호([0, 0])를 보냅니다.\n    ['a', 'b', 'c', 'd'].forEach(int => {\n        node.send({\n            topic: int,\n            payload: { value: [0, 0], fc: 16, unitid: 1, address: 20, quantity: 2 }\n        });\n    });\n\n} else {\n    // === 활성화 로직 (payload: 1 또는 2) ===\n    // 선택된 교차로에 활성화 신호([1, 방향])를 보냅니다.\n    node.send({\n        topic: selectedIntersection,\n        payload: {\n            value: [1, payloadValue], // [활성화(1), 방향(1=NS, 2=EW)]\n            fc: 16,\n            unitid: 1,\n            address: 20,\n            quantity: 2\n        }\n    });\n}\n\nreturn null;",
+        "func": "// === 긴급차량 우선 신호 제어 (수정된 코드) ===\n\n// msg.payload로부터 command와 direction을 올바르게 추출합니다.\nconst payloadValue = msg.payload; // 버튼에서 온 값 (0, 1, 또는 2)\nconst command = (payloadValue > 0) ? 1 : 0; // 1 또는 2는 활성화(1), 0은 해제(0)\nconst direction = payloadValue; // 1=NS, 2=EW, 0=해제 시 사용 안함\n\n// UI에서 시작 교차로를 선택할 수 있도록 msg.intersection 사용 (기본값 'a')\nconst intersection = msg.intersection || 'a';\n\n// 긴급차량 경로 계산 (연속된 교차로 처리)\nconst route = [];\nif (command === 1) {\n    // 긴급 모드 활성화\n    const intersectionIndex = ['a', 'b', 'c', 'd'].indexOf(intersection);\n\n    // 현재 및 다음 교차로에 신호 전송\n    for (let i = intersectionIndex; i < Math.min(intersectionIndex + 2, 4); i++) {\n        route.push({\n            intersection: ['a', 'b', 'c', 'd'][i],\n            delay: (i - intersectionIndex) * 10 // 10초 간격\n        });\n    }\n}\n\n// 각 교차로에 EVP 신호 전송\nroute.forEach((r, index) => {\n    setTimeout(() => {\n        node.send({\n            payload: {\n                value: [command, direction],\n                fc: 16,\n                unitid: 1,\n                address: 20,\n                quantity: 2\n            },\n            topic: r.intersection\n        });\n    }, r.delay * 1000);\n});\n\nif (command === 0) {\n    // 모든 교차로 EVP 해제\n    ['a', 'b', 'c', 'd'].forEach(int => {\n        node.send({\n            payload: {\n                value: [0, 0],\n                fc: 16,\n                unitid: 1,\n                address: 20,\n                quantity: 2\n            },\n            topic: int\n        });\n    });\n}\n\nreturn null;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -1555,6 +1555,34 @@
         "topicType": "msg",
         "x": 120,
         "y": 380,
+        "wires": [
+            [
+                "093834d3a2a6e16f"
+            ]
+        ]
+    },
+    {
+        "id": "fb47b00efd06b713",
+        "type": "ui_button",
+        "z": "dee68aa0c07e4c62",
+        "name": "",
+        "group": "group_emergency_control",
+        "order": 3,
+        "width": 4,
+        "height": 1,
+        "passthru": false,
+        "label": "긴급상황 해제",
+        "tooltip": "",
+        "color": "#FFFFFF",
+        "bgcolor": "#52A062",
+        "className": "",
+        "icon": "fa-check-circle",
+        "payload": "0",
+        "payloadType": "num",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 110,
+        "y": 420,
         "wires": [
             [
                 "093834d3a2a6e16f"
@@ -2829,134 +2857,5 @@
         "x": 410,
         "y": 360,
         "wires": []
-    },
-    {
-        "id": "e8e67f2b.a45f9",
-        "type": "ui_dropdown",
-        "z": "dee68aa0c07e4c62",
-        "name": "",
-        "label": "시작 교차로 선택",
-        "tooltip": "",
-        "place": "A 교차로가 기본값입니다",
-        "group": "group_emergency_control",
-        "order": 4,
-        "width": 12,
-        "height": 1,
-        "passthru": false,
-        "multiple": false,
-        "options": [
-            {
-                "label": "A 교차로",
-                "value": "a",
-                "type": "str"
-            },
-            {
-                "label": "B 교차로",
-                "value": "b",
-                "type": "str"
-            },
-            {
-                "label": "C 교차로",
-                "value": "c",
-                "type": "str"
-            },
-            {
-                "label": "D 교차로",
-                "value": "d",
-                "type": "str"
-            }
-        ],
-        "payload": "",
-        "topic": "topic",
-        "topicType": "msg",
-        "className": "",
-        "x": 120,
-        "y": 580,
-        "wires": [
-            [
-                "c3a1b2d3.12345"
-            ]
-        ]
-    },
-    {
-        "id": "c3a1b2d3.12345",
-        "type": "change",
-        "z": "dee68aa0c07e4c62",
-        "name": "선택 교차로 저장",
-        "rules": [
-            {
-                "t": "set",
-                "p": "selected_intersection",
-                "pt": "flow",
-                "to": "payload",
-                "tot": "msg"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 340,
-        "y": 540,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "3b600ae2447a3b0c",
-        "type": "ui_button",
-        "z": "dee68aa0c07e4c62",
-        "name": "",
-        "group": "group_emergency_control",
-        "order": 3,
-        "width": "6",
-        "height": "1",
-        "passthru": false,
-        "label": "전체 해제",
-        "tooltip": "모든 교차로의 긴급 상황을 해제합니다",
-        "color": "#FFFFFF",
-        "bgcolor": "#52A062",
-        "className": "",
-        "icon": "fa-power-off",
-        "payload": "0",
-        "payloadType": "num",
-        "topic": "topic",
-        "topicType": "msg",
-        "x": 100,
-        "y": 420,
-        "wires": [
-            [
-                "093834d3a2a6e16f"
-            ]
-        ]
-    },
-    {
-        "id": "db10a697c6dc1234",
-        "type": "ui_button",
-        "z": "dee68aa0c07e4c62",
-        "name": "",
-        "group": "group_emergency_control",
-        "order": 2,
-        "width": "6",
-        "height": "1",
-        "passthru": false,
-        "label": "선택 해제",
-        "tooltip": "드롭다운에서 선택된 교차로만 해제합니다",
-        "color": "",
-        "bgcolor": "#E67E22",
-        "className": "",
-        "icon": "fa-stop-circle-o",
-        "payload": "-1",
-        "payloadType": "num",
-        "topic": "topic",
-        "topicType": "msg",
-        "x": 100,
-        "y": 460,
-        "wires": [
-            [
-                "093834d3a2a6e16f"
-            ]
-        ]
     }
 ]

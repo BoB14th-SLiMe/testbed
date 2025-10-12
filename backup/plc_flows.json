@@ -1,0 +1,299 @@
+[
+    {
+        "id": "aca5415d2dbdc2a3",
+        "type": "tab",
+        "label": "플로우 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "5979e060d2c0b08a",
+        "type": "modbus-client",
+        "name": "Internal Client",
+        "clienttype": "tcp",
+        "bufferCommands": true,
+        "stateLogEnabled": false,
+        "queueLogEnabled": false,
+        "failureLogEnabled": true,
+        "tcpHost": "127.0.0.1",
+        "tcpPort": "502",
+        "tcpType": "DEFAULT",
+        "serialPort": "/dev/ttyUSB",
+        "serialType": "RTU-BUFFERD",
+        "serialBaudrate": 9600,
+        "serialDatabits": 8,
+        "serialStopbits": 1,
+        "serialParity": "none",
+        "serialConnectionDelay": 100,
+        "serialAsciiResponseStartDelimiter": "0x3A",
+        "unit_id": 1,
+        "commandDelay": 1,
+        "clientTimeout": 1000,
+        "reconnectOnTimeout": true,
+        "reconnectTimeout": 2000,
+        "parallelUnitIdsAllowed": true,
+        "showErrors": false,
+        "showWarnings": true,
+        "showLogs": true
+    },
+    {
+        "id": "bf1d25205644a6b4",
+        "type": "modbus-read",
+        "z": "aca5415d2dbdc2a3",
+        "name": "Read All Parameters",
+        "topic": "",
+        "showStatusActivities": false,
+        "logIOActivities": false,
+        "showErrors": false,
+        "showWarnings": true,
+        "unitid": "1",
+        "dataType": "HoldingRegister",
+        "adr": "0",
+        "quantity": "25",
+        "rate": "1",
+        "rateUnit": "s",
+        "delayOnStart": false,
+        "enableDeformedMessages": false,
+        "startDelayTime": "",
+        "server": "5979e060d2c0b08a",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": false,
+        "x": 210,
+        "y": 200,
+        "wires": [
+            [
+                "e5b787e1d3bba45f"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "e5b787e1d3bba45f",
+        "type": "switch",
+        "z": "aca5415d2dbdc2a3",
+        "name": "Switch Mode",
+        "property": "payload[0]",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "num"
+            },
+            {
+                "t": "eq",
+                "v": "2",
+                "vt": "num"
+            },
+            {
+                "t": "eq",
+                "v": "3",
+                "vt": "num"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 4,
+        "x": 450,
+        "y": 200,
+        "wires": [
+            [
+                "7a6f4ff41753d18e"
+            ],
+            [
+                "b4c89f89c1d7d57a"
+            ],
+            [
+                "ca5b39f1dd8bc115"
+            ],
+            [
+                "7a6f4ff41753d18e"
+            ]
+        ]
+    },
+    {
+        "id": "7a6f4ff41753d18e",
+        "type": "function",
+        "z": "aca5415d2dbdc2a3",
+        "name": "Enhanced Smart Traffic Control",
+        "func": "// === 향상된 스마트 교통 제어 로직 (긴급차량 처리 수정) ===\n\n// --- 입력 데이터 읽기 ---\nconst MODE = msg.payload[0] || 1;\nconst EVP_SIGNAL = msg.payload[20] || 0;\nconst EVP_DIRECTION = msg.payload[21] || 0; // 1=NS, 2=EW\n\n// SCADA로부터 받은 적응형 제어 파라미터\nconst GREEN_TIME_NS_BASE = msg.payload[10] || 10;\nconst GREEN_TIME_EW_BASE = msg.payload[11] || 10;\nconst VOLUME_NS = msg.payload[12] || 0;\nconst VOLUME_EW = msg.payload[13] || 0;\n\n// 추가 파라미터\nconst HOUR_OF_DAY = msg.payload[14] || new Date().getHours();\nconst PEDESTRIAN_REQUEST_NS = msg.payload[15] || 0;\nconst PEDESTRIAN_REQUEST_EW = msg.payload[16] || 0;\nconst CONGESTION_LEVEL = msg.payload[17] || 0; // 0=낮음, 1=중간, 2=높음\nconst ADJACENT_SYNC = msg.payload[18] || 0; // 인접 교차로 동기화 신호\n\n// --- 상수 정의 ---\nconst YELLOW_TIME = 3;\nconst PEDESTRIAN_TIME = 7;\nconst MIN_GREEN = 5;\nconst MAX_GREEN = 30;\nconst HIGH_TRAFFIC_THRESHOLD = 70;\nconst CRITICAL_TRAFFIC_THRESHOLD = 85;\n\n// --- 적응형 녹색 시간 계산 ---\nfunction calculateAdaptiveGreenTime(baseTime, volume, isPeak) {\n    let adaptiveTime = baseTime;\n\n    // 교통량 기반 조정\n    if (volume > CRITICAL_TRAFFIC_THRESHOLD) {\n        adaptiveTime = Math.min(baseTime * 1.5, MAX_GREEN);\n    } else if (volume > HIGH_TRAFFIC_THRESHOLD) {\n        adaptiveTime = Math.min(baseTime * 1.3, MAX_GREEN);\n    }\n\n    // 시간대별 가중치 적용\n    if (isPeak) {\n        adaptiveTime = Math.min(adaptiveTime * 1.2, MAX_GREEN);\n    }\n\n    // 혼잡도 기반 추가 조정\n    if (CONGESTION_LEVEL === 2) {\n        adaptiveTime = Math.min(adaptiveTime + 5, MAX_GREEN);\n    } else if (CONGESTION_LEVEL === 1) {\n        adaptiveTime = Math.min(adaptiveTime + 2, MAX_GREEN);\n    }\n\n    return Math.max(Math.round(adaptiveTime), MIN_GREEN);\n}\n\n// 피크 시간대 판단 (7-9시, 18-20시)\nconst isPeakHour = (HOUR_OF_DAY >= 7 && HOUR_OF_DAY <= 9) ||\n    (HOUR_OF_DAY >= 18 && HOUR_OF_DAY <= 20);\n\n// 최종 녹색 시간 계산\nconst GREEN_TIME_NS = calculateAdaptiveGreenTime(GREEN_TIME_NS_BASE, VOLUME_NS, isPeakHour);\nconst GREEN_TIME_EW = calculateAdaptiveGreenTime(GREEN_TIME_EW_BASE, VOLUME_EW, isPeakHour);\n\n// --- 상태 관리 ---\nlet state = context.get('state') || 0;\nlet timer = context.get('timer') || 0;\nlet cycleCount = context.get('cycleCount') || 0;\n\n// 신호등 배열 초기화 (12개 램프 + 8개 보행자 신호)\nlet lights = new Array(20).fill(false);\n\n// ==================== 신호 로직 시작 ====================\n\n// --- 긴급차량 우선 신호 처리 (수정된 로직) ---\nif (EVP_SIGNAL > 0) {\n    // 긴급 신호가 있으면, 즉시 신호등을 설정하고 다른 모든 로직을 건너뜁니다.\n    if (EVP_DIRECTION === 1) { // 남북(NS) 방향 긴급 신호\n        lights[2] = true;  // 남쪽 녹색\n        lights[8] = true;  // 북쪽 녹색\n        lights[3] = true;  // 동쪽 적색\n        lights[9] = true;  // 서쪽 적색\n    } else if (EVP_DIRECTION === 2) { // 동서(EW) 방향 긴급 신호\n        lights[5] = true;  // 동쪽 녹색\n        lights[11] = true; // 서쪽 녹색\n        lights[0] = true;  // 남쪽 적색\n        lights[6] = true;  // 북쪽 적색\n    }\n    // 긴급 모드였다는 것을 기록하여, 해제 후 주기를 초기화하도록 합니다.\n    context.set('wasInEVP', true);\n\n} else {\n    // --- 일반 신호 주기 ---\n    const wasInEVP = context.get('wasInEVP') || false;\n\n    // 긴급 모드가 방금 해제되었다면, 안전을 위해 주기를 처음부터 다시 시작합니다.\n    if (wasInEVP) {\n        timer = 0;\n        state = 0;\n        context.set('wasInEVP', false); // 플래그 초기화\n    }\n\n    switch (state) {\n        case 0: // NS 녹색\n            lights[2] = true; lights[8] = true; // NS 녹색\n            lights[3] = true; lights[9] = true; // EW 적색\n\n            if (PEDESTRIAN_REQUEST_NS && timer < PEDESTRIAN_TIME) {\n                lights[12] = true; lights[13] = true;\n            }\n\n            if (timer >= GREEN_TIME_NS) {\n                state++;\n                timer = 0;\n            }\n            break;\n\n        case 1: // NS 황색\n            lights[1] = true; lights[7] = true; // NS 황색\n            lights[3] = true; lights[9] = true; // EW 적색\n            if (timer >= YELLOW_TIME) {\n                state++;\n                timer = 0;\n            }\n            break;\n\n        case 2: // 전체 적색 (안전 구간)\n            lights[0] = true; lights[6] = true; // NS 적색\n            lights[3] = true; lights[9] = true; // EW 적색\n            if (timer >= 1) {\n                state++;\n                timer = 0;\n            }\n            break;\n\n        case 3: // EW 녹색\n            lights[5] = true; lights[11] = true; // EW 녹색\n            lights[0] = true; lights[6] = true;  // NS 적색\n\n            if (PEDESTRIAN_REQUEST_EW && timer < PEDESTRIAN_TIME) {\n                lights[14] = true; lights[15] = true;\n            }\n\n            if (timer >= GREEN_TIME_EW) {\n                state++;\n                timer = 0;\n            }\n            break;\n\n        case 4: // EW 황색\n            lights[4] = true; lights[10] = true; // EW 황색\n            lights[0] = true; lights[6] = true;  // NS 적색\n            if (timer >= YELLOW_TIME) {\n                state++;\n                timer = 0;\n            }\n            break;\n\n        case 5: // 전체 적색 (안전 구간)\n            lights[0] = true; lights[6] = true; // NS 적색\n            lights[3] = true; lights[9] = true; // EW 적색\n            if (timer >= 1) {\n                state = 0;\n                timer = 0;\n                cycleCount++;\n            }\n            break;\n    }\n\n    timer++;\n}\n\n// ==================== 신호 로직 종료 ====================\n\n// --- 상태 저장 ---\ncontext.set('state', state);\ncontext.set('timer', timer);\ncontext.set('cycleCount', cycleCount);\n\n// --- 진단 정보 생성 ---\nconst diagnostics = {\n    state: state,\n    timer: timer,\n    cycleCount: cycleCount,\n    greenTimeNS: GREEN_TIME_NS,\n    greenTimeEW: GREEN_TIME_EW,\n    volumeNS: VOLUME_NS,\n    volumeEW: VOLUME_EW,\n    congestionLevel: CONGESTION_LEVEL,\n    isPeakHour: isPeakHour,\n    isEVP: EVP_SIGNAL > 0 ? `Active-${EVP_DIRECTION === 1 ? 'NS' : 'EW'}` : 'Inactive'\n};\n\n// --- 출력 메시지 생성 ---\nmsg.payload = {\n    'value': lights,\n    'fc': 15,\n    'unitid': 1,\n    'address': 0,\n    'quantity': 20\n};\n\nmsg.diagnostics = diagnostics;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 710,
+        "y": 160,
+        "wires": [
+            [
+                "7af9c6f19ecb1102",
+                "diagnostics_logger"
+            ]
+        ]
+    },
+    {
+        "id": "b4c89f89c1d7d57a",
+        "type": "function",
+        "z": "aca5415d2dbdc2a3",
+        "name": "Night Flashing Logic",
+        "func": "let blink = context.get('blink') || false;\nblink = !blink;\ncontext.set('blink', blink);\n\nlet lights = new Array(20).fill(false);\n\nif (blink) {\n    lights[1] = true;  // South Yellow\n    lights[4] = true;  // East Yellow\n    lights[7] = true;  // North Yellow\n    lights[10] = true; // West Yellow\n}\n\nmsg.payload = {\n    'value': lights,\n    'fc': 15,\n    'unitid': 1,\n    'address': 0,\n    'quantity': 20\n};\n\nreturn msg;",
+        "outputs": 1,
+        "x": 670,
+        "y": 220,
+        "wires": [
+            [
+                "7af9c6f19ecb1102"
+            ]
+        ]
+    },
+    {
+        "id": "ca5b39f1dd8bc115",
+        "type": "function",
+        "z": "aca5415d2dbdc2a3",
+        "name": "All Red Logic",
+        "func": "let lights = new Array(20).fill(false);\n\nlights[0] = true; // South Red\nlights[3] = true; // East Red\nlights[6] = true; // North Red\nlights[9] = true; // West Red\n\nmsg.payload = {\n    'value': lights,\n    'fc': 15,\n    'unitid': 1,\n    'address': 0,\n    'quantity': 20\n};\n\nreturn msg;",
+        "outputs": 1,
+        "x": 650,
+        "y": 280,
+        "wires": [
+            [
+                "7af9c6f19ecb1102"
+            ]
+        ]
+    },
+    {
+        "id": "7af9c6f19ecb1102",
+        "type": "modbus-write",
+        "z": "aca5415d2dbdc2a3",
+        "name": "Write Lamp State",
+        "showStatusActivities": false,
+        "showErrors": false,
+        "showWarnings": true,
+        "unitid": "",
+        "dataType": "MCoils",
+        "adr": "0",
+        "quantity": "20",
+        "server": "5979e060d2c0b08a",
+        "emptyMsgOnFail": false,
+        "keepMsgProperties": false,
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "x": 930,
+        "y": 200,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "diagnostics_logger",
+        "type": "function",
+        "z": "aca5415d2dbdc2a3",
+        "name": "Diagnostics Logger",
+        "func": "// 진단 정보를 Holding Register에 저장\nconst diag = msg.diagnostics;\n\nif (diag) {\n    const diagData = [\n        diag.state,\n        diag.timer,\n        diag.cycleCount,\n        diag.greenTimeNS,\n        diag.greenTimeEW,\n        diag.volumeNS,\n        diag.volumeEW,\n        diag.congestionLevel,\n        diag.isPeakHour ? 1 : 0\n    ];\n    \n    msg.payload = {\n        'value': diagData,\n        'fc': 16,\n        'unitid': 1,\n        'address': 100,\n        'quantity': 9\n    };\n    \n    return msg;\n}\n\nreturn null;",
+        "outputs": 1,
+        "x": 950,
+        "y": 100,
+        "wires": [
+            [
+                "write_diagnostics"
+            ]
+        ]
+    },
+    {
+        "id": "write_diagnostics",
+        "type": "modbus-write",
+        "z": "aca5415d2dbdc2a3",
+        "name": "Write Diagnostics",
+        "showStatusActivities": false,
+        "showErrors": false,
+        "showWarnings": true,
+        "unitid": "",
+        "dataType": "MHoldingRegisters",
+        "adr": "100",
+        "quantity": "9",
+        "server": "5979e060d2c0b08a",
+        "emptyMsgOnFail": false,
+        "keepMsgProperties": false,
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "x": 1150,
+        "y": 100,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "602a1b5d4e4c3e67",
+        "type": "modbus-server",
+        "z": "aca5415d2dbdc2a3",
+        "name": "PLC Modbus TCP Server",
+        "logEnabled": false,
+        "hostname": "0.0.0.0",
+        "serverPort": "502",
+        "responseDelay": 100,
+        "delayUnit": "ms",
+        "coilsBufferSize": 1024,
+        "holdingBufferSize": 1024,
+        "inputBufferSize": 1024,
+        "discreteBufferSize": 1024,
+        "showErrors": false,
+        "showStatusActivities": false,
+        "x": 220,
+        "y": 380,
+        "wires": [
+            [],
+            [],
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "pedestrian_button_handler",
+        "type": "function",
+        "z": "aca5415d2dbdc2a3",
+        "name": "Pedestrian Request Handler",
+        "func": "// 보행자 버튼 입력 처리\nconst buttonNS = msg.payload.buttonNS || false;\nconst buttonEW = msg.payload.buttonEW || false;\n\nlet requests = flow.get('pedestrianRequests') || {NS: 0, EW: 0};\n\nif (buttonNS) {\n    requests.NS = 1;\n}\nif (buttonEW) {\n    requests.EW = 1;\n}\n\n// 신호가 바뀌면 요청 리셋\nif (msg.reset) {\n    if (msg.reset === 'NS') requests.NS = 0;\n    if (msg.reset === 'EW') requests.EW = 0;\n}\n\nflow.set('pedestrianRequests', requests);\n\n// Holding Register에 쓰기\nmsg.payload = {\n    'value': [requests.NS, requests.EW],\n    'fc': 16,\n    'unitid': 1,\n    'address': 15,\n    'quantity': 2\n};\n\nreturn msg;",
+        "outputs": 1,
+        "x": 490,
+        "y": 380,
+        "wires": [
+            [
+                "pedestrian_write"
+            ]
+        ]
+    },
+    {
+        "id": "pedestrian_write",
+        "type": "modbus-write",
+        "z": "aca5415d2dbdc2a3",
+        "name": "Write Pedestrian Requests",
+        "showStatusActivities": false,
+        "showErrors": false,
+        "showWarnings": true,
+        "unitid": "",
+        "dataType": "MHoldingRegisters",
+        "adr": "15",
+        "quantity": "2",
+        "server": "5979e060d2c0b08a",
+        "emptyMsgOnFail": false,
+        "keepMsgProperties": false,
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "x": 760,
+        "y": 380,
+        "wires": [
+            [],
+            []
+        ]
+    }
+]

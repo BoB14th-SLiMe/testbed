@@ -1,44 +1,88 @@
-version: '3.8'
 services:
-  plc:
-    build:
-      context: .
-      dockerfile: ./settings/plc/plc.Dockerfile
-    container_name: plc
-    networks:
-      - poc
-    ports:
-      - "1880:1880"
-      - "502:502"
-    volumes:
-      - ./settings/plc/flows.json:/data/flows.json
-      - ./settings/plc/settings.js:/data/settings.js
-
-  scada:
+  # --- Smart City Traffic Management Center (TMC) ---
+  traffic_management_center:
     build:
       context: .
       dockerfile: ./settings/scada/scada.Dockerfile
-    container_name: scada
+    container_name: traffic_management_center
+    networks:
+      - poc
+    ports:
+      - "1880:1880"   # Node-RED UI
+      - "5020:5020"   # TMC's own Modbus Server for data sharing
+    volumes:
+      - ./settings/scada:/data
+    depends_on:
+      - intersection_a_controller
+      - intersection_b_controller
+      - intersection_c_controller
+      - intersection_d_controller
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:1880"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # --- Intersection Controllers (PLCs) ---
+  intersection_a_controller:
+    build:
+      context: .
+      dockerfile: ./settings/plc/plc.Dockerfile
+    image: testbed-plc:latest
+    container_name: intersection_a
     networks:
       - poc
     ports:
       - "1881:1880"
+      - "502:502"
     volumes:
-      - ./settings/scada/flows.json:/data/flows.json
-      - ./settings/scada/settings.js:/data/settings.js
-    depends_on:
-      - plc
+      - ./settings/plc/plc1:/data
 
+  intersection_b_controller:
+    image: testbed-plc:latest
+    container_name: intersection_b
+    networks:
+      - poc
+    ports:
+      - "1882:1880"
+      - "503:502"
+    volumes:
+      - ./settings/plc/plc2:/data
+
+  intersection_c_controller:
+    image: testbed-plc:latest
+    container_name: intersection_c
+    networks:
+      - poc
+    ports:
+      - "1883:1880"
+      - "504:502"
+    volumes:
+      - ./settings/plc/plc3:/data
+
+  intersection_d_controller:
+    image: testbed-plc:latest
+    container_name: intersection_d
+    networks:
+      - poc
+    ports:
+      - "1884:1880"
+      - "505:502"
+    volumes:
+      - ./settings/plc/plc4:/data
+
+  # --- Packet Capture Service ---
   capture:
     image: nicolaka/netshoot
     cap_add:
       - NET_ADMIN
-    network_mode: "service:scada"
+    network_mode: "service:traffic_management_center"
     volumes:
       - ./pcap:/pcap
     command: ["tshark", "-l", "-i", "eth0", "-w", "/pcap/output.pcap"]
     depends_on:
-      - scada
+      traffic_management_center:
+        condition: service_healthy
 
 networks:
   poc:
