@@ -25,7 +25,6 @@
 ```bash
 git clone git clone https://github.com/BoB14th-SLiMe/testbed.git
 cd testbed
-git checkout multi_plc
 ```
 
 ### **3. Docker 컨테이너 실행**
@@ -110,3 +109,18 @@ testbed/
 *Powered by BoB 14th SLiMe Team*
 
 </div>
+
+rm -rf output
+rm -rf build
+
+cmake -B build
+cmake --build build
+./build/parser pcap/스마트보안리빙랩_250922_115200_133000.pcap
+
+
+rm -rf output
+rm -rf build
+
+cmake -B build
+cmake --build build
+./build/parser pcap/2023.05.09_로봇.pcap
