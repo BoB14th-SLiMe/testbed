@@ -24,7 +24,8 @@ def flatten_json(y):
 def process_file(input_filename):
     """CSV 파일 하나를 읽고, 파싱하여, output 폴더에 저장하는 함수 (단일 작업 단위)"""
     try:
-        output_dir = 'output'
+        # 수정: 상대 경로 'output'을 절대 경로 '/pcap/output'으로 변경
+        output_dir = '/pcap/output'
         print(f"Processing '{input_filename}'...")
 
         # 1. CSV 파일 읽기
@@ -60,32 +61,33 @@ def process_file(input_filename):
 # 여기가 멀티프로세싱이 적용된 메인 실행 부분입니다.
 # ====================================================================
 if __name__ == "__main__":
-    data_dir = 'data'
-    output_dir = 'output'
-    
+    # 수정: 경로를 entrypoint.sh와 일치하도록 절대 경로로 변경
+    data_dir = '/pcap/data'
+    output_dir = '/pcap/output'
+
     # output 폴더가 없으면 생성
     os.makedirs(output_dir, exist_ok=True)
-    
+
     # data 폴더에서 처리할 csv 파일 목록 가져오기
     files_to_process = [
         os.path.join(data_dir, f) for f in os.listdir(data_dir)
         if f.endswith('.csv') and '_parsed' not in f
     ]
-    
+
     if not files_to_process:
         print(f"No .csv files to process in '{data_dir}'.")
     else:
         # 시스템의 모든 CPU 코어를 사용
         num_workers = multiprocessing.cpu_count()
         print(f"Starting ProcessPoolExecutor with {num_workers} workers.")
-        
+
         # ProcessPoolExecutor를 사용하여 여러 파일을 병렬로 처리
         with ProcessPoolExecutor(max_workers=num_workers) as executor:
             # 각 파일 처리 작업을 executor에 제출(submit)
             futures = [executor.submit(process_file, filename) for filename in files_to_process]
-            
+
             # 모든 작업이 완료된 후 결과 출력
             for future in futures:
                 print(future.result())
-        
+
         print("All processing finished.")

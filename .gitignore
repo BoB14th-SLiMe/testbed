@@ -1,5 +1,7 @@
 pcap/
 *.pcap
+/pcap/data/
+/pcap/output/
 
 # Node.js / npm
 node_modules/
