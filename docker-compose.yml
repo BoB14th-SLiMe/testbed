@@ -9,7 +9,7 @@ services:
       - poc
     ports:
       - "1880:1880"   # Node-RED UI
-      - "5020:5020"   # TMC's own Modbus Server for data sharing
+      - "5020:5020"   # TMC Modbus Server
     volumes:
       - ./settings/scada:/data
     depends_on:
@@ -71,18 +71,56 @@ services:
     volumes:
       - ./settings/plc/plc4:/data
 
-  # --- Packet Capture Service ---
-  capture:
-    image: nicolaka/netshoot
+  # --- Elasticsearch + Kibana (개발용 single-node) ---
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.13.4
+    container_name: es-dev
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false           # 개발/테스트용
+      - ES_JAVA_OPTS=-Xms2g -Xmx2g
+    ports:
+      - "9200:9200"
+    volumes:
+      - esdata:/usr/share/elasticsearch/data
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.13.4
+    container_name: kib-dev
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+    ports:
+      - "5601:5601"
+    depends_on:
+      - elasticsearch
+
+  # --- Security Solution (Capture + Parse + ES Index) ---
+  solution:
+    build:
+      context: .
+      dockerfile: ./settings/solution/solution.Dockerfile
+    container_name: solution
     cap_add:
       - NET_ADMIN
-    network_mode: "service:traffic_management_center"
+    network_mode: "service:traffic_management_center"  # 동일 NIC(eth0) 스니핑
     volumes:
       - ./pcap:/pcap
-    command: ["tshark", "-l", "-i", "eth0", "-w", "/pcap/output.pcap"]
+      - ./settings/solution:/app
+    environment:
+      - INTERVAL=30                       # 캡처 주기(초)
+      - ES_HOST=http://elasticsearch:9200
+      - ES_INDEX_PREFIX=packets           # 결과 인덱스 prefix (ex: packets-modbus_tcp)
     depends_on:
       traffic_management_center:
         condition: service_healthy
+      elasticsearch:
+        condition: service_started
+    tty: true
+    stdin_open: true
+    command: ["/app/entrypoint.sh"]
+
+volumes:
+  esdata:
 
 networks:
   poc:
