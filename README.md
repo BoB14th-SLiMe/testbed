@@ -25,7 +25,6 @@
 ```bash
 git clone git clone https://github.com/BoB14th-SLiMe/testbed.git
 cd testbed
-git checkout multi_plc
 ```
 
 ### **3. Docker 컨테이너 실행**
