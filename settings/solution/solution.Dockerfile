@@ -9,18 +9,11 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /app
 
-# C++ 소스 코드 복사
-COPY ./tcp_datagram_parser /app/pcap_parser_src
-
-# C++ 프로젝트 빌드
-WORKDIR /app/pcap_parser_src
-RUN cmake -B build && cmake --build build
+# C++ 바이너리 파일 복사
+COPY ./pcap_parser /app/pcap_parser
 
 # 컴파일된 바이너리를 실행 경로로 복사 (실행 파일 이름을 pcap_parser로 변경)
-RUN cp /app/pcap_parser_src/build/parser /usr/local/bin/pcap_parser
-
-# 빌드 후 소스 코드 정리 (이미지 용량 최적화)
-RUN rm -rf /app/pcap_parser_src
+RUN cp /app/pcap_parser /usr/local/bin/pcap_parser
 
 # 원래 작업 디렉토리로 복귀
 WORKDIR /app
@@ -32,7 +25,7 @@ RUN pip install --no-cache-dir -r /app/requirements.txt
 # 스크립트 복사
 COPY settings/solution/entrypoint.sh /app/entrypoint.sh
 COPY settings/solution/json2csv_parser.py /app/json2csv_parser.py
-COPY settings/solution/jsonl_bulk_indexer.py /app/jsonl_bulk_indexer.py
+COPY settings/solution/kafka_producer.py /app/kafka_producer.py
 RUN apt-get update && apt-get install -y dos2unix && \
     dos2unix /app/entrypoint.sh && \
     chmod 755 /app/entrypoint.sh

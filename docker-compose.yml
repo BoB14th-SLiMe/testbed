@@ -1,4 +1,6 @@
-# OT Security Monitoring System - Smart City Traffic Testbed
+# OT Security Monitoring System - Full Stack Testbed
+# Version: 4.4 (Fixed CPU architecture issue for Apple Silicon)
+
 
 services:
   # --- Smart City Traffic Management Center (TMC) ---
@@ -10,8 +12,8 @@ services:
     networks:
       - poc
     ports:
-      - "1880:1880"   # Node-RED UI
-      - "5020:5020"   # TMC Modbus Server
+      - "1880:1880"
+      - "5020:5020"
     volumes:
       - ./settings/scada:/data
     depends_on:
@@ -73,7 +75,32 @@ services:
     volumes:
       - ./settings/plc/plc4:/data
 
-  # --- Elasticsearch + Kibana (개발용 single-node) ---
+  # --- Data Pipeline Components ---
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.5.3
+    container_name: zookeeper
+    networks:
+      - poc
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+
+  kafka:
+    image: confluentinc/cp-kafka:7.5.3
+    container_name: kafka
+    networks:
+      - poc
+    ports:
+      - "9092:9092"
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:8.13.4
     container_name: es-dev
@@ -81,10 +108,10 @@ services:
       - poc
     environment:
       - discovery.type=single-node
-      - xpack.security.enabled=false           # 개발/테스트용
-      - ES_JAVA_OPTS=-Xms1g -Xmx1g             # 메모리 할당량을 1GB로 수정
+      - xpack.security.enabled=false
+      - ES_JAVA_OPTS=-Xms1g -Xmx1g
     ports:
-      - "9200:9200"
+      - "9201:9200"
     volumes:
       - esdata:/usr/share/elasticsearch/data
 
@@ -94,36 +121,50 @@ services:
     networks:
       - poc
     environment:
-      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9201
     ports:
       - "5601:5601"
     depends_on:
       - elasticsearch
 
-  # --- Security Solution (Capture + Parse + ES Index) ---
+  # --- Security Solution (Capture -> Parse -> Kafka) ---
   solution:
     build:
       context: .
-      dockerfile: ./settings/solution/solution.Dockerfile
+      dockerfile: ./settings/solution/solution.Dockerfile # C++ 빌드 포함
     container_name: solution
     cap_add:
       - NET_ADMIN
-    network_mode: "service:traffic_management_center"  # 동일 NIC(eth0) 스니핑
+    network_mode: "service:traffic_management_center"
     volumes:
       - ./pcap:/pcap
-      - ./settings/solution:/app
     environment:
-      - INTERVAL=30                       # 캡처 주기(초)
-      - ES_HOST=http://elasticsearch:9200
-      - ES_INDEX_PREFIX=packets           # 결과 인덱스 prefix (ex: packets-modbus_tcp)
+      - INTERVAL=30 # 캡처 주기(초)
     depends_on:
       traffic_management_center:
         condition: service_healthy
-      elasticsearch:
+      kafka:
         condition: service_started
     tty: true
     stdin_open: true
     command: ["/app/entrypoint.sh"]
+
+  # --- Backend Application (Kafka -> SLM -> ES) ---
+  dashboard-backend:
+    build:
+      context: ../dashboard
+      dockerfile: Dockerfile
+    container_name: dashboard-backend
+    networks:
+      - poc
+    ports:
+      - "8080:8080"
+    depends_on:
+      - elasticsearch
+      - kafka
+    environment:
+      - SPRING_ELASTICSEARCH_URIS=http://elasticsearch:9200
+      - SPRING_KAFKA_BOOTSTRAP_SERVERS=kafka:9092
 
 volumes:
   esdata:
