@@ -1,13 +1,7 @@
-# OT Security Monitoring System - Full Stack Testbed
-# Version: 4.4 (Fixed CPU architecture issue for Apple Silicon)
-
-
 services:
   # --- Smart City Traffic Management Center (TMC) ---
   traffic_management_center:
-    build:
-      context: .
-      dockerfile: ./settings/scada/scada.Dockerfile
+    image: bobslime/slime-traffic-management-center:latest
     container_name: traffic_management_center
     networks:
       - poc
@@ -29,10 +23,7 @@ services:
 
   # --- Intersection Controllers (PLCs) ---
   intersection_a_controller:
-    build:
-      context: .
-      dockerfile: ./settings/plc/plc.Dockerfile
-    image: testbed-plc:latest
+    image: bobslime/slime-testbed-plc:latest
     container_name: intersection_a
     networks:
       - poc
@@ -43,7 +34,7 @@ services:
       - ./settings/plc/plc1:/data
 
   intersection_b_controller:
-    image: testbed-plc:latest
+    image: bobslime/slime-testbed-plc:latest
     container_name: intersection_b
     networks:
       - poc
@@ -54,7 +45,7 @@ services:
       - ./settings/plc/plc2:/data
 
   intersection_c_controller:
-    image: testbed-plc:latest
+    image: bobslime/slime-testbed-plc:latest
     container_name: intersection_c
     networks:
       - poc
@@ -65,7 +56,7 @@ services:
       - ./settings/plc/plc3:/data
 
   intersection_d_controller:
-    image: testbed-plc:latest
+    image: bobslime/slime-testbed-plc:latest
     container_name: intersection_d
     networks:
       - poc
@@ -115,23 +106,9 @@ services:
     volumes:
       - esdata:/usr/share/elasticsearch/data
 
-  kibana:
-    image: docker.elastic.co/kibana/kibana:8.13.4
-    container_name: kib-dev
-    networks:
-      - poc
-    environment:
-      - ELASTICSEARCH_HOSTS=http://elasticsearch:9201
-    ports:
-      - "5601:5601"
-    depends_on:
-      - elasticsearch
-
   # --- Security Solution (Capture -> Parse -> Kafka) ---
   solution:
-    build:
-      context: .
-      dockerfile: ./settings/solution/solution.Dockerfile # C++ 빌드 포함
+    image: bobslime/data_pipeline:latest
     container_name: solution
     cap_add:
       - NET_ADMIN
@@ -151,9 +128,7 @@ services:
 
   # --- Backend Application (Kafka -> SLM -> ES) ---
   dashboard-backend:
-    build:
-      context: ../dashboard
-      dockerfile: Dockerfile
+    image: bobslime/slime-backend:latest
     container_name: dashboard-backend
     networks:
       - poc
@@ -172,4 +147,3 @@ volumes:
 networks:
   poc:
     external: true
-
