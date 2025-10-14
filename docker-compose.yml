@@ -20,6 +20,7 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    entrypoint: ["node-red", "--settings", "/data/settings.js"]
 
   # --- Intersection Controllers (PLCs) ---
   intersection_a_controller:
@@ -91,9 +92,16 @@ services:
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    healthcheck:
+      test: ["CMD-SHELL", "kafka-topics --bootstrap-server localhost:9092 --list"]
+      interval: 10s
+      timeout: 5s
+      retries: 15
+      start_period: 40s
 
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:8.13.4
+    # --- ✨ 수정된 부분: 버전을 8.18.6으로 변경 ---
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.18.6
     container_name: es-dev
     networks:
       - poc
@@ -102,14 +110,20 @@ services:
       - xpack.security.enabled=false
       - ES_JAVA_OPTS=-Xms1g -Xmx1g
     ports:
-      - "9201:9200"
+      - "9200:9200"
     volumes:
       - esdata:/usr/share/elasticsearch/data
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:9200/_cluster/health?wait_for_status=yellow&timeout=5s"]
+      interval: 10s
+      timeout: 10s
+      retries: 15
+      start_period: 30s
 
   # --- Security Solution (Capture -> Parse -> Kafka) ---
-  solution:
+  data_pipeline:
     image: bobslime/data_pipeline:latest
-    container_name: solution
+    container_name: data_pipeline
     cap_add:
       - NET_ADMIN
     network_mode: "service:traffic_management_center"
@@ -121,25 +135,29 @@ services:
       traffic_management_center:
         condition: service_healthy
       kafka:
-        condition: service_started
+        condition: service_healthy
     tty: true
     stdin_open: true
-    command: ["/app/entrypoint.sh"]
+    entrypoint: /app/entrypoint.sh
 
   # --- Backend Application (Kafka -> SLM -> ES) ---
   dashboard-backend:
-    image: bobslime/slime-backend:latest
+    image: bobslime/dashboard_backend:latest
     container_name: dashboard-backend
     networks:
       - poc
     ports:
       - "8080:8080"
     depends_on:
-      - elasticsearch
-      - kafka
+      elasticsearch:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
     environment:
       - SPRING_ELASTICSEARCH_URIS=http://elasticsearch:9200
       - SPRING_KAFKA_BOOTSTRAP_SERVERS=kafka:9092
+    restart: on-failure
+    entrypoint: ["java", "-Dfile.encoding=UTF-8", "-jar", "/app/app.jar"]
 
 volumes:
   esdata:
@@ -147,3 +165,4 @@ volumes:
 networks:
   poc:
     external: true
+

@@ -4,7 +4,7 @@ FROM nodered/node-red:latest
 WORKDIR /usr/src/node-red
 
 # package.json을 복사하고 의존성 설치
-COPY ./settings/plc/package.json .
+COPY package.json .
 RUN npm install
 
 # 💡 중요: /data 디렉토리의 소유권을 node-red 사용자로 변경
